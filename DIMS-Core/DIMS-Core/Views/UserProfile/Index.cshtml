@@ -1,0 +1,46 @@
+﻿@model IEnumerable<VUserProfileViewModel>
+
+@{
+    ViewData["Title"] = "UserProfile";
+}
+
+<h2 class="text-center my-4">Members</h2>
+<div class="row">
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Direction</th>
+                    <th scope="col">Education</th>
+                    <th scope="col">Start date</th>
+                    <th scope="col">Age</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var user in Model)
+                {
+                    <tr>
+                        <th scope="row">#</th>
+                        <td>
+                            @user.FullName
+                        </td>
+                        <td>
+                            @user.Direction
+                        </td>
+                        <td>
+                            @user.Education
+                        </td>
+                        <td>
+                            @user.StartDate
+                        </td>
+                        <td>
+                            @user.Age
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
