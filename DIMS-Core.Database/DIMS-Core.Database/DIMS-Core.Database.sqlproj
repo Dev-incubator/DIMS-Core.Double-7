@@ -69,6 +69,10 @@
     <Build Include="tables\UserProfiles.sql" />
     <Build Include="Views\vUserProfiles.sql" />
     <Build Include="Functions\GetFullAge.sql" />
+    <Build Include="Views\vUserTrack.sql" />
+    <Build Include="Views\vTask.sql" />
+    <Build Include="Procedures\DeleteTask.sql" />
+    <Build Include="Tables\Tasks.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="SeedData\UserProfilesSeedData.sql" />
