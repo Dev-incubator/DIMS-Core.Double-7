@@ -1,0 +1,11 @@
+﻿CREATE TABLE [dbo].[TaskTrack](
+	[TaskTrackId] [int] NOT NULL,
+	[UserTaskId] [int] NOT NULL,
+	[TrackDate] [datetime] NOT NULL,
+	[TrackNote] [nvarchar](50) NOT NULL,
+ CONSTRAINT [PK_TaskTrack] PRIMARY KEY CLUSTERED 
+(
+	[TaskTrackId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO

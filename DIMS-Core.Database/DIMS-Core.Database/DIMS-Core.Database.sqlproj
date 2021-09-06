@@ -69,6 +69,15 @@
     <Build Include="tables\UserProfiles.sql" />
     <Build Include="Views\vUserProfiles.sql" />
     <Build Include="Functions\GetFullAge.sql" />
+    <Build Include="Tables\TaskState.sql">
+      <QuotedIdentifier>ProjectDefault</QuotedIdentifier>
+    </Build>
+    <None Include="SeedData\TaskStateSeedData.sql" />
+    <Build Include="Views\vUserTask.sql" />
+    <Build Include="Procedures\SetUserTaskAsSuccess.sql" />
+    <Build Include="Procedures\SetUserTaskAsFail.sql" />
+    <Build Include="Tables\UserTask.sql" />
+    <Build Include="Tables\TaskTrack.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="SeedData\UserProfilesSeedData.sql" />
