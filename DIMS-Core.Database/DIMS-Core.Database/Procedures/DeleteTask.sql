@@ -3,4 +3,4 @@
 DECLARE @id int;
 SET @id = 1;
 
-DELETE FROM Tasks WHERE Task.TaskId = @id;
+DELETE Tasks WHERE Tasks.TaskId = @id;
