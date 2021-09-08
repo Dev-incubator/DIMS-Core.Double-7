@@ -78,7 +78,11 @@
     <Build Include="Procedures\SetUserTaskAsFail.sql" />
     <Build Include="Tables\UserTask.sql" />
     <Build Include="Tables\TaskTrack.sql" />
-  </ItemGroup>
+    <Build Include="Views\vUserTrack.sql" />
+    <Build Include="Views\vTasks.sql" />
+    <Build Include="Procedures\DeleteTask.sql" />
+    <Build Include="Tables\Tasks.sql" />
+    </ItemGroup>
   <ItemGroup>
     <None Include="SeedData\UserProfilesSeedData.sql" />
     <None Include="SeedData\DirectionsSeedData.sql" />
