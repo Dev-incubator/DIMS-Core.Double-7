@@ -1,6 +1,6 @@
 ﻿CREATE VIEW [dbo].[vUserTask]
-	AS SELECT [dbo].[UserTask].[UserId], [dbo].[UserTask].[TaskId], [dbo].[Task].[Name] AS TaskName,
-    [dbo].[Task].[Description] AS TaskDescription, [dbo].[Task].[StartDate], [dbo].[Task].[DeadlineDate], [dbo].[TaskState].[StateName]
-FROM            [dbo].[Task] INNER JOIN
-                         [dbo].[UserTask] ON [dbo].[Task].[TaskId] = [dbo].[UserTask].[UserTaskId] INNER JOIN
-                         [dbo].[TaskState] ON [dbo].[UserTask].[StateId] = [dbo].[TaskState].[StateId]
+	AS SELECT [dbo].[UserTasks].[UserId], [dbo].[UserTasks].[TaskId], [dbo].[Tasks].[Name] AS TaskName,
+    [dbo].[Tasks].[Description] AS TaskDescription, [dbo].[Tasks].[StartDate], [dbo].[Tasks].[DeadlineDate], [dbo].[TaskStates].[StateName]
+FROM            [dbo].[Tasks] INNER JOIN
+                         [dbo].[UserTasks] ON [dbo].[Tasks].[TaskId] = [dbo].[UserTasks].[UserTaskId] INNER JOIN
+                         [dbo].[TaskStates] ON [dbo].[UserTasks].[StateId] = [dbo].[TaskStates].[StateId]
