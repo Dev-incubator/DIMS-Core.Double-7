@@ -9,4 +9,4 @@ SELECT UserTasks.UserId,
        
 FROM [UserTasks]
      INNER JOIN [Tasks] ON Tasks.TaskId = UserTasks.TaskId
-     INNER JOIN [TaskTracks] ON TaskTracks.TaskTrackId = UserTasks.TaskTrackId
+     INNER JOIN [TaskTracks] ON TaskTracks.UserTaskId = UserTasks.UserTaskId
