@@ -12,5 +12,7 @@ namespace DIMS_Core.Models
         public string Description { get; set; }
         public DateTime StateDate { get; set; }
         public DateTime DeadlineDate { get; set; }
+
+        public virtual UserTask UserTask { get; set; }
     }
 }

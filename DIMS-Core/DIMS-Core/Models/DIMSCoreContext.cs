@@ -19,7 +19,10 @@ namespace DIMS_Core.Models
 
         public virtual DbSet<Direction> Directions { get; set; }
         public virtual DbSet<Task> Tasks { get; set; }
+        public virtual DbSet<TaskState> TaskStates { get; set; }
+        public virtual DbSet<TaskTrack> TaskTracks { get; set; }
         public virtual DbSet<UserProfile> UserProfiles { get; set; }
+        public virtual DbSet<UserTask> UserTasks { get; set; }
         public virtual DbSet<VTask> VTasks { get; set; }
         public virtual DbSet<VUserProfile> VUserProfiles { get; set; }
         public virtual DbSet<VUserTrack> VUserTracks { get; set; }
@@ -59,6 +62,25 @@ namespace DIMS_Core.Models
                 entity.Property(e => e.StateDate).HasColumnType("datetime");
             });
 
+            modelBuilder.Entity<TaskState>(entity =>
+            {
+                entity.HasKey(e => e.StateId)
+                    .HasName("PK__TaskStat__C3BA3B3A36B6EDFE");
+
+                entity.Property(e => e.StateName)
+                    .IsRequired()
+                    .HasMaxLength(50);
+            });
+
+            modelBuilder.Entity<TaskTrack>(entity =>
+            {
+                entity.Property(e => e.TrackDate).HasColumnType("datetime");
+
+                entity.Property(e => e.TrackNote)
+                    .IsRequired()
+                    .HasMaxLength(50);
+            });
+
             modelBuilder.Entity<UserProfile>(entity =>
             {
                 entity.HasKey(e => e.UserId)
@@ -94,6 +116,35 @@ namespace DIMS_Core.Models
                     .WithMany(p => p.UserProfiles)
                     .HasForeignKey(d => d.DirectionId)
                     .OnDelete(DeleteBehavior.ClientSetNull);
+            });
+
+            modelBuilder.Entity<UserTask>(entity =>
+            {
+                entity.Property(e => e.UserTaskId).ValueGeneratedOnAdd();
+
+                entity.HasOne(d => d.State)
+                    .WithMany(p => p.UserTasks)
+                    .HasForeignKey(d => d.StateId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__UserTasks__State__6477ECF3");
+
+                entity.HasOne(d => d.Task)
+                    .WithMany(p => p.UserTasks)
+                    .HasForeignKey(d => d.TaskId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__UserTasks__TaskI__656C112C");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.UserTasks)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__UserTasks__UserI__66603565");
+
+                entity.HasOne(d => d.UserTaskNavigation)
+                    .WithOne(p => p.UserTask)
+                    .HasForeignKey<UserTask>(d => d.UserTaskId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__UserTasks__UserT__6383C8BA");
             });
 
             modelBuilder.Entity<VTask>(entity =>
