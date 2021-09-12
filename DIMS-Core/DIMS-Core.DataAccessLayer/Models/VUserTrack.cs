@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 #nullable disable
 
-namespace DIMS_Core.Models
+namespace DIMS_Core.DataAccessLayer.Models
 {
-    public partial class VUserProfile
+    public partial class VUserTrack
     {
         public int UserId { get; set; }
         public string FullName { get; set; }

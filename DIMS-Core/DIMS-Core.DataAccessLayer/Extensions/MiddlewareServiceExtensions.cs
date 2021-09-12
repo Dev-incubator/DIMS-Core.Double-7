@@ -21,7 +21,7 @@ namespace DIMS_Core.DataAccessLayer.Extensions
 
         public static IServiceCollection AddDatabaseContext(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContext<DimsCoreContext>(options =>
+            services.AddDbContext<DIMSCoreContext>(options =>
             {
                 options.UseSqlServer(configuration.GetConnectionString("DIMSDatabase"));
             });

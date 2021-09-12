@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using DIMS_Core.DataAccessLayer.Interfaces;
 using DIMS_Core.DataAccessLayer.Models;
+using Task = System.Threading.Tasks.Task;
 
 namespace DIMS_Core.DataAccessLayer.Repositories
 {
@@ -12,9 +13,9 @@ namespace DIMS_Core.DataAccessLayer.Repositories
     /// </summary>
     internal class UnitOfWork : IUnitOfWork
     {
-        private readonly DimsCoreContext _context;
+        private readonly DIMSCoreContext _context;
 
-        public UnitOfWork(DimsCoreContext context,
+        public UnitOfWork(DIMSCoreContext context,
                           IRepository<UserProfile> userProfileRepository,
                           IRepository<Direction> directionRepository,
                           IReadOnlyRepository<VUserProfile> vUserProfileRepository)
