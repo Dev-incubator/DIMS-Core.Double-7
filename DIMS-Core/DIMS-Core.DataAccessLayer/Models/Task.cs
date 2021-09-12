@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 
 #nullable disable
 
-namespace DIMS_Core.Models
+namespace DIMS_Core.DataAccessLayer.Models
 {
-    public partial class Task
+    public class Task
     {
         public int TaskId { get; set; }
         public string Name { get; set; }
