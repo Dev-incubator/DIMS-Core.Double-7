@@ -14,10 +14,7 @@ namespace DIMS_Core.DataAccessLayer.Repositories
             _context = context;
         }
 
-        public IQueryable<VUserProfile> GetAll()
-        {
-            return _context.VUserProfiles.AsNoTracking();
-        }
+        public IQueryable<VUserProfile> GetAll() => _context.VUserProfiles.AsNoTracking();
 
         public void Dispose()
         {
