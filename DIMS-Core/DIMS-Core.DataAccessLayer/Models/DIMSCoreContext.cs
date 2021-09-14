@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
@@ -25,6 +25,7 @@ namespace DIMS_Core.DataAccessLayer.Models
         public virtual DbSet<UserTask> UserTasks { get; set; }
         public virtual DbSet<VTask> VTasks { get; set; }
         public virtual DbSet<VUserProfile> VUserProfiles { get; set; }
+        public virtual DbSet<VUserTask> VUserTasks { get; set; }
         public virtual DbSet<VUserTrack> VUserTracks { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -32,7 +33,7 @@ namespace DIMS_Core.DataAccessLayer.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=DIMSCore;");
+                optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=DIMSCore;Trusted_Connection=True;");
             }
         }
 
@@ -59,13 +60,13 @@ namespace DIMS_Core.DataAccessLayer.Models
                     .IsRequired()
                     .HasMaxLength(50);
 
-                entity.Property(e => e.StateDate).HasColumnType("datetime");
+                entity.Property(e => e.StartDate).HasColumnType("datetime");
             });
 
             modelBuilder.Entity<TaskState>(entity =>
             {
                 entity.HasKey(e => e.StateId)
-                    .HasName("PK__TaskStat__C3BA3B3A36B6EDFE");
+                    .HasName("PK__TaskStat__C3BA3B3A7FDAC1F1");
 
                 entity.Property(e => e.StateName)
                     .IsRequired()
@@ -126,44 +127,42 @@ namespace DIMS_Core.DataAccessLayer.Models
                     .WithMany(p => p.UserTasks)
                     .HasForeignKey(d => d.StateId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__UserTasks__State__6477ECF3");
+                    .HasConstraintName("FK__UserTasks__State__151B244E");
 
                 entity.HasOne(d => d.Task)
                     .WithMany(p => p.UserTasks)
                     .HasForeignKey(d => d.TaskId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__UserTasks__TaskI__656C112C");
+                    .HasConstraintName("FK__UserTasks__TaskI__160F4887");
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.UserTasks)
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__UserTasks__UserI__66603565");
+                    .HasConstraintName("FK__UserTasks__UserI__17036CC0");
 
                 entity.HasOne(d => d.UserTaskNavigation)
                     .WithOne(p => p.UserTask)
                     .HasForeignKey<UserTask>(d => d.UserTaskId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__UserTasks__UserT__6383C8BA");
+                    .HasConstraintName("FK__UserTasks__UserT__14270015");
             });
 
             modelBuilder.Entity<VTask>(entity =>
             {
                 entity.HasNoKey();
 
-                entity.ToView("vTask");
+                entity.ToView("vTasks");
 
                 entity.Property(e => e.DeadlineDate).HasColumnType("datetime");
 
-                entity.Property(e => e.Description)
-                    .IsRequired()
-                    .HasColumnType("ntext");
+                entity.Property(e => e.Description).IsRequired();
 
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(50);
 
-                entity.Property(e => e.StateDate).HasColumnType("datetime");
+                entity.Property(e => e.StartDate).HasColumnType("datetime");
 
                 entity.Property(e => e.TaskId).ValueGeneratedOnAdd();
             });
@@ -199,35 +198,42 @@ namespace DIMS_Core.DataAccessLayer.Models
                 entity.Property(e => e.StartDate).HasColumnType("date");
             });
 
+            modelBuilder.Entity<VUserTask>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("vUserTask");
+
+                entity.Property(e => e.DeadlineDate).HasColumnType("datetime");
+
+                entity.Property(e => e.StartDate).HasColumnType("datetime");
+
+                entity.Property(e => e.StateName)
+                    .IsRequired()
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.TaskDescription).IsRequired();
+
+                entity.Property(e => e.TaskName)
+                    .IsRequired()
+                    .HasMaxLength(50);
+            });
+
             modelBuilder.Entity<VUserTrack>(entity =>
             {
                 entity.HasNoKey();
 
                 entity.ToView("vUserTrack");
 
-                entity.Property(e => e.Address).HasMaxLength(120);
-
-                entity.Property(e => e.Direction)
+                entity.Property(e => e.TaskName)
                     .IsRequired()
                     .HasMaxLength(50);
 
-                entity.Property(e => e.Education).HasMaxLength(50);
+                entity.Property(e => e.TrackDate).HasColumnType("datetime");
 
-                entity.Property(e => e.Email)
+                entity.Property(e => e.TrackNote)
                     .IsRequired()
                     .HasMaxLength(50);
-
-                entity.Property(e => e.FullName)
-                    .IsRequired()
-                    .HasMaxLength(101);
-
-                entity.Property(e => e.MobilePhone)
-                    .IsRequired()
-                    .HasMaxLength(50);
-
-                entity.Property(e => e.Skype).HasMaxLength(50);
-
-                entity.Property(e => e.StartDate).HasColumnType("date");
             });
 
             OnModelCreatingPartial(modelBuilder);
