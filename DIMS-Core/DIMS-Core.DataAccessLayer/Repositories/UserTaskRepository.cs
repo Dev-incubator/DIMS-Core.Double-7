@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DIMS_Core.DataAccessLayer.Repositories
 {
-    class UserTaskRepository : Repository<UserTask>
+    public class UserTaskRepository : Repository<UserTask>
     {
         public UserTaskRepository(DbContext context) : base(context) { }
     }
