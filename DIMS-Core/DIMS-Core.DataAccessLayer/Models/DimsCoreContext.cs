@@ -6,13 +6,13 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace DIMS_Core.DataAccessLayer.Models
 {
-    public partial class DIMSCoreContext : DbContext
+    public partial class DimsCoreContext : DbContext
     {
-        public DIMSCoreContext()
+        public DimsCoreContext()
         {
         }
 
-        public DIMSCoreContext(DbContextOptions<DIMSCoreContext> options)
+        public DimsCoreContext(DbContextOptions<DimsCoreContext> options)
             : base(options)
         {
         }
@@ -27,15 +27,6 @@ namespace DIMS_Core.DataAccessLayer.Models
         public virtual DbSet<VUserProfile> VUserProfiles { get; set; }
         public virtual DbSet<VUserTask> VUserTasks { get; set; }
         public virtual DbSet<VUserTrack> VUserTracks { get; set; }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=DIMSCore;Trusted_Connection=True;");
-            }
-        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
