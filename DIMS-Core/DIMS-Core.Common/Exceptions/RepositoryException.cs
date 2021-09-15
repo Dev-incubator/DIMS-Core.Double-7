@@ -12,11 +12,11 @@ namespace DIMS_Core.Common.Exceptions
         {
             if(id<=0)
             {
-                throw new InvalidArgumentException("id");
+                throw new InvalidArgumentException(nameof(id));
             }
         }
 
-        public static void IsEntityExists(object entity,string entityName)
+        public static void IsEntityExists<TEntity>(TEntity entity, string entityName)
         {
             if(entity is null)
             {
