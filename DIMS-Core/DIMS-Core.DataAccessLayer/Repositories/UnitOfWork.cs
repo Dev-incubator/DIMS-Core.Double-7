@@ -22,7 +22,7 @@ namespace DIMS_Core.DataAccessLayer.Repositories
                           IRepository<TaskTrack> taskTrackRepository,
                           IRepository<UserTask> userTaskRepository,
                           IReadOnlyRepository<VUserProfile> vUserProfileRepository,
-                          IReadOnlyRepository<vUserTask> vUserTaskRepository)
+                          IReadOnlyRepository<VUserTask> vUserTaskRepository)
         {
             _context = context;
 
@@ -41,7 +41,7 @@ namespace DIMS_Core.DataAccessLayer.Repositories
         public IRepository<TaskState> TaskStateRepository { get; }
         public IRepository<TaskTrack> TaskTrackRepository { get; }
         public IRepository<UserTask> UserTaskRepository { get; }
-        public IReadOnlyRepository<vUserTask> VUserTaskRepository { get; }
+        public IReadOnlyRepository<VUserTask> VUserTaskRepository { get; }
         public IReadOnlyRepository<VUserProfile> VUserProfileRepository { get; }
 
         /// <summary>

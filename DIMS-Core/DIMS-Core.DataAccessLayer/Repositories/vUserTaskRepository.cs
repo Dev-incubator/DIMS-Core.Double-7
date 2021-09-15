@@ -1,5 +1,6 @@
 using DIMS_Core.DataAccessLayer.Interfaces;
 using DIMS_Core.DataAccessLayer.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DIMS_Core.DataAccessLayer.Repositories
 {
-    public class vUserTaskRepository : IReadOnlyRepository<vUserTask>
+    public class vUserTaskRepository : IReadOnlyRepository<VUserTask>
     {
         private readonly DIMSCoreContext _context;
 
@@ -21,7 +22,7 @@ namespace DIMS_Core.DataAccessLayer.Repositories
             _context?.Dispose();
         }
 
-        public IQueryable<vUserTask> GetAll()
+        public IQueryable<VUserTask> GetAll()
         {
             return _context.VUserTasks.AsNoTracking();
         }
