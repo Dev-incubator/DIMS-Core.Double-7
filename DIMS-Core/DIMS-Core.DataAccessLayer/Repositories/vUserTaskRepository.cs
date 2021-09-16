@@ -12,7 +12,7 @@ namespace DIMS_Core.DataAccessLayer.Repositories
     public class vUserTaskRepository : ReadOnlyRepository<VUserTask>
     {
 
-        public vUserTaskRepository(DIMSCoreContext context) : base(context)
+        public vUserTaskRepository(DimsCoreContext context) : base(context)
         {
 
         }

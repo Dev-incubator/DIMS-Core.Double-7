@@ -23,7 +23,7 @@ namespace DIMS_Core.DataAccessLayer.Repositories
             return _context.Set<TEntity>().AsNoTracking();
         }
 
-        protected ReadOnlyRepository(DIMSCoreContext context)
+        protected ReadOnlyRepository(DimsCoreContext context)
         {
             _context = context;
         }
