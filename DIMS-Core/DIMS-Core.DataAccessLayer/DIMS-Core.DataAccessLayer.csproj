@@ -28,7 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models" />
+    <Compile Remove="Models\DimsCoreContext.cs" />
   </ItemGroup>
 
 </Project>
