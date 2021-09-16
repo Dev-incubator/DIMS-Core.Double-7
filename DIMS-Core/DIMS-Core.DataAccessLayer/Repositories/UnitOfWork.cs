@@ -1,6 +1,7 @@
-﻿using System.Threading.Tasks;
+using System.Threading.Tasks;
 using DIMS_Core.DataAccessLayer.Interfaces;
 using DIMS_Core.DataAccessLayer.Models;
+using Task = System.Threading.Tasks.Task;
 
 namespace DIMS_Core.DataAccessLayer.Repositories
 {
@@ -17,19 +18,30 @@ namespace DIMS_Core.DataAccessLayer.Repositories
         public UnitOfWork(DimsCoreContext context,
                           IRepository<UserProfile> userProfileRepository,
                           IRepository<Direction> directionRepository,
-                          IReadOnlyRepository<VUserProfile> vUserProfileRepository)
+                          IRepository<TaskState> taskStateRepository,
+                          IRepository<TaskTrack> taskTrackRepository,
+                          IRepository<UserTask> userTaskRepository,
+                          IReadOnlyRepository<VUserProfile> vUserProfileRepository,
+                          IReadOnlyRepository<VUserTask> vUserTaskRepository)
         {
             _context = context;
 
             UserProfileRepository = userProfileRepository;
             DirectionRepository = directionRepository;
+            TaskStateRepository = taskStateRepository;
+            TaskTrackRepository = taskTrackRepository;
+            UserTaskRepository = userTaskRepository;
+            VUserTaskRepository = vUserTaskRepository;
             VUserProfileRepository = vUserProfileRepository;
         }
 
         public IRepository<UserProfile> UserProfileRepository { get; }
 
         public IRepository<Direction> DirectionRepository { get; }
-
+        public IRepository<TaskState> TaskStateRepository { get; }
+        public IRepository<TaskTrack> TaskTrackRepository { get; }
+        public IRepository<UserTask> UserTaskRepository { get; }
+        public IReadOnlyRepository<VUserTask> VUserTaskRepository { get; }
         public IReadOnlyRepository<VUserProfile> VUserProfileRepository { get; }
 
         /// <summary>
