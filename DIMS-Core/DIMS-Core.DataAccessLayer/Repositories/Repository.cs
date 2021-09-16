@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using DIMS_Core.Common.Exceptions;
 using DIMS_Core.DataAccessLayer.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace DIMS_Core.DataAccessLayer.Repositories
 {
@@ -22,6 +23,8 @@ namespace DIMS_Core.DataAccessLayer.Repositories
             _context = context;
             Set = context.Set<TEntity>();
         }
+        
+        protected DatabaseFacade GetDb => _context.Database;
 
         public IQueryable<TEntity> GetAll()
         {
