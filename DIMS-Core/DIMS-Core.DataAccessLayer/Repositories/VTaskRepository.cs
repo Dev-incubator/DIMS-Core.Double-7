@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DIMS_Core.DataAccessLayer.Repositories
 {
-    public class VTaskRepository : Repository<VTask>
+    public class VTaskRepository : ReadOnlyRepository<VTask>
     {
-        public VTaskRepository(DbContext context) : base(context)
+        protected VTaskRepository(DimsCoreContext context) : base(context)
         {
         }
     }

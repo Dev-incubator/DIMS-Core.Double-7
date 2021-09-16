@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DIMS_Core.DataAccessLayer.Repositories
 {
-    public class VUserTrackRepository : Repository<VUserTrack>
+    public class VUserTrackRepository : ReadOnlyRepository<VUserTrack>
     {
-        public VUserTrackRepository(DbContext context) : base(context)
+        protected VUserTrackRepository(DimsCoreContext context) : base(context)
         {
         }
     }
