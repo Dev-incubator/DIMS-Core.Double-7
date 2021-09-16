@@ -16,7 +16,7 @@ namespace DIMS_Core.Tests.Repositories.Fixtures
             InitDatabase();
         }
 
-        public DIMSCoreContext Context { get; }
+        public DimsCoreContext Context { get; }
 
         public IRepository<Direction> Repository { get; }
 
@@ -38,16 +38,16 @@ namespace DIMS_Core.Tests.Repositories.Fixtures
             Context.SaveChanges();
         }
 
-        private static DIMSCoreContext CreateContext()
+        private static DimsCoreContext CreateContext()
         {
             var options = GetOptions();
 
-            return new DIMSCoreContext(options);
+            return new DimsCoreContext(options);
         }
 
-        private static DbContextOptions<DIMSCoreContext> GetOptions()
+        private static DbContextOptions<DimsCoreContext> GetOptions()
         {
-            var builder = new DbContextOptionsBuilder<DIMSCoreContext>().UseInMemoryDatabase(GetInMemoryDbName());
+            var builder = new DbContextOptionsBuilder<DimsCoreContext>().UseInMemoryDatabase(GetInMemoryDbName());
 
             return builder.Options;
         }
