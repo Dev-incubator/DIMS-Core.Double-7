@@ -36,8 +36,9 @@ namespace DIMS_Core.DataAccessLayer.Repositories
 
         public async Task<TEntity> GetById(int id)
         {
-            RepositoryException.IsIdValid(id);
-
+            var range = new Range(1, Set.Count());
+            RepositoryException.IsIdValid(id, range);
+            
             var foundEntity = await Set.FindAsync(id);
 
             RepositoryException.IsEntityExists(foundEntity, foundEntity.GetType().FullName);
