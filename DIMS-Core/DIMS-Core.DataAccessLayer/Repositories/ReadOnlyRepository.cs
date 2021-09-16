@@ -9,19 +9,14 @@ namespace DIMS_Core.DataAccessLayer.Repositories
         where TEntity : class
     {
         private readonly DbContext _context;
-        public void Dispose()
-        {
-            _context?.Dispose();
-        }
-
-        public IQueryable<TEntity> GetAll()
-        {
-            return _context.Set<TEntity>().AsNoTracking();
-        }
+        
 
         protected ReadOnlyRepository(DimsCoreContext context)
         {
             _context = context;
         }
+        public void Dispose() => _context?.Dispose();
+
+        public IQueryable<TEntity> GetAll() => _context.Set<TEntity>().AsNoTracking();
     }
 }
