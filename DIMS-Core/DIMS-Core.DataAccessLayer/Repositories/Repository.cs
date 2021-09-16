@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using DIMS_Core.Common.Exceptions;
 using DIMS_Core.DataAccessLayer.Interfaces;
@@ -32,8 +33,9 @@ namespace DIMS_Core.DataAccessLayer.Repositories
 
         public async Task<TEntity> GetById(int id)
         {
-            RepositoryException.IsIdValid(id);
-
+            var range = new Range(1, Set.Count());
+            RepositoryException.IsIdValid(id, range);
+            
             TEntity objectFromDB = await Set.FindAsync(id);
 
             RepositoryException.IsEntityExists(objectFromDB, nameof(objectFromDB));
