@@ -12,9 +12,12 @@ namespace DIMS_Core.DataAccessLayer.Extensions
         public static IServiceCollection AddDatabaseDependencies(this IServiceCollection services)
         {
             services.AddScoped<IUnitOfWork, UnitOfWork>();
-            services.AddScoped<IRepository<Direction>, DirectionRepository>();
-            services.AddScoped<IRepository<UserProfile>, UserProfileRepository>();
-            services.AddScoped<IReadOnlyRepository<VUserProfile>, VUserProfileRepository>();
+            services.AddScoped<Repository<Direction>, DirectionRepository>();
+            services.AddScoped<Repository<UserProfile>, UserProfileRepository>();
+            services.AddScoped<Repository<Task>, TaskRepository>();
+            services.AddScoped<ReadOnlyRepository<VUserProfile>, VUserProfileRepository>();
+            services.AddScoped<ReadOnlyRepository<VTask>, VTaskRepository>();
+            services.AddScoped<ReadOnlyRepository<VUserTrack>, VUserTrackRepository>();
 
             return services;
         }
