@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading.Tasks;
 using DIMS_Core.Common.Exceptions;
 using DIMS_Core.DataAccessLayer.Models;
 using DIMS_Core.Tests.Repositories.Fixtures;
@@ -42,7 +41,7 @@ namespace DIMS_Core.Tests.Repositories
             // Assert
             Assert.NotNull(result);
             Assert.Equal(_repositoryFixture.DirectionId, result.DirectionId);
-            Assert.Equal("Test Direction", result.Name);
+            Assert.Equal("Test Name", result.Name);
             Assert.Equal("Test Description", result.Description);
         }
 
@@ -72,7 +71,7 @@ namespace DIMS_Core.Tests.Repositories
             // Arrange
             var entity = new Direction
                          {
-                             Name = "Create",
+                             Name = "Name",
                              Description = "Description"
                          };
 
@@ -101,7 +100,7 @@ namespace DIMS_Core.Tests.Repositories
             var entity = new Direction
                          {
                              DirectionId = _repositoryFixture.DirectionId,
-                             Name = "Create",
+                             Name = "Name",
                              Description = "Description"
                          };
 

@@ -36,7 +36,7 @@ namespace DIMS_Core.DataAccessLayer.Repositories
 
         public async Task<TEntity> GetById(int id)
         {
-            var range = new Range(1, Set.Count());
+            var range = new Range(0, Set.Count());
             RepositoryException.IsIdValid(id, range);
             
             var foundEntity = await Set.FindAsync(id);
@@ -54,8 +54,8 @@ namespace DIMS_Core.DataAccessLayer.Repositories
 
         public TEntity Update(TEntity entity)
         {
-            var updatedEntity = Set.Update(entity);
-            return updatedEntity.Entity;
+            _context.Entry(entity).State = EntityState.Modified;
+            return entity;
         }
 
         public async Task Delete(int id)
@@ -70,9 +70,6 @@ namespace DIMS_Core.DataAccessLayer.Repositories
         ///     In most cases this method is not important because our context will be disposed by IoC automatically.
         ///     But if you don't know where will use your service better to specify this method (example, class library).
         /// </summary>
-        public void Dispose()
-        {
-            _context?.Dispose();
-        }
+        public void Dispose() => _context?.Dispose();
     }
 }
