@@ -6,7 +6,7 @@ using DIMS_Core.DataAccessLayer.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 
-namespace DIMS_Core.DataAccessLayer.Repositories
+namespace DIMS_Core.DataAccessLayer.Repositories.Base
 {
     /// <summary>
     /// Base Repository
@@ -33,10 +33,10 @@ namespace DIMS_Core.DataAccessLayer.Repositories
 
         public async Task<TEntity> GetById(int id)
         {
-            var range = new Range(1, Set.Count());
+            var range = new Range(0, Set.Count());
             RepositoryException.IsIdValid(id, range);
             
-            TEntity objectFromDB = await Set.FindAsync(id);
+            var objectFromDB = await Set.FindAsync(id);
 
             RepositoryException.IsEntityExists(objectFromDB, nameof(objectFromDB));
 
@@ -51,8 +51,8 @@ namespace DIMS_Core.DataAccessLayer.Repositories
 
         public TEntity Update(TEntity entity)
         {
-            var updatedEntity = Set.Update(entity);
-            return updatedEntity.Entity;
+            _context.Entry(entity).State = EntityState.Modified;
+            return entity;
         }
 
         public async Task Delete(int id)
@@ -61,14 +61,8 @@ namespace DIMS_Core.DataAccessLayer.Repositories
             Set.Remove(deletedEntity);
         }
 
-        public Task Save()
-        {
-            return _context.SaveChangesAsync();
-        }
+        public Task Save() => _context.SaveChangesAsync();
 
-        public void Dispose()
-        {
-            _context?.Dispose();
-        }
+        public void Dispose() => _context?.Dispose();
     }
 }

@@ -1,6 +1,7 @@
 ﻿using DIMS_Core.DataAccessLayer.Interfaces;
 using DIMS_Core.DataAccessLayer.Models;
 using DIMS_Core.DataAccessLayer.Repositories;
+using DIMS_Core.DataAccessLayer.Repositories.Base;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
