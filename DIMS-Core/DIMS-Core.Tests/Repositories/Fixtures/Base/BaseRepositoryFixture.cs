@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using DIMS_Core.DataAccessLayer.Models;
 using DIMS_Core.Tests.Repositories.Infrastructure;
 using Task = System.Threading.Tasks.Task;
 
-namespace DIMS_Core.Tests.Repositories.Fixtures
+namespace DIMS_Core.Tests.Repositories.Fixtures.Base
 {
     public abstract class BaseRepositoryFixture<TRepository> : IDisposable, IAsyncDisposable
     {
