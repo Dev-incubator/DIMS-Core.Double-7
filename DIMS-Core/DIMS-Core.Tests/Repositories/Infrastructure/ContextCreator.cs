@@ -6,10 +6,14 @@ namespace DIMS_Core.Tests.Repositories.Infrastructure
 {
     public static class ContextCreator
     {
-        private static readonly DbContextOptions<DimsCoreContext> _options = 
+        private static readonly DbContextOptions<DimsCoreContext> _options =
             new DbContextOptionsBuilder<DimsCoreContext>()
-                .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+                .UseInMemoryDatabase(Guid.NewGuid().ToString())
                 .Options;
-        public static DimsCoreContext CreateContext() => new (_options);
+
+        public static DimsCoreContext CreateContext()
+        {
+            return new(_options);
+        }
     }
 }
