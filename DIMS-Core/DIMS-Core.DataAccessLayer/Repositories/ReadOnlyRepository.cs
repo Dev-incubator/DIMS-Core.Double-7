@@ -9,10 +9,14 @@ using System.Threading.Tasks;
 
 namespace DIMS_Core.DataAccessLayer.Repositories
 {
-    public class ReadOnlyRepository<TEntity> : IReadOnlyRepository<TEntity>
+    public abstract class ReadOnlyRepository<TEntity> : IReadOnlyRepository<TEntity>
         where TEntity : class
     {
         private readonly DbContext _context;
+        protected ReadOnlyRepository(DimsCoreContext context)
+        {
+            _context = context;
+        }
         public void Dispose()
         {
             _context?.Dispose();
@@ -21,11 +25,6 @@ namespace DIMS_Core.DataAccessLayer.Repositories
         public IQueryable<TEntity> GetAll()
         {
             return _context.Set<TEntity>().AsNoTracking();
-        }
-
-        protected ReadOnlyRepository(DimsCoreContext context)
-        {
-            _context = context;
         }
     }
 }
