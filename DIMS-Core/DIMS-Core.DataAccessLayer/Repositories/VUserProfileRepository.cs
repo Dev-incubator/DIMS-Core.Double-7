@@ -8,7 +8,7 @@ namespace DIMS_Core.DataAccessLayer.Repositories
     public class VUserProfileRepository : ReadOnlyRepository<VUserProfile>
     {
 
-        public VUserProfileRepository(DIMSCoreContext context):base(context)
+        public VUserProfileRepository(DimsCoreContext context) : base(context)
         {
 
         }

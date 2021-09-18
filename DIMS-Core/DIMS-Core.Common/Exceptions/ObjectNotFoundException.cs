@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DIMS_Core.Common.Exceptions
 {
-    class ObjectNotFoundException : BaseException
+    public class ObjectNotFoundException : BaseException
     {
         public ObjectNotFoundException(string entityName) : base($"Object not fount for {entityName}") { }
     }

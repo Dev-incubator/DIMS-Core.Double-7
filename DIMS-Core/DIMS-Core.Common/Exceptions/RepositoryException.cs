@@ -10,7 +10,7 @@ namespace DIMS_Core.Common.Exceptions
     {
         public static void IsIdValid(int id)
         {
-            if(id<=0)
+            if (id <= 0)
             {
                 throw new InvalidArgumentException(nameof(id));
             }
@@ -18,7 +18,7 @@ namespace DIMS_Core.Common.Exceptions
 
         public static void IsEntityExists<TEntity>(TEntity entity, string entityName)
         {
-            if(entity is null)
+            if (entity is null)
             {
                 throw new ObjectNotFoundException(entityName);
             }

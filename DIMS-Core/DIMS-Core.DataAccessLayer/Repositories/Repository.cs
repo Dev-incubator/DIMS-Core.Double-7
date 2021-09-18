@@ -41,7 +41,7 @@ namespace DIMS_Core.DataAccessLayer.Repositories
 
             TEntity objectFromDB = await Set.FindAsync(id);
 
-            RepositoryException.IsEntityExists(objectFromDB, nameof(objectFromDB));
+            RepositoryException.IsEntityExists(objectFromDB, objectFromDB.GetType().FullName);
 
             return objectFromDB;
         }

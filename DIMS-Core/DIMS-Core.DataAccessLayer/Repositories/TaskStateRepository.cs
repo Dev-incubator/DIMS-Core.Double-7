@@ -14,9 +14,12 @@ namespace DIMS_Core.DataAccessLayer.Repositories
     public class TaskStateRepository : Repository<TaskState>
     {
         private DatabaseFacade _database;
-        public TaskStateRepository(DbContext context) : base(context) { _database = GetDb(); }
+        public TaskStateRepository(DbContext context) : base(context) 
+        {
+            _database = GetDb(); 
+        }
 
-        public Task SetUserTaskAsSuccess(int userId,int taskId)
+        public Task SetUserTaskAsSuccess(int userId, int taskId)
         {
             return _database.ExecuteSqlRawAsync("exec [dbo].[SetUserTaskAsSuccess] @userId, @taskId", new SqlParameter("userId", userId), new SqlParameter("@taskId", taskId));
         }
