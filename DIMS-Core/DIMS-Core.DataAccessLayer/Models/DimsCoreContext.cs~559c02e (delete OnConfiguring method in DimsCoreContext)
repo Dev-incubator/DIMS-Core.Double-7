@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
@@ -6,13 +6,13 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace DIMS_Core.DataAccessLayer.Models
 {
-    public partial class DIMSCoreContext : DbContext
+    public partial class DimsCoreContext : DbContext
     {
-        public DIMSCoreContext()
+        public DimsCoreContext()
         {
         }
 
-        public DIMSCoreContext(DbContextOptions<DIMSCoreContext> options)
+        public DimsCoreContext(DbContextOptions<DimsCoreContext> options)
             : base(options)
         {
         }
