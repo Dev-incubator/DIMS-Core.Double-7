@@ -8,7 +8,7 @@ namespace DIMS_Core.DataAccessLayer.Repositories
 {
     public class TaskRepository : Repository<ModelTask>
     {
-        private DatabaseFacade _database;
+        private readonly DatabaseFacade _database;
         
         public TaskRepository(DbContext context) : base(context)
         {
