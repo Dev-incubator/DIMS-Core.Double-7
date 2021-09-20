@@ -1,18 +1,19 @@
-﻿using System;
+﻿using System.Linq;
 using System.Threading.Tasks;
+using DIMS_Core.DataAccessLayer.Repositories;
 using DIMS_Core.Tests.Repositories.Fixtures;
+using Microsoft.EntityFrameworkCore;
 using Xunit;
-using System.Linq;
 
 namespace DIMS_Core.Tests.Repositories
 {
-    public class VUserTrackRepositoryTests : IDisposable
+    public class VUserProfileRepositoryTests
     {
-        private readonly VUserTrackRepositoryFixture _repositoryFixture;
+        private readonly VUserProfileRepositoryFixture _repositoryFixture;
 
-        public VUserTrackRepositoryTests()
+        public VUserProfileRepositoryTests()
         {
-            _repositoryFixture = new VUserTrackRepositoryFixture();
+            _repositoryFixture = new VUserProfileRepositoryFixture();
         }
 
         [Fact]

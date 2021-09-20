@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using DIMS_Core.Common.Exceptions;
 using DIMS_Core.Tests.Repositories.Fixtures;
@@ -17,14 +18,12 @@ namespace DIMS_Core.Tests.Repositories
         }
 
         [Fact]
-        // Note: GetAll will work always in our case. It can be thrown into EF Core.
-        // But it is implementation details of EF Core so we mustn't test these cases.
-        public async Task GetAll_OK()
+        public void GetAll_OK()
         {
             // Act
-            var result = await _repositoryFixture.Repository
-                                                 .GetAll()
-                                                 .ToArrayAsync();
+            var result = _repositoryFixture.Repository
+                                            .GetAll()
+                                            .ToArray();
 
             // Assert
             Assert.NotEmpty(result);
