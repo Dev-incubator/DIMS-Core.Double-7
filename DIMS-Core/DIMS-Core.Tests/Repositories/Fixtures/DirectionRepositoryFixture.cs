@@ -7,7 +7,7 @@ using Task = System.Threading.Tasks.Task;
 
 namespace DIMS_Core.Tests.Repositories.Fixtures
 {
-    internal class DirectionRepositoryFixture : BaseRepositoryFixture<DirectionRepository>, IDisposable
+    internal class DirectionRepositoryFixture : RepositoryFixture<DirectionRepository>, IDisposable
     {
         public int DirectionId { get; private set; }
 
@@ -18,7 +18,7 @@ namespace DIMS_Core.Tests.Repositories.Fixtures
             var entity = await Context.Directions.AddAsync(
                                              new Direction
                                              {
-                                                 Name = "Test Direction",
+                                                 Name = "Test Name",
                                                  Description = "Test Description"
                                              });
             DirectionId = entity.Entity.DirectionId;
