@@ -12,7 +12,7 @@ namespace DIMS_Core.DataAccessLayer.Repositories
         
         public TaskRepository(DbContext context) : base(context)
         {
-            _database = GetDb;
+            _database = GetDb();
         }
         public Task DeleteTask(int taskId)
         {

@@ -16,7 +16,7 @@ namespace DIMS_Core.DataAccessLayer.Repositories
         private DatabaseFacade _database;
         public TaskStateRepository(DbContext context) : base(context) 
         {
-            _database = GetDb; 
+            _database = GetDb(); 
         }
 
         public Task SetUserTaskAsSuccess(int userId, int taskId)

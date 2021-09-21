@@ -23,8 +23,11 @@ namespace DIMS_Core.DataAccessLayer.Repositories
             _context = context;
             Set = context.Set<TEntity>();
         }
-        
-        protected DatabaseFacade GetDb => _context.Database;
+
+        protected DatabaseFacade GetDb()
+        {
+            return _context.Database;
+        }
 
         public IQueryable<TEntity> GetAll()
         {
