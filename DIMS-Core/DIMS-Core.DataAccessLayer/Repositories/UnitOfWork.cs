@@ -50,14 +50,8 @@ namespace DIMS_Core.DataAccessLayer.Repositories
         ///     Repository.
         /// </summary>
         /// <returns></returns>
-        public Task Save()
-        {
-            return _context.SaveChangesAsync();
-        }
+        public Task Save() => _context.SaveChangesAsync();
 
-        public void Dispose()
-        {
-            _context?.Dispose();
-        }
+        public void Dispose() => _context?.Dispose();
     }
 }

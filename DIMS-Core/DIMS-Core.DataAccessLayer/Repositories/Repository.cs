@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
 using DIMS_Core.Common.Exceptions;
@@ -9,9 +9,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 namespace DIMS_Core.DataAccessLayer.Repositories
 {
     /// <summary>
-    ///     TODO: Task #1
-    ///     Implement all methods
-    ///     Generic Repository
+    /// Base Repository
     /// </summary>
     /// <typeparam name="TEntity"></typeparam>
     public abstract class Repository<TEntity> : IRepository<TEntity>
@@ -20,14 +18,15 @@ namespace DIMS_Core.DataAccessLayer.Repositories
         private readonly DbContext _context;
         protected readonly DbSet<TEntity> Set;
 
-        protected DatabaseFacade GetDb()
-        {
-            return _context.Database;
-        }
         protected Repository(DbContext context)
         {
             _context = context;
             Set = context.Set<TEntity>();
+        }
+
+        protected DatabaseFacade GetDb()
+        {
+            return _context.Database;
         }
 
         public IQueryable<TEntity> GetAll()
@@ -39,11 +38,11 @@ namespace DIMS_Core.DataAccessLayer.Repositories
         {
             RepositoryException.IsIdValid(id);
 
-            TEntity objectFromDB = await Set.FindAsync(id);
+            var foundEntity = await Set.FindAsync(id);
 
-            RepositoryException.IsEntityExists(objectFromDB, objectFromDB.GetType().FullName);
+            RepositoryException.IsEntityExists(foundEntity, foundEntity.GetType().FullName);
 
-            return objectFromDB;
+            return foundEntity;
         }
 
         public async Task<TEntity> Create(TEntity entity)
@@ -64,11 +63,12 @@ namespace DIMS_Core.DataAccessLayer.Repositories
             Set.Remove(deletedEntity);
         }
 
-        public Task Save()
-        {
-            return _context.SaveChangesAsync();
-        }
+        public Task Save() => _context.SaveChangesAsync();
 
+        /// <summary>
+        ///     In most cases this method is not important because our context will be disposed by IoC automatically.
+        ///     But if you don't know where will use your service better to specify this method (example, class library).
+        /// </summary>
         public void Dispose()
         {
             _context?.Dispose();
