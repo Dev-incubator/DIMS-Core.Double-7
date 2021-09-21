@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using DIMS_Core.Common.Exceptions;
 using DIMS_Core.DataAccessLayer.Interfaces;
@@ -34,11 +35,11 @@ namespace DIMS_Core.DataAccessLayer.Repositories
         {
             RepositoryException.IsIdValid(id);
 
-            TEntity objectFromDB = await Set.FindAsync(id);
+            var foundEntity = await Set.FindAsync(id);
 
-            RepositoryException.IsEntityExists(objectFromDB, nameof(objectFromDB));
+            RepositoryException.IsEntityExists(foundEntity, foundEntity.GetType().FullName);
 
-            return objectFromDB;
+            return foundEntity;
         }
 
         public async Task<TEntity> Create(TEntity entity)
@@ -59,11 +60,12 @@ namespace DIMS_Core.DataAccessLayer.Repositories
             Set.Remove(deletedEntity);
         }
 
-        public Task Save()
-        {
-            return _context.SaveChangesAsync();
-        }
+        public Task Save() => _context.SaveChangesAsync();
 
+        /// <summary>
+        ///     In most cases this method is not important because our context will be disposed by IoC automatically.
+        ///     But if you don't know where will use your service better to specify this method (example, class library).
+        /// </summary>
         public void Dispose()
         {
             _context?.Dispose();

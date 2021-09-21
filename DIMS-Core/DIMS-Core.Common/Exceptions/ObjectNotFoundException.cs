@@ -1,4 +1,4 @@
-﻿namespace DIMS_Core.Common.Exceptions
+namespace DIMS_Core.Common.Exceptions
 {
     public class ObjectNotFoundException : BaseException
     {
