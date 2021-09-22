@@ -13,9 +13,9 @@ namespace DIMS_Core.DataAccessLayer.Repositories
     /// </summary>
     internal class UnitOfWork : IUnitOfWork
     {
-        private readonly DIMSCoreContext _context;
+        private readonly DimsCoreContext _context;
 
-        public UnitOfWork(DIMSCoreContext context,
+        public UnitOfWork(DimsCoreContext context,
                           IRepository<UserProfile> userProfileRepository,
                           IRepository<Direction> directionRepository,
                           IRepository<TaskState> taskStateRepository,
@@ -50,14 +50,8 @@ namespace DIMS_Core.DataAccessLayer.Repositories
         ///     Repository.
         /// </summary>
         /// <returns></returns>
-        public Task Save()
-        {
-            return _context.SaveChangesAsync();
-        }
+        public Task Save() => _context.SaveChangesAsync();
 
-        public void Dispose()
-        {
-            _context?.Dispose();
-        }
+        public void Dispose() => _context?.Dispose();
     }
 }

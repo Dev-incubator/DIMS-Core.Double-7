@@ -1,60 +1,31 @@
 ﻿using System;
-using DIMS_Core.DataAccessLayer.Interfaces;
 using DIMS_Core.DataAccessLayer.Models;
 using DIMS_Core.DataAccessLayer.Repositories;
+using DIMS_Core.Tests.Repositories.Fixtures.Base;
 using Microsoft.EntityFrameworkCore;
+using Task = System.Threading.Tasks.Task;
 
 namespace DIMS_Core.Tests.Repositories.Fixtures
 {
-    internal class DirectionRepositoryFixture : IDisposable
+    internal class DirectionRepositoryFixture : RepositoryFixture<DirectionRepository>, IDisposable
     {
-        public DirectionRepositoryFixture()
-        {
-            Context = CreateContext();
-            Repository = new DirectionRepository(Context);
-
-            InitDatabase();
-        }
-
-        public DIMSCoreContext Context { get; }
-
-        public IRepository<Direction> Repository { get; }
-
         public int DirectionId { get; private set; }
 
-        public void Dispose()
+        protected sealed override DirectionRepository CreateRepository() => new (Context);
+
+        protected override async Task InitDatabase()
         {
-            Context.Dispose();
+            var entity = await Context.Directions.AddAsync(
+                                             new Direction
+                                             {
+                                                 Name = "Test Name",
+                                                 Description = "Test Description"
+                                             });
+            DirectionId = entity.Entity.DirectionId;
+            await Context.SaveChangesAsync();
+            entity.State = EntityState.Detached;
         }
-
-        private void InitDatabase()
-        {
-            DirectionId = Context.Directions.Add(new Direction
-                                                 {
-                                                     Name = "Test Direction",
-                                                     Description = "Test Description"
-                                                 }).Entity.DirectionId;
-
-            Context.SaveChanges();
-        }
-
-        private static DIMSCoreContext CreateContext()
-        {
-            var options = GetOptions();
-
-            return new DIMSCoreContext(options);
-        }
-
-        private static DbContextOptions<DIMSCoreContext> GetOptions()
-        {
-            var builder = new DbContextOptionsBuilder<DIMSCoreContext>().UseInMemoryDatabase(GetInMemoryDbName());
-
-            return builder.Options;
-        }
-
-        private static string GetInMemoryDbName()
-        {
-            return $"InMemory_{Guid.NewGuid()}";
-        }
+        
+        public new void Dispose() => Context.Dispose();
     }
 }

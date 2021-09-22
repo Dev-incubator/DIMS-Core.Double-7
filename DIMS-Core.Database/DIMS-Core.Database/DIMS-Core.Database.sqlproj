@@ -62,17 +62,15 @@
     <Folder Include="Tables" />
     <Folder Include="Views" />
     <Folder Include="Functions" />
-    <Folder Include="SeedData" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="tables\Directions.sql" />
     <Build Include="tables\UserProfiles.sql" />
     <Build Include="Views\vUserProfiles.sql" />
     <Build Include="Functions\GetFullAge.sql" />
-    <Build Include="Tables\TaskState.sql">
+    <Build Include="Tables\TaskStates.sql">
       <QuotedIdentifier>ProjectDefault</QuotedIdentifier>
     </Build>
-    <None Include="SeedData\TaskStateSeedData.sql" />
     <Build Include="Views\vUserTask.sql" />
     <Build Include="Procedures\SetUserTaskAsSuccess.sql" />
     <Build Include="Procedures\SetUserTaskAsFail.sql" />
@@ -84,7 +82,12 @@
     <Build Include="Tables\Tasks.sql" />
     </ItemGroup>
   <ItemGroup>
+    <None Include="SeedData\TaskStatesSeedData.sql" />
     <None Include="SeedData\UserProfilesSeedData.sql" />
     <None Include="SeedData\DirectionsSeedData.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="SeedData\TasksSeedData.sql" />
+    <Content Include="SeedData\TaskTracksSeedData.sql" />
   </ItemGroup>
 </Project>

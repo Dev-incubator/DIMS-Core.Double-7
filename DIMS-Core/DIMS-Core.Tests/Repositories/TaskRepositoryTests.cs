@@ -8,13 +8,13 @@ using Task = System.Threading.Tasks.Task;
 
 namespace DIMS_Core.Tests.Repositories
 {
-    public class DirectionRepositoryTests : IDisposable
+    public class TaskRepositoryTests : IDisposable
     {
-        private readonly DirectionRepositoryFixture _repositoryFixture;
+        private readonly TaskRepositoryFixture _repositoryFixture;
 
-        public DirectionRepositoryTests()
+        public TaskRepositoryTests()
         {
-            _repositoryFixture = new DirectionRepositoryFixture();
+            _repositoryFixture = new TaskRepositoryFixture();
         }
 
         [Fact]
@@ -24,8 +24,8 @@ namespace DIMS_Core.Tests.Repositories
         {
             // Act
             var result = await _repositoryFixture.Repository
-                                       .GetAll()
-                                       .ToArrayAsync();
+                                                 .GetAll()
+                                                 .ToArrayAsync();
 
             // Assert
             Assert.NotEmpty(result);
@@ -36,15 +36,15 @@ namespace DIMS_Core.Tests.Repositories
         public async Task GetById_OK()
         {
             // Act
-            var result = await _repositoryFixture.Repository.GetById(_repositoryFixture.DirectionId);
+            var result = await _repositoryFixture.Repository.GetById(_repositoryFixture.TaskId);
 
             // Assert
             Assert.NotNull(result);
-            Assert.Equal(_repositoryFixture.DirectionId, result.DirectionId);
+            Assert.Equal(_repositoryFixture.TaskId, result.TaskId);
             Assert.Equal("Test Name", result.Name);
             Assert.Equal("Test Description", result.Description);
         }
-
+        
         [Fact]
         public async Task GetById_EmptyId_Fail()
         {
@@ -54,9 +54,9 @@ namespace DIMS_Core.Tests.Repositories
             // Act, Assert
             await Assert.ThrowsAsync<ObjectNotFoundException>(() => _repositoryFixture.Repository.GetById(id));
         }
-
+        
         [Fact]
-        public async Task GetById_NotExistDirection_Fail()
+        public async Task GetById_NotExistTask_Fail()
         {
             // Arrange
             const int id = int.MaxValue;
@@ -69,9 +69,9 @@ namespace DIMS_Core.Tests.Repositories
         public async Task Create_OK()
         {
             // Arrange
-            var entity = new Direction
+            var entity = new DataAccessLayer.Models.Task
                          {
-                             Name = "Name",
+                             Name = "Create",
                              Description = "Description"
                          };
 
@@ -81,7 +81,7 @@ namespace DIMS_Core.Tests.Repositories
 
             // Assert
             Assert.NotNull(result);
-            Assert.NotEqual(default, result.DirectionId);
+            Assert.NotEqual(default, result.TaskId);
             Assert.Equal(entity.Name, result.Name);
             Assert.Equal(entity.Description, result.Description);
         }
@@ -97,10 +97,10 @@ namespace DIMS_Core.Tests.Repositories
         public async Task Update_OK()
         {
             // Arrange
-            var entity = new Direction
+            var entity = new DataAccessLayer.Models.Task
                          {
-                             DirectionId = _repositoryFixture.DirectionId,
-                             Name = "Name",
+                             TaskId = _repositoryFixture.TaskId,
+                             Name = "TaskName",
                              Description = "Description"
                          };
 
@@ -110,11 +110,11 @@ namespace DIMS_Core.Tests.Repositories
 
             // Assert
             Assert.NotNull(result);
-            Assert.NotEqual(default, result.DirectionId);
+            Assert.NotEqual(default, result.TaskId);
             Assert.Equal(entity.Name, result.Name);
             Assert.Equal(entity.Description, result.Description);
         }
-
+        
         [Fact]
         public void Update_EmptyEntity_Fail()
         {
@@ -126,14 +126,14 @@ namespace DIMS_Core.Tests.Repositories
         public async Task Delete_OK()
         {
             // Act
-            await _repositoryFixture.Repository.Delete(_repositoryFixture.DirectionId);
+            await _repositoryFixture.Repository.Delete(_repositoryFixture.TaskId);
             await _repositoryFixture.Context.SaveChangesAsync();
 
             // Assert
-            var deletedEntity = await _repositoryFixture.Context.Directions.FindAsync(_repositoryFixture.DirectionId);
+            var deletedEntity = await _repositoryFixture.Context.Tasks.FindAsync(_repositoryFixture.TaskId);
             Assert.Null(deletedEntity);
         }
-
+        
         [Fact]
         public async Task Delete_EmptyId_Fail()
         {
