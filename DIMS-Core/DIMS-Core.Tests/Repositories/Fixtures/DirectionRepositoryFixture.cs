@@ -7,11 +7,11 @@ using Task = System.Threading.Tasks.Task;
 
 namespace DIMS_Core.Tests.Repositories.Fixtures
 {
-    internal class DirectionRepositoryFixture : RepositoryFixture<DirectionRepository>, IDisposable
+    internal class DirectionRepositoryFixture : RepositoryFixture<DirectionRepository>
     {
         public int DirectionId { get; private set; }
 
-        protected sealed override DirectionRepository CreateRepository() => new (Context);
+        protected override DirectionRepository CreateRepository() => new (Context);
 
         protected override async Task InitDatabase()
         {
@@ -25,7 +25,5 @@ namespace DIMS_Core.Tests.Repositories.Fixtures
             await Context.SaveChangesAsync();
             entity.State = EntityState.Detached;
         }
-        
-        public new void Dispose() => Context.Dispose();
     }
 }
