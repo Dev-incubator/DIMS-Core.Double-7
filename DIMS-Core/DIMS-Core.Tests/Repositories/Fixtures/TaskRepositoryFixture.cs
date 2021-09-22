@@ -6,14 +6,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DIMS_Core.Tests.Repositories.Fixtures
 {
-    public class TaskRepositoryFixture : RepositoryFixture<TaskRepository>, IDisposable
+    public class TaskRepositoryFixture : RepositoryFixture<TaskRepository>
     {
         public int TaskId { get; private set; }
-
-        public new void Dispose()
-        {
-            Context.Dispose();
-        }
 
         protected override TaskRepository CreateRepository() => new(Context);
 

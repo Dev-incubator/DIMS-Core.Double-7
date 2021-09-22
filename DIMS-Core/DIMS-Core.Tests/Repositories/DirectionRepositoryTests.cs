@@ -10,11 +10,11 @@ namespace DIMS_Core.Tests.Repositories
 {
     public class DirectionRepositoryTests : IDisposable
     {
-        private readonly DirectionRepositoryFixture _repositoryFixture;
+        private readonly DirectionRepositoryFixture _fixture;
 
         public DirectionRepositoryTests()
         {
-            _repositoryFixture = new DirectionRepositoryFixture();
+            _fixture = new DirectionRepositoryFixture();
         }
 
         [Fact]
@@ -23,7 +23,7 @@ namespace DIMS_Core.Tests.Repositories
         public async Task GetAll_OK()
         {
             // Act
-            var result = await _repositoryFixture.Repository
+            var result = await _fixture.Repository
                                        .GetAll()
                                        .ToArrayAsync();
 
@@ -36,11 +36,11 @@ namespace DIMS_Core.Tests.Repositories
         public async Task GetById_OK()
         {
             // Act
-            var result = await _repositoryFixture.Repository.GetById(_repositoryFixture.DirectionId);
+            var result = await _fixture.Repository.GetById(_fixture.DirectionId);
 
             // Assert
             Assert.NotNull(result);
-            Assert.Equal(_repositoryFixture.DirectionId, result.DirectionId);
+            Assert.Equal(_fixture.DirectionId, result.DirectionId);
             Assert.Equal("Test Name", result.Name);
             Assert.Equal("Test Description", result.Description);
         }
@@ -52,7 +52,7 @@ namespace DIMS_Core.Tests.Repositories
             const int id = 0;
 
             // Act, Assert
-            await Assert.ThrowsAsync<ObjectNotFoundException>(() => _repositoryFixture.Repository.GetById(id));
+            await Assert.ThrowsAsync<NullReferenceException>(() => _fixture.Repository.GetById(id));
         }
 
         [Fact]
@@ -62,7 +62,7 @@ namespace DIMS_Core.Tests.Repositories
             const int id = int.MaxValue;
 
             // Act, Assert
-            await Assert.ThrowsAsync<ObjectNotFoundException>(() => _repositoryFixture.Repository.GetById(id));
+            await Assert.ThrowsAsync<NullReferenceException>(() => _fixture.Repository.GetById(id));
         }
 
         [Fact]
@@ -76,8 +76,8 @@ namespace DIMS_Core.Tests.Repositories
                          };
 
             // Act
-            var result = await _repositoryFixture.Repository.Create(entity);
-            await _repositoryFixture.Context.SaveChangesAsync();
+            var result = await _fixture.Repository.Create(entity);
+            await _fixture.Context.SaveChangesAsync();
 
             // Assert
             Assert.NotNull(result);
@@ -90,7 +90,7 @@ namespace DIMS_Core.Tests.Repositories
         public async Task Create_EmptyEntity_Fail()
         {
             // Arrange Act, Assert
-            await Assert.ThrowsAsync<ArgumentNullException>(() => _repositoryFixture.Repository.Create(null));
+            await Assert.ThrowsAsync<ArgumentNullException>(() => _fixture.Repository.Create(null));
         }
 
         [Fact]
@@ -99,14 +99,14 @@ namespace DIMS_Core.Tests.Repositories
             // Arrange
             var entity = new Direction
                          {
-                             DirectionId = _repositoryFixture.DirectionId,
+                             DirectionId = _fixture.DirectionId,
                              Name = "Name",
                              Description = "Description"
                          };
 
             // Act
-            var result = _repositoryFixture.Repository.Update(entity);
-            await _repositoryFixture.Context.SaveChangesAsync();
+            var result = _fixture.Repository.Update(entity);
+            await _fixture.Context.SaveChangesAsync();
 
             // Assert
             Assert.NotNull(result);
@@ -119,18 +119,18 @@ namespace DIMS_Core.Tests.Repositories
         public void Update_EmptyEntity_Fail()
         {
             // Arrange Act, Assert
-            Assert.Throws<ArgumentNullException>(() => _repositoryFixture.Repository.Update(null));
+            Assert.Throws<ArgumentNullException>(() => _fixture.Repository.Update(null));
         }
 
         [Fact]
         public async Task Delete_OK()
         {
             // Act
-            await _repositoryFixture.Repository.Delete(_repositoryFixture.DirectionId);
-            await _repositoryFixture.Context.SaveChangesAsync();
+            await _fixture.Repository.Delete(_fixture.DirectionId);
+            await _fixture.Context.SaveChangesAsync();
 
             // Assert
-            var deletedEntity = await _repositoryFixture.Context.Directions.FindAsync(_repositoryFixture.DirectionId);
+            var deletedEntity = await _fixture.Context.Directions.FindAsync(_fixture.DirectionId);
             Assert.Null(deletedEntity);
         }
 
@@ -141,8 +141,8 @@ namespace DIMS_Core.Tests.Repositories
             const int id = 0;
 
             // Act, Assert
-            await Assert.ThrowsAsync<ArgumentNullException>(() => _repositoryFixture.Repository.Delete(id));
+            await Assert.ThrowsAsync<ArgumentNullException>(() => _fixture.Repository.Delete(id));
         }
-        public void Dispose() => _repositoryFixture.Dispose();
+        public void Dispose() => _fixture.Dispose();
     }
 }

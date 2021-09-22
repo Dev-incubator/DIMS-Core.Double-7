@@ -1,7 +1,8 @@
 ﻿using System.Linq;
+using DIMS_Core.DataAccessLayer.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace DIMS_Core.DataAccessLayer.Models
+namespace DIMS_Core.Tests.Context
 {
     public class ViewTestContext : DimsCoreContext
     {

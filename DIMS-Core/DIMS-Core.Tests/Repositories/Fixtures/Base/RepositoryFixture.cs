@@ -9,14 +9,6 @@ namespace DIMS_Core.Tests.Repositories.Fixtures.Base
 {
     public abstract class RepositoryFixture<TRepository> : IDisposable, IAsyncDisposable
     {
-        private TRepository _repository;
-        private readonly ContextCreator _creator = new ();
-        
-        private static readonly DbContextOptions<DimsCoreContext> _options =
-            new DbContextOptionsBuilder<DimsCoreContext>()
-                .UseInMemoryDatabase(Guid.NewGuid().ToString())
-                .Options;
-
         protected RepositoryFixture()
         {
             Context = ContextCreator.CreateContext();
@@ -24,7 +16,7 @@ namespace DIMS_Core.Tests.Repositories.Fixtures.Base
         }
         public DimsCoreContext Context { get; }
 
-        public TRepository Repository => _repository ??= CreateRepository();
+        public TRepository Repository => CreateRepository();
         
         protected abstract TRepository CreateRepository();
         protected abstract Task InitDatabase();

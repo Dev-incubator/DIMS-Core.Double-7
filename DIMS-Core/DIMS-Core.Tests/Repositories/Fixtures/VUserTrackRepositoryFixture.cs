@@ -7,11 +7,8 @@ using Task = System.Threading.Tasks.Task;
 
 namespace DIMS_Core.Tests.Repositories.Fixtures
 {
-    public class VUserTrackRepositoryFixture : ViewRepositoryFixture<VUserTrackRepository>, IDisposable
+    public class VUserTrackRepositoryFixture : ViewRepositoryFixture<VUserTrackRepository>
     {
         protected override VUserTrackRepository CreateRepository() => new(Context);
-
-        public void Dispose() => Context.Dispose();
-
     }
 }
