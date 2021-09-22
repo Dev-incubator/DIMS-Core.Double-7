@@ -27,8 +27,4 @@
     <ProjectReference Include="..\DIMS-Core.Common\DIMS-Core.Common.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Models" />
-  </ItemGroup>
-
 </Project>
