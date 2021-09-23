@@ -12,7 +12,7 @@ namespace DIMS_Core.Tests.Repositories.Fixtures
 
         protected override TaskRepository CreateRepository() => new(Context);
 
-        protected override async Task InitDatabase()
+        protected override async void InitDatabase()
         {
             var entity = await Context.Tasks.AddAsync(new DataAccessLayer.Models.Task
                                                       {

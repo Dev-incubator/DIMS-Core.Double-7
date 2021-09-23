@@ -13,7 +13,7 @@ namespace DIMS_Core.Tests.Repositories.Fixtures
 
         protected override DirectionRepository CreateRepository() => new (Context);
 
-        protected override async Task InitDatabase()
+        protected override async void InitDatabase()
         {
             var entity = await Context.Directions.AddAsync(
                                              new Direction

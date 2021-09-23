@@ -19,7 +19,7 @@ namespace DIMS_Core.Tests.Repositories.Fixtures.Base
         public TRepository Repository => CreateRepository();
         
         protected abstract TRepository CreateRepository();
-        protected abstract Task InitDatabase();
+        protected abstract void InitDatabase();
 
         public void Dispose() => Context.Dispose();
         
