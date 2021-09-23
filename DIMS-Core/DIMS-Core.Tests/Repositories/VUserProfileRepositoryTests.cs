@@ -9,18 +9,18 @@ namespace DIMS_Core.Tests.Repositories
 {
     public class VUserProfileRepositoryTests
     {
-        private readonly VUserProfileRepositoryFixture _repositoryFixture;
+        private readonly VUserProfileRepositoryFixture _fixture;
 
         public VUserProfileRepositoryTests()
         {
-            _repositoryFixture = new VUserProfileRepositoryFixture();
+            _fixture = new VUserProfileRepositoryFixture();
         }
 
         [Fact]
         public void GetAll_OK()
         {
             // Act
-            var result = _repositoryFixture.Repository
+            var result = _fixture.Repository
                                            .GetAll()
                                            .ToArray();
 
@@ -29,6 +29,6 @@ namespace DIMS_Core.Tests.Repositories
             Assert.Single(result);
         }
         
-        public void Dispose() => _repositoryFixture.Dispose();
+        public void Dispose() => _fixture.Dispose();
     }
 }

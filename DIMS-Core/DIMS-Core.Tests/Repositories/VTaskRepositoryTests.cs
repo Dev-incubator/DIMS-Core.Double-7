@@ -10,18 +10,18 @@ namespace DIMS_Core.Tests.Repositories
 {
     public class VTaskRepositoryTests : IDisposable
     {
-        private readonly VTaskRepositoryFixture _repositoryFixture;
+        private readonly VTaskRepositoryFixture _fixture;
 
         public VTaskRepositoryTests()
         {
-            _repositoryFixture = new VTaskRepositoryFixture();
+            _fixture = new VTaskRepositoryFixture();
         }
 
         [Fact]
         public void GetAll_OK()
         {
             // Act
-            var result = _repositoryFixture.Repository
+            var result = _fixture.Repository
                                             .GetAll()
                                             .ToArray();
 
@@ -30,6 +30,6 @@ namespace DIMS_Core.Tests.Repositories
             Assert.Single(result);
         }
         
-        public void Dispose() => _repositoryFixture.Dispose();
+        public void Dispose() => _fixture.Dispose();
     }
 }
