@@ -37,7 +37,8 @@ namespace DIMS_Core.DataAccessLayer.Repositories
 
         public async Task<TEntity> GetById(int id)
         {
-            RepositoryException.IsIdValid(id);
+            var range = new Range(0, Set.Count());
+            RepositoryException.IsIdValid(id,range);
 
             TEntity objectFromDB = await Set.FindAsync(id);
 

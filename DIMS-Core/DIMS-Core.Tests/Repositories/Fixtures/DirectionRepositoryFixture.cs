@@ -11,7 +11,7 @@ namespace DIMS_Core.Tests.Repositories.Fixtures
     {
         public int DirectionId { get; private set; }
 
-        protected override DirectionRepository CreateRepository() => new (Context);
+        protected override DirectionRepository CreateRepository => new(Context);
 
         protected override async Task InitDatabase()
         {

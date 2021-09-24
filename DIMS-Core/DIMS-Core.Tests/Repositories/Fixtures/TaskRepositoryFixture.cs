@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
 using DIMS_Core.DataAccessLayer.Repositories;
 using DIMS_Core.Tests.Repositories.Fixtures.Base;
@@ -10,7 +10,7 @@ namespace DIMS_Core.Tests.Repositories.Fixtures
     {
         public int TaskId { get; private set; }
 
-        protected override TaskRepository CreateRepository() => new(Context);
+        protected override TaskRepository CreateRepository => new(Context);
 
         protected override async Task InitDatabase()
         {

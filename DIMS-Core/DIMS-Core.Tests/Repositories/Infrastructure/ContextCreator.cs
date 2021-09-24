@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using DIMS_Core.DataAccessLayer.Models;
 using DIMS_Core.Tests.Context;
 using Microsoft.EntityFrameworkCore;
