@@ -20,8 +20,8 @@ namespace DIMS_Core.Tests.Repositories
         {
             // Act
             var result = _fixture.Repository
-                                    .GetAll()
-                                    .ToArray();
+                                 .GetAll()
+                                 .ToArray();
 
             // Assert
             Assert.NotEmpty(result);

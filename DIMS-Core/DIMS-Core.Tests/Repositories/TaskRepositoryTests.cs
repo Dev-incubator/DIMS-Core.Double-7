@@ -24,8 +24,8 @@ namespace DIMS_Core.Tests.Repositories
         {
             // Act
             var result = await _fixture.Repository
-                                                 .GetAll()
-                                                 .ToArrayAsync();
+                                       .GetAll()
+                                       .ToArrayAsync();
 
             // Assert
             Assert.NotEmpty(result);
