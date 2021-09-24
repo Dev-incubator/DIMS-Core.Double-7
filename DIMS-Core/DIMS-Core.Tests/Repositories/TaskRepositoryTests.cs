@@ -52,7 +52,7 @@ namespace DIMS_Core.Tests.Repositories
             const int id = 0;
 
             // Act, Assert
-            await Assert.ThrowsAsync<NullReferenceException>(() => _fixture.Repository.GetById(id));
+            await Assert.ThrowsAsync<InvalidArgumentException>(() => _fixture.Repository.GetById(id));
         }
         
         [Fact]
@@ -62,7 +62,7 @@ namespace DIMS_Core.Tests.Repositories
             const int id = int.MaxValue;
 
             // Act, Assert
-            await Assert.ThrowsAsync<NullReferenceException>(() => _fixture.Repository.GetById(id));
+            await Assert.ThrowsAsync<InvalidArgumentException>(() => _fixture.Repository.GetById(id));
         }
 
         [Fact]

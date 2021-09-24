@@ -6,7 +6,7 @@ namespace DIMS_Core.Common.Exceptions
     {
         public static void IsIdValid(int id, Range range)
         {
-            if(id < range.Start.Value && id > range.End.Value)
+            if(id < range.Start.Value || id > range.End.Value)
             {
                 throw new InvalidArgumentException(nameof(id));
             }
