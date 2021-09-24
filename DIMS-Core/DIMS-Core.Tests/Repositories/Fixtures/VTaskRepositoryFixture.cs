@@ -5,6 +5,6 @@ namespace DIMS_Core.Tests.Repositories.Fixtures
 {
     public class VTaskRepositoryFixture : ViewRepositoryFixture<VTaskRepository>
     {
-        public override VTaskRepository Repository => new (Context);
+        protected override VTaskRepository CreateRepository() => new(Context);
     }
 }

@@ -5,6 +5,6 @@ namespace DIMS_Core.Tests.Repositories.Fixtures
 {
     public class VUserProfileRepositoryFixture : ViewRepositoryFixture<VUserProfileRepository>
     {
-        public override VUserProfileRepository Repository => new(Context);
+        protected override VUserProfileRepository CreateRepository() => new(Context);
     }
 }

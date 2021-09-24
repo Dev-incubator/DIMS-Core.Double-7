@@ -1,6 +1,8 @@
 ﻿using System;
 using DIMS_Core.Common.Exceptions;
 using DIMS_Core.DataAccessLayer.Models;
+using DIMS_Core.DataAccessLayer.Repositories;
+using DIMS_Core.DataAccessLayer.Repositories.Base;
 using DIMS_Core.Tests.Repositories.Fixtures;
 using Microsoft.EntityFrameworkCore;
 using Xunit;

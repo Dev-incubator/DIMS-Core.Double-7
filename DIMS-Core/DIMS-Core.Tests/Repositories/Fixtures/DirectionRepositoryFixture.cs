@@ -11,8 +11,6 @@ namespace DIMS_Core.Tests.Repositories.Fixtures
     {
         public int DirectionId { get; private set; }
 
-        public override DirectionRepository Repository => new (Context);
-
         protected override void InitDatabase()
         {
             var entity = Context.Directions.Add(
@@ -25,5 +23,7 @@ namespace DIMS_Core.Tests.Repositories.Fixtures
             Context.SaveChanges();
             entity.State = EntityState.Detached;
         }
+
+        protected override DirectionRepository CreateRepository() => new (Context);
     }
 }

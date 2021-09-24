@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using DIMS_Core.DataAccessLayer.Repositories;
 using DIMS_Core.Tests.Repositories.Fixtures;
@@ -7,7 +8,7 @@ using Xunit;
 
 namespace DIMS_Core.Tests.Repositories
 {
-    public class VUserProfileRepositoryTests
+    public class VUserProfileRepositoryTests : IDisposable
     {
         private readonly VUserProfileRepositoryFixture _fixture;
 
@@ -21,8 +22,8 @@ namespace DIMS_Core.Tests.Repositories
         {
             // Act
             var result = _fixture.Repository
-                                           .GetAll()
-                                           .ToArray();
+                                 .GetAll()
+                                 .ToArray();
 
             // Assert
             Assert.NotEmpty(result);

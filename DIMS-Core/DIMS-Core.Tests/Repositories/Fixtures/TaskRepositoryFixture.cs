@@ -10,8 +10,6 @@ namespace DIMS_Core.Tests.Repositories.Fixtures
     {
         public int TaskId { get; private set; }
 
-        public override TaskRepository Repository => new(Context);
-
         protected override void InitDatabase()
         {
             var entity = Context.Tasks.Add(new DataAccessLayer.Models.Task
@@ -25,5 +23,7 @@ namespace DIMS_Core.Tests.Repositories.Fixtures
             Context.SaveChanges();
             entity.State = EntityState.Detached;
         }
+
+        protected override TaskRepository CreateRepository() => new (Context);
     }
 }
