@@ -4,9 +4,9 @@ namespace DIMS_Core.Common.Exceptions
 {
     public static class RepositoryException
     {
-        public static void IsIdValid(int id, Range range)
+        public static void IsIdValid(int id)
         {
-            if(id < range.Start.Value || id > range.End.Value)
+            if(id <= 0)
             {
                 throw new InvalidArgumentException(nameof(id));
             }
