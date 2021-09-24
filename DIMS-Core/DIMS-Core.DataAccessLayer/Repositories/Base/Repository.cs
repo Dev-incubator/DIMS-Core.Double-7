@@ -36,12 +36,11 @@ namespace DIMS_Core.DataAccessLayer.Repositories.Base
 
         public async Task<TEntity> GetById(int id)
         {
-            var range = new Range(1, Set.Count());
-            RepositoryException.IsIdValid(id, range);
+            RepositoryException.IsIdValid(id);
             
             var foundEntity = await Set.FindAsync(id);
 
-            RepositoryException.IsEntityExists(foundEntity, foundEntity.GetType().FullName);
+            RepositoryException.IsEntityExists(foundEntity, typeof(TEntity).FullName);
 
             return foundEntity;
         }
@@ -54,6 +53,8 @@ namespace DIMS_Core.DataAccessLayer.Repositories.Base
 
         public TEntity Update(TEntity entity)
         {
+            RepositoryException.IsEntityExists(entity, typeof(TEntity).FullName);
+            
             _context.Entry(entity).State = EntityState.Modified;
             return entity;
         }
@@ -61,6 +62,9 @@ namespace DIMS_Core.DataAccessLayer.Repositories.Base
         public async Task Delete(int id)
         {
             var deletedEntity = await Set.FindAsync(id);
+            
+            RepositoryException.IsEntityExists(deletedEntity, typeof(TEntity).FullName);
+            
             Set.Remove(deletedEntity);
         }
 
