@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using DIMS_Core.Common.Exceptions;
+using DIMS_Core.DataAccessLayer.Repositories;
 using DIMS_Core.Tests.Repositories.Fixtures;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
@@ -22,8 +23,8 @@ namespace DIMS_Core.Tests.Repositories
         {
             // Act
             var result = _fixture.Repository
-                                            .GetAll()
-                                            .ToArray();
+                                 .GetAll()
+                                 .ToArray();
 
             // Assert
             Assert.NotEmpty(result);

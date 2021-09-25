@@ -1,6 +1,7 @@
 ﻿using System;
 using DIMS_Core.Common.Exceptions;
 using DIMS_Core.DataAccessLayer.Models;
+using DIMS_Core.DataAccessLayer.Repositories;
 using DIMS_Core.Tests.Repositories.Fixtures;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
@@ -24,8 +25,8 @@ namespace DIMS_Core.Tests.Repositories
         {
             // Act
             var result = await _fixture.Repository
-                                                 .GetAll()
-                                                 .ToArrayAsync();
+                                       .GetAll()
+                                       .ToArrayAsync();
 
             // Assert
             Assert.NotEmpty(result);
@@ -52,7 +53,7 @@ namespace DIMS_Core.Tests.Repositories
             const int id = 0;
 
             // Act, Assert
-            await Assert.ThrowsAsync<NullReferenceException>(() => _fixture.Repository.GetById(id));
+            await Assert.ThrowsAsync<InvalidArgumentException>(() => _fixture.Repository.GetById(id));
         }
         
         [Fact]
@@ -62,7 +63,7 @@ namespace DIMS_Core.Tests.Repositories
             const int id = int.MaxValue;
 
             // Act, Assert
-            await Assert.ThrowsAsync<NullReferenceException>(() => _fixture.Repository.GetById(id));
+            await Assert.ThrowsAsync<ObjectNotFoundException>(() => _fixture.Repository.GetById(id));
         }
 
         [Fact]
@@ -119,7 +120,7 @@ namespace DIMS_Core.Tests.Repositories
         public void Update_EmptyEntity_Fail()
         {
             // Arrange Act, Assert
-            Assert.Throws<ArgumentNullException>(() => _fixture.Repository.Update(null));
+            Assert.Throws<ObjectNotFoundException>(() => _fixture.Repository.Update(null));
         }
 
         [Fact]
@@ -141,7 +142,7 @@ namespace DIMS_Core.Tests.Repositories
             const int id = 0;
 
             // Act, Assert
-            await Assert.ThrowsAsync<ArgumentNullException>(() => _fixture.Repository.Delete(id));
+            await Assert.ThrowsAsync<ObjectNotFoundException>(() => _fixture.Repository.Delete(id));
         }
         public void Dispose() => _fixture.Dispose();
     }

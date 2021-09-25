@@ -10,11 +10,9 @@ namespace DIMS_Core.Tests.Repositories.Fixtures
     {
         public int TaskId { get; private set; }
 
-        protected override TaskRepository CreateRepository => new(Context);
-
-        protected override async Task InitDatabase()
+        protected override void InitDatabase()
         {
-            var entity = await Context.Tasks.AddAsync(new DataAccessLayer.Models.Task
+            var entity = Context.Tasks.Add(new DataAccessLayer.Models.Task
                                                       {
                                                           Name = "Test Name",
                                                           Description = "Test Description",
@@ -22,8 +20,10 @@ namespace DIMS_Core.Tests.Repositories.Fixtures
                                                           DeadlineDate = new DateTime(2021, 09, 25, 11, 47, 48)
                                                       });
             TaskId = entity.Entity.TaskId;
-            await Context.SaveChangesAsync();
+            Context.SaveChanges();
             entity.State = EntityState.Detached;
         }
+
+        protected override TaskRepository CreateRepository() => new (Context);
     }
 }

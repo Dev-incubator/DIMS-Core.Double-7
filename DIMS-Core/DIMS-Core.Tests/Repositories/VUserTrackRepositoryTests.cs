@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using DIMS_Core.Tests.Repositories.Fixtures;
 using Xunit;
 using System.Linq;
+using DIMS_Core.DataAccessLayer.Repositories;
 
 namespace DIMS_Core.Tests.Repositories
 {
@@ -20,8 +21,8 @@ namespace DIMS_Core.Tests.Repositories
         {
             // Act
             var result = _fixture.Repository
-                                    .GetAll()
-                                    .ToArray();
+                                 .GetAll()
+                                 .ToArray();
 
             // Assert
             Assert.NotEmpty(result);

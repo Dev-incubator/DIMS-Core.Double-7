@@ -11,19 +11,19 @@ namespace DIMS_Core.Tests.Repositories.Fixtures
     {
         public int DirectionId { get; private set; }
 
-        protected override DirectionRepository CreateRepository => new(Context);
-
-        protected override async Task InitDatabase()
+        protected override void InitDatabase()
         {
-            var entity = await Context.Directions.AddAsync(
+            var entity = Context.Directions.Add(
                                              new Direction
                                              {
                                                  Name = "Test Name",
                                                  Description = "Test Description"
                                              });
             DirectionId = entity.Entity.DirectionId;
-            await Context.SaveChangesAsync();
+            Context.SaveChanges();
             entity.State = EntityState.Detached;
         }
+
+        protected override DirectionRepository CreateRepository() => new (Context);
     }
 }

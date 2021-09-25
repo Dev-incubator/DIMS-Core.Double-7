@@ -11,11 +11,11 @@ namespace DIMS_Core.Tests.Repositories.Fixtures.Base
         protected ViewRepositoryFixture()
         {
             Context = ContextCreator.CreateViewContext();
+            Repository = CreateRepository();
         }
         public DimsCoreContext Context { get; }
 
-        public TRepository Repository => CreateRepository();
-        
+        public TRepository Repository { get; }
         protected abstract TRepository CreateRepository();
 
         public void Dispose() => Context.Dispose();
