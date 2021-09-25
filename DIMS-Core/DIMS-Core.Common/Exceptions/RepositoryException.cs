@@ -10,7 +10,7 @@ namespace DIMS_Core.Common.Exceptions
     {
         public static void IsIdValid(int id)
         {
-            if(id <= 0)
+            if (id <= 0)
             {
                 throw new InvalidArgumentException(nameof(id));
             }

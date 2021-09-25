@@ -198,22 +198,8 @@ namespace DIMS_Core.DataAccessLayer.Models
                     .IsRequired()
                     .HasMaxLength(50);
 
-                entity.Property(e => e.TaskDescription).IsRequired();
-
-                entity.Property(e => e.TaskName)
-                    .IsRequired()
-                    .HasMaxLength(50);
-            });
-
-            modelBuilder.Entity<VUserTrack>(entity =>
-            {
-                entity.HasNoKey();
-
-                entity.ToView("vUserTrack");
-
-                entity.Property(e => e.TaskName)
-                    .IsRequired()
-                    .HasMaxLength(50);
+                                                  entity.Property(e => e.Skype)
+                                                        .HasMaxLength(50);
 
                 entity.Property(e => e.TrackDate).HasColumnType("datetime");
 
