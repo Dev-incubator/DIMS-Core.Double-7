@@ -1,7 +1,5 @@
-using System.Linq;
-using DIMS_Core.DataAccessLayer.Interfaces;
 using DIMS_Core.DataAccessLayer.Models;
-using Microsoft.EntityFrameworkCore;
+using DIMS_Core.DataAccessLayer.Repositories.Base;
 
 namespace DIMS_Core.DataAccessLayer.Repositories
 {
@@ -10,7 +8,6 @@ namespace DIMS_Core.DataAccessLayer.Repositories
 
         public VUserProfileRepository(DimsCoreContext context) : base(context)
         {
-
         }
     }
 }

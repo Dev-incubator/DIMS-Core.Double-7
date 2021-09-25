@@ -1,34 +1,16 @@
-﻿using System.Threading.Tasks;
 using AutoMapper;
-using AutoMapper.QueryableExtensions;
 using DIMS_Core.BusinessLayer.Interfaces;
 using DIMS_Core.BusinessLayer.Models;
 using DIMS_Core.DataAccessLayer.Interfaces;
-using Microsoft.EntityFrameworkCore;
+using DIMS_Core.DataAccessLayer.Models;
 
 namespace DIMS_Core.BusinessLayer.Services
 {
-    public class VUserProfileService : IVUserProfileService
+    public class VUserProfileService : ReadOnlyService<VUserProfileModel, VUserProfile, IReadOnlyRepository<VUserProfile>>, IVUserProfileService
     {
-        private readonly IMapper _mapper;
-        private readonly IUnitOfWork _unitOfWork;
-
-        public VUserProfileService(IUnitOfWork unitOfWork, IMapper mapper)
+        public VUserProfileService(IReadOnlyRepository<VUserProfile> repository, IMapper mapper)
+            : base(repository, mapper)
         {
-            _unitOfWork = unitOfWork;
-            _mapper = mapper;
-        }
-
-        public Task<VUserProfileModel[]> GetAll()
-        {
-            return _unitOfWork.VUserProfileRepository.GetAll()
-                              .ProjectTo<VUserProfileModel>(_mapper.ConfigurationProvider)
-                              .ToArrayAsync();
-        }
-
-        public void Dispose()
-        {
-            _unitOfWork?.Dispose();
         }
     }
 }

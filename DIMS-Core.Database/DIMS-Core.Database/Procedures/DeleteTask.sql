@@ -1,6 +1,4 @@
-﻿CREATE PROCEDURE DeleteTask AS
-
-DECLARE @id int;
-SET @id = 1;
-
-DELETE Tasks WHERE Tasks.TaskId = @id;
+﻿CREATE PROCEDURE DeleteTask
+    @taskId int   
+AS  
+    DELETE Tasks WHERE Tasks.TaskId = @taskId;

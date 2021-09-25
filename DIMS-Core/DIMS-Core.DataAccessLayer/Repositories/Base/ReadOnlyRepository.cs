@@ -1,13 +1,9 @@
 using DIMS_Core.DataAccessLayer.Interfaces;
 using DIMS_Core.DataAccessLayer.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace DIMS_Core.DataAccessLayer.Repositories
+namespace DIMS_Core.DataAccessLayer.Repositories.Base
 {
     public abstract class ReadOnlyRepository<TEntity> : IReadOnlyRepository<TEntity>
         where TEntity : class
@@ -17,14 +13,9 @@ namespace DIMS_Core.DataAccessLayer.Repositories
         {
             _context = context;
         }
-        public void Dispose()
-        {
-            _context?.Dispose();
-        }
 
-        public IQueryable<TEntity> GetAll()
-        {
-            return _context.Set<TEntity>().AsNoTracking();
-        }
+        public void Dispose() => _context?.Dispose();
+
+        public IQueryable<TEntity> GetAll() => _context.Set<TEntity>().AsNoTracking();
     }
 }

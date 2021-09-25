@@ -1,6 +1,8 @@
-﻿using System;
-using System.Threading.Tasks;
+using System;
+using DIMS_Core.Common.Exceptions;
 using DIMS_Core.DataAccessLayer.Models;
+using DIMS_Core.DataAccessLayer.Repositories;
+using DIMS_Core.DataAccessLayer.Repositories.Base;
 using DIMS_Core.Tests.Repositories.Fixtures;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
@@ -15,11 +17,6 @@ namespace DIMS_Core.Tests.Repositories
         public DirectionRepositoryTests()
         {
             _fixture = new DirectionRepositoryFixture();
-        }
-
-        public void Dispose()
-        {
-            _fixture.Dispose();
         }
 
         [Fact]
@@ -46,7 +43,7 @@ namespace DIMS_Core.Tests.Repositories
             // Assert
             Assert.NotNull(result);
             Assert.Equal(_fixture.DirectionId, result.DirectionId);
-            Assert.Equal("Test Direction", result.Name);
+            Assert.Equal("Test Name", result.Name);
             Assert.Equal("Test Description", result.Description);
         }
 
@@ -57,7 +54,7 @@ namespace DIMS_Core.Tests.Repositories
             const int id = 0;
 
             // Act, Assert
-            await Assert.ThrowsAsync<ArgumentException>(() => _fixture.Repository.GetById(id));
+            await Assert.ThrowsAsync<InvalidArgumentException>(() => _fixture.Repository.GetById(id));
         }
 
         [Fact]
@@ -67,7 +64,7 @@ namespace DIMS_Core.Tests.Repositories
             const int id = int.MaxValue;
 
             // Act, Assert
-            await Assert.ThrowsAsync<ArgumentNullException>(() => _fixture.Repository.GetById(id));
+            await Assert.ThrowsAsync<ObjectNotFoundException>(() => _fixture.Repository.GetById(id));
         }
 
         [Fact]
@@ -75,10 +72,10 @@ namespace DIMS_Core.Tests.Repositories
         {
             // Arrange
             var entity = new Direction
-                         {
-                             Name = "Create",
-                             Description = "Description"
-                         };
+            {
+                Name = "Name",
+                Description = "Description"
+            };
 
             // Act
             var result = await _fixture.Repository.Create(entity);
@@ -103,11 +100,11 @@ namespace DIMS_Core.Tests.Repositories
         {
             // Arrange
             var entity = new Direction
-                         {
-                             DirectionId = _fixture.DirectionId,
-                             Name = "Create",
-                             Description = "Description"
-                         };
+            {
+                DirectionId = _fixture.DirectionId,
+                Name = "Name",
+                Description = "Description"
+            };
 
             // Act
             var result = _fixture.Repository.Update(entity);
@@ -124,7 +121,7 @@ namespace DIMS_Core.Tests.Repositories
         public void Update_EmptyEntity_Fail()
         {
             // Arrange Act, Assert
-            Assert.Throws<ArgumentNullException>(() => _fixture.Repository.Update(null));
+            Assert.Throws<ObjectNotFoundException>(() => _fixture.Repository.Update(null));
         }
 
         [Fact]
@@ -146,7 +143,8 @@ namespace DIMS_Core.Tests.Repositories
             const int id = 0;
 
             // Act, Assert
-            await Assert.ThrowsAsync<ArgumentException>(() => _fixture.Repository.Delete(id));
+            await Assert.ThrowsAsync<ObjectNotFoundException>(() => _fixture.Repository.Delete(id));
         }
+        public void Dispose() => _fixture.Dispose();
     }
 }

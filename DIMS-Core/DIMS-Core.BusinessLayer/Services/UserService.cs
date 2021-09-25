@@ -1,4 +1,4 @@
-﻿using System.Threading.Tasks;
+using System.Threading.Tasks;
 using AutoMapper;
 using DIMS_Core.BusinessLayer.Interfaces;
 using DIMS_Core.BusinessLayer.Models.Account;
@@ -14,21 +14,28 @@ namespace DIMS_Core.BusinessLayer.Services
         {
         }
 
-        public Task<SignInResult> SignInAsync(SignInModel model)
+        public async Task<SignInResult> SignInAsync(SignInModel model)
         {
-            return UnitOfWork.SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
+            var result = await _unitOfWork.SignInManager.PasswordSignInAsync(model.Email,
+                                                                             model.Password,
+                                                                             model.RememberMe,
+                                                                             false);
+
+            return result;
         }
 
-        public Task<IdentityResult> SignUpAsync(SignUpModel model)
+        public async Task<IdentityResult> SignUpAsync(SignUpModel model)
         {
-            var mappedEntity = Mapper.Map<User>(model);
+            var mappedEntity = _mapper.Map<User>(model);
 
-            return UnitOfWork.UserManager.CreateAsync(mappedEntity, model.Password);
+            var result = await _unitOfWork.UserManager.CreateAsync(mappedEntity, model.Password);
+
+            return result;
         }
 
         public Task SignOutAsync()
         {
-            return UnitOfWork.SignInManager.SignOutAsync();
+            return _unitOfWork.SignInManager.SignOutAsync();
         }
     }
 }
