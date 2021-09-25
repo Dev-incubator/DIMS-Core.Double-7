@@ -6,7 +6,7 @@ using DIMS_Core.DataAccessLayer.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 
-namespace DIMS_Core.DataAccessLayer.Repositories
+namespace DIMS_Core.DataAccessLayer.Repositories.Base
 {
     /// <summary>
     /// Base Repository
@@ -37,10 +37,10 @@ namespace DIMS_Core.DataAccessLayer.Repositories
         public async Task<TEntity> GetById(int id)
         {
             RepositoryException.IsIdValid(id);
-
+            
             var foundEntity = await Set.FindAsync(id);
 
-            RepositoryException.IsEntityExists(foundEntity, foundEntity.GetType().FullName);
+            RepositoryException.IsEntityExists(foundEntity, typeof(TEntity).FullName);
 
             return foundEntity;
         }
@@ -53,13 +53,18 @@ namespace DIMS_Core.DataAccessLayer.Repositories
 
         public TEntity Update(TEntity entity)
         {
-            var updatedEntity = Set.Update(entity);
-            return updatedEntity.Entity;
+            RepositoryException.IsEntityExists(entity, typeof(TEntity).FullName);
+            
+            _context.Entry(entity).State = EntityState.Modified;
+            return entity;
         }
 
         public async Task Delete(int id)
         {
             var deletedEntity = await Set.FindAsync(id);
+            
+            RepositoryException.IsEntityExists(deletedEntity, typeof(TEntity).FullName);
+            
             Set.Remove(deletedEntity);
         }
 
@@ -69,9 +74,6 @@ namespace DIMS_Core.DataAccessLayer.Repositories
         ///     In most cases this method is not important because our context will be disposed by IoC automatically.
         ///     But if you don't know where will use your service better to specify this method (example, class library).
         /// </summary>
-        public void Dispose()
-        {
-            _context?.Dispose();
-        }
+        public void Dispose() => _context?.Dispose();
     }
 }

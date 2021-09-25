@@ -3,7 +3,7 @@ using DIMS_Core.DataAccessLayer.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
-namespace DIMS_Core.DataAccessLayer.Repositories
+namespace DIMS_Core.DataAccessLayer.Repositories.Base
 {
     public abstract class ReadOnlyRepository<TEntity> : IReadOnlyRepository<TEntity>
         where TEntity : class

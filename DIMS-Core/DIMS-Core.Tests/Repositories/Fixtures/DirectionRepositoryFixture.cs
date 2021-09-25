@@ -1,60 +1,29 @@
 ﻿using System;
-using DIMS_Core.DataAccessLayer.Interfaces;
 using DIMS_Core.DataAccessLayer.Models;
 using DIMS_Core.DataAccessLayer.Repositories;
+using DIMS_Core.Tests.Repositories.Fixtures.Base;
 using Microsoft.EntityFrameworkCore;
+using Task = System.Threading.Tasks.Task;
 
 namespace DIMS_Core.Tests.Repositories.Fixtures
 {
-    internal class DirectionRepositoryFixture : IDisposable
+    internal class DirectionRepositoryFixture : RepositoryFixture<DirectionRepository>
     {
-        public DirectionRepositoryFixture()
-        {
-            Context = CreateContext();
-            Repository = new DirectionRepository(Context);
-
-            InitDatabase();
-        }
-
-        public DimsCoreContext Context { get; }
-
-        public IRepository<Direction> Repository { get; }
-
         public int DirectionId { get; private set; }
 
-        public void Dispose()
+        protected override void InitDatabase()
         {
-            Context.Dispose();
-        }
-
-        private void InitDatabase()
-        {
-            DirectionId = Context.Directions.Add(new Direction
-                                                 {
-                                                     Name = "Test Direction",
-                                                     Description = "Test Description"
-                                                 }).Entity.DirectionId;
-
+            var entity = Context.Directions.Add(
+                                             new Direction
+                                             {
+                                                 Name = "Test Name",
+                                                 Description = "Test Description"
+                                             });
+            DirectionId = entity.Entity.DirectionId;
             Context.SaveChanges();
+            entity.State = EntityState.Detached;
         }
 
-        private static DimsCoreContext CreateContext()
-        {
-            var options = GetOptions();
-
-            return new DimsCoreContext(options);
-        }
-
-        private static DbContextOptions<DimsCoreContext> GetOptions()
-        {
-            var builder = new DbContextOptionsBuilder<DimsCoreContext>().UseInMemoryDatabase(GetInMemoryDbName());
-
-            return builder.Options;
-        }
-
-        private static string GetInMemoryDbName()
-        {
-            return $"InMemory_{Guid.NewGuid()}";
-        }
+        protected override DirectionRepository CreateRepository() => new (Context);
     }
 }

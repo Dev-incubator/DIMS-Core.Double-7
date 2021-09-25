@@ -3,11 +3,12 @@ using DIMS_Core.DataAccessLayer.Repositories.Base;
 
 namespace DIMS_Core.DataAccessLayer.Repositories
 {
-    public class VUserProfileRepository : ReadOnlyRepository<VUserProfile>
+    public class VUserTaskRepository : ReadOnlyRepository<VUserTask>
     {
 
-        public VUserProfileRepository(DimsCoreContext context) : base(context)
+        public VUserTaskRepository(DimsCoreContext context) : base(context)
         {
+
         }
     }
 }

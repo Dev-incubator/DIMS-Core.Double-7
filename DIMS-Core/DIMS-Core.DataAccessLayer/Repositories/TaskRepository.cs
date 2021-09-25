@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using DIMS_Core.DataAccessLayer.Repositories.Base;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
