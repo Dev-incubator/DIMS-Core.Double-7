@@ -9,11 +9,11 @@ namespace DIMS_Core.Tests.Repositories.Fixtures
     internal class UserTaskRepositoryFixture : RepositoryFixture<UserTaskRepository>
     {
         public int UserTaskId { get; set; }
-        protected override UserTaskRepository CreateRepository => new(Context);
+        protected override UserTaskRepository CreateRepository() => new(Context);
 
-        protected override async Task InitDatabase()
+        protected override void InitDatabase()
         {
-            var entity = await Context.UserTasks.AddAsync(
+            var entity = Context.UserTasks.Add(
                 new DataAccessLayer.Models.UserTask
                 {
                     StateId = 1,
@@ -22,7 +22,7 @@ namespace DIMS_Core.Tests.Repositories.Fixtures
                 });
 
             UserTaskId = entity.Entity.UserTaskId;
-            await Context.SaveChangesAsync();
+            Context.SaveChanges();
             entity.State = EntityState.Detached;
         }
     }

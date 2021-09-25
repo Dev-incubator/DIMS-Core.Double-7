@@ -1,4 +1,4 @@
-﻿using System.Linq;
+using System.Linq;
 using DIMS_Core.DataAccessLayer.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,7 +8,7 @@ namespace DIMS_Core.Tests.Context
     {
         public ViewTestContext(DbContextOptions<DimsCoreContext> options) : base(options)
         {
-            
+
         }
         public ViewTestContext(object dbContextOptions)
         {
@@ -34,7 +34,7 @@ namespace DIMS_Core.Tests.Context
                                                    {
                                                        new VUserTrack
                                                        {
-                                                           
+
                                                        },
                                                    }.AsQueryable());
                 modelBuilder.Entity<VTask>()
@@ -42,9 +42,18 @@ namespace DIMS_Core.Tests.Context
                                                    {
                                                        new VTask
                                                        {
-                                                           
+
                                                        },
                                                    }.AsQueryable());
+
+                modelBuilder.Entity<VUserTask>()
+                            .ToInMemoryQuery(() => new[]
+                                                   {
+                                                        new VUserTask
+                                                        {
+
+                                                        },
+                                                    }.AsQueryable());
             }
         }
     }

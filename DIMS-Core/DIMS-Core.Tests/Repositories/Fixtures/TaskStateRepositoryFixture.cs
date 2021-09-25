@@ -9,18 +9,18 @@ namespace DIMS_Core.Tests.Repositories.Fixtures
     public class TaskStateRepositoryFixture : RepositoryFixture<TaskStateRepository>
     {
         public int StateId { get; set; }
-        protected override TaskStateRepository CreateRepository => new(Context);
+        protected override TaskStateRepository CreateRepository() => new(Context);
 
-        protected override async Task InitDatabase()
+        protected override void InitDatabase()
         {
-            var entity = await Context.TaskStates.AddAsync(
+            var entity = Context.TaskStates.Add(
                 new DataAccessLayer.Models.TaskState
                 {
                     StateName = "Test State"
                 });
 
             StateId = entity.Entity.StateId;
-            await Context.SaveChangesAsync();
+            Context.SaveChanges();
             entity.State = EntityState.Detached;
         }
     }

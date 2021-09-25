@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using DIMS_Core.Common.Exceptions;
 using DIMS_Core.DataAccessLayer.Models;
 using DIMS_Core.DataAccessLayer.Repositories;
@@ -45,7 +45,7 @@ namespace DIMS_Core.Tests.Repositories
             Assert.Equal("Test Name", result.Name);
             Assert.Equal("Test Description", result.Description);
         }
-        
+
         [Fact]
         public async Task GetById_EmptyId_Fail()
         {
@@ -55,7 +55,7 @@ namespace DIMS_Core.Tests.Repositories
             // Act, Assert
             await Assert.ThrowsAsync<InvalidArgumentException>(() => _fixture.Repository.GetById(id));
         }
-        
+
         [Fact]
         public async Task GetById_NotExistTask_Fail()
         {
@@ -71,10 +71,10 @@ namespace DIMS_Core.Tests.Repositories
         {
             // Arrange
             var entity = new DataAccessLayer.Models.Task
-                         {
-                             Name = "Create",
-                             Description = "Description"
-                         };
+            {
+                Name = "Create",
+                Description = "Description"
+            };
 
             // Act
             var result = await _fixture.Repository.Create(entity);
@@ -99,11 +99,11 @@ namespace DIMS_Core.Tests.Repositories
         {
             // Arrange
             var entity = new DataAccessLayer.Models.Task
-                         {
-                             TaskId = _fixture.TaskId,
-                             Name = "TaskName",
-                             Description = "Description"
-                         };
+            {
+                TaskId = _fixture.TaskId,
+                Name = "TaskName",
+                Description = "Description"
+            };
 
             // Act
             var result = _fixture.Repository.Update(entity);
@@ -115,7 +115,7 @@ namespace DIMS_Core.Tests.Repositories
             Assert.Equal(entity.Name, result.Name);
             Assert.Equal(entity.Description, result.Description);
         }
-        
+
         [Fact]
         public void Update_EmptyEntity_Fail()
         {
@@ -134,7 +134,7 @@ namespace DIMS_Core.Tests.Repositories
             var deletedEntity = await _fixture.Context.Tasks.FindAsync(_fixture.TaskId);
             Assert.Null(deletedEntity);
         }
-        
+
         [Fact]
         public async Task Delete_EmptyId_Fail()
         {

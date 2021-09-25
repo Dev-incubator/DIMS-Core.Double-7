@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using DIMS_Core.Common.Exceptions;
@@ -30,7 +30,7 @@ namespace DIMS_Core.Tests.Repositories
             Assert.NotEmpty(result);
             Assert.Single(result);
         }
-        
+
         public void Dispose() => _fixture.Dispose();
     }
 }

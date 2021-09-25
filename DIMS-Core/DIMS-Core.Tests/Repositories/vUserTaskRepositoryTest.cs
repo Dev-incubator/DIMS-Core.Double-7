@@ -8,7 +8,7 @@ using Xunit;
 
 namespace DIMS_Core.Tests.Repositories
 {
-    public class vUserTaskRepositoryTest
+    public class vUserTaskRepositoryTest : IDisposable
     {
         private readonly vUserTaskRepositoryFixture _fixture;
 
@@ -22,8 +22,8 @@ namespace DIMS_Core.Tests.Repositories
         {
             // Act
             var result = _fixture.Repository
-                                           .GetAll()
-                                           .ToArray();
+                                 .GetAll()
+                                 .ToArray();
 
             // Assert
             Assert.NotEmpty(result);
