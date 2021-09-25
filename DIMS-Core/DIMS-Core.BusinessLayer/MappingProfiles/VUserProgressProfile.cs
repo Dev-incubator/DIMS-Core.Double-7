@@ -9,7 +9,7 @@ namespace DIMS_Core.BusinessLayer.MappingProfiles
     {
         public VUserProgressProfile()
         {
-            CreateMap<VUserProgressModel, VUserProgress>().ReverseMap();
+            //CreateMap<VUserProgressModel, VUserProgress>().ReverseMap();
         }
     }
 }
