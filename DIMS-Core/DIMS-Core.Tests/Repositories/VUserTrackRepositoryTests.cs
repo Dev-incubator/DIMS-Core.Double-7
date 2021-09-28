@@ -28,7 +28,7 @@ namespace DIMS_Core.Tests.Repositories
             Assert.NotEmpty(result);
             Assert.Single(result);
         }
-
+        
         public void Dispose() => _fixture.Dispose();
     }
 }

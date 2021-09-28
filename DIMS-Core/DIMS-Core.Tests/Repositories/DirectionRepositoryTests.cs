@@ -72,10 +72,10 @@ namespace DIMS_Core.Tests.Repositories
         {
             // Arrange
             var entity = new Direction
-            {
-                Name = "Name",
-                Description = "Description"
-            };
+                         {
+                             Name = "Name",
+                             Description = "Description"
+                         };
 
             // Act
             var result = await _fixture.Repository.Create(entity);
@@ -100,11 +100,11 @@ namespace DIMS_Core.Tests.Repositories
         {
             // Arrange
             var entity = new Direction
-            {
-                DirectionId = _fixture.DirectionId,
-                Name = "Name",
-                Description = "Description"
-            };
+                         {
+                             DirectionId = _fixture.DirectionId,
+                             Name = "Name",
+                             Description = "Description"
+                         };
 
             // Act
             var result = _fixture.Repository.Update(entity);
