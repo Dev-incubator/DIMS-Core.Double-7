@@ -33,14 +33,5 @@ namespace DIMS_Core.BusinessLayer.Models
 
         public string MobilePhone { get; set; }
 
-        public static bool operator ==(UserProfileModel left, UserProfileModel right)
-        {
-            return left.FirstName == right.FirstName && left.LastName == right.LastName;
-        }
-
-        public static bool operator !=(UserProfileModel left, UserProfileModel right)
-        {
-            return left.FirstName != right.FirstName && left.LastName != right.LastName;
-        }
     }
 }

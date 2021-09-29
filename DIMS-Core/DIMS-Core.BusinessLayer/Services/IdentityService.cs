@@ -8,18 +8,18 @@ namespace DIMS_Core.BusinessLayer.Services
 {
     public abstract class IdentityService : IIdentityService
     {
-        protected readonly IMapper _mapper;
-        protected readonly IIdentityUnitOfWork _unitOfWork;
+        protected readonly IMapper Mapper;
+        protected readonly IIdentityUnitOfWork UnitOfWork;
 
         protected IdentityService(IIdentityUnitOfWork unitOfWork, IMapper mapper)
         {
-            _unitOfWork = unitOfWork;
-            _mapper = mapper;
+            UnitOfWork = unitOfWork;
+            Mapper = mapper;
         }
 
         public void Dispose()
         {
-            _unitOfWork?.Dispose();
+            UnitOfWork?.Dispose();
         }
     }
 }
