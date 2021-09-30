@@ -8,7 +8,7 @@ namespace DIMS_Core.Tests.Context
     {
         public ViewTestContext(DbContextOptions<DimsCoreContext> options) : base(options)
         {
-
+            
         }
         public ViewTestContext(object dbContextOptions)
         {
@@ -34,7 +34,7 @@ namespace DIMS_Core.Tests.Context
                                                    {
                                                        new VUserTrack
                                                        {
-
+                                                           
                                                        },
                                                    }.AsQueryable());
                 modelBuilder.Entity<VTask>()
@@ -42,7 +42,7 @@ namespace DIMS_Core.Tests.Context
                                                    {
                                                        new VTask
                                                        {
-
+                                                           
                                                        },
                                                    }.AsQueryable());
 

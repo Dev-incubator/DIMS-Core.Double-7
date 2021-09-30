@@ -1,9 +1,7 @@
 using System;
-using System.Threading.Tasks;
 using DIMS_Core.Tests.Repositories.Fixtures;
 using Xunit;
 using System.Linq;
-using DIMS_Core.DataAccessLayer.Repositories;
 
 namespace DIMS_Core.Tests.Repositories
 {
@@ -28,7 +26,7 @@ namespace DIMS_Core.Tests.Repositories
             Assert.NotEmpty(result);
             Assert.Single(result);
         }
-
+        
         public void Dispose() => _fixture.Dispose();
     }
 }
