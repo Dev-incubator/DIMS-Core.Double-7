@@ -1,3 +1,6 @@
+using DIMS_Core.Common.Exceptions;
+using DIMS_Core.DataAccessLayer.Repositories.Base;
+
 namespace DIMS_Core.BusinessLayer.Models
 {
     public class DirectionModel
@@ -8,14 +11,17 @@ namespace DIMS_Core.BusinessLayer.Models
 
         public string Description { get; set; }
 
-        public static bool operator ==(DirectionModel left, DirectionModel right)
+        public static bool operator ==(DirectionModel firstModel, DirectionModel secondModel)
         {
-            return left.Name == right.Name;
+            return secondModel is not null && 
+                   firstModel is not null && 
+                   firstModel.Name == secondModel.Name;
         }
-
-        public static bool operator !=(DirectionModel left, DirectionModel right)
+        public static bool operator !=(DirectionModel firstModel, DirectionModel secondModel)
         {
-            return left.Name != right.Name;
+            return secondModel is not null && 
+                   firstModel is not null &&
+                   firstModel.Name != secondModel.Name;
         }
     }
 }

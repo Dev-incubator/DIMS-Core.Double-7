@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using DIMS_Core.BusinessLayer.Interfaces;
 using DIMS_Core.BusinessLayer.Models;
+using DIMS_Core.DataAccessLayer.Models;
 using DIMS_Core.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -96,16 +97,16 @@ namespace DIMS_Core.Controllers
             return View(taskViewModel);
         }
         
-        [HttpGet("delete")]
-        public IActionResult Delete()
+        [HttpGet("delete/{id:int}")]
+        public IActionResult Delete(int id)
         {
             return View();
         }
         
-        [HttpPost("delete")]
-        public async Task<IActionResult> Delete(int id)
+        [HttpPost("delete/{id:int}")]
+        public async Task<IActionResult> DeleteTask(int id)
         {
-            await _taskService.GetById(id);
+            await _taskService.Delete(id);
 
             return RedirectToAction(nameof(Index));
         }

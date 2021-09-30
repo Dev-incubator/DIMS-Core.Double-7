@@ -1,9 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using DIMS_Core.DataAccessLayer.Models;
 using DIMS_Core.DataAccessLayer.Repositories.Base;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using ModelTask = DIMS_Core.DataAccessLayer.Models.Task;
+using Task = System.Threading.Tasks.Task;
 
 namespace DIMS_Core.DataAccessLayer.Repositories
 {
@@ -11,7 +12,7 @@ namespace DIMS_Core.DataAccessLayer.Repositories
     {
         private readonly DatabaseFacade _database;
         
-        public TaskRepository(DbContext context) : base(context)
+        public TaskRepository(DimsCoreContext context) : base(context)
         {
             _database = GetDb();
         }

@@ -13,13 +13,17 @@ namespace DIMS_Core.DataAccessLayer.Extensions
         public static IServiceCollection AddDatabaseDependencies(this IServiceCollection services)
         {
             services.AddScoped<IUnitOfWork, UnitOfWork>();
-            services.AddScoped<Repository<Direction>, DirectionRepository>();
-            services.AddScoped<Repository<UserProfile>, UserProfileRepository>();
-            services.AddScoped<Repository<Task>, TaskRepository>();
-            services.AddScoped<ReadOnlyRepository<VUserProfile>, VUserProfileRepository>();
-            services.AddScoped<ReadOnlyRepository<VTask>, VTaskRepository>();
-            services.AddScoped<ReadOnlyRepository<VUserTrack>, VUserTrackRepository>();
-
+            services.AddScoped<IRepository<Direction>, DirectionRepository>();
+            services.AddScoped<IRepository<UserProfile>, UserProfileRepository>();
+            services.AddScoped<IRepository<Task>, TaskRepository>();
+            services.AddScoped<IRepository<UserTask>, UserTaskRepository>();
+            services.AddScoped<IRepository<TaskTrack>, TaskTrackRepository>();
+            services.AddScoped<IRepository<TaskState>, TaskStateRepository>();
+            services.AddScoped<IReadOnlyRepository<VUserProfile>, VUserProfileRepository>();
+            services.AddScoped<IReadOnlyRepository<VTask>, VTaskRepository>();
+            services.AddScoped<IReadOnlyRepository<VUserTask>, VUserTaskRepository>();
+            services.AddScoped<IReadOnlyRepository<VUserTrack>, VUserTrackRepository>();
+            
             return services;
         }
 
