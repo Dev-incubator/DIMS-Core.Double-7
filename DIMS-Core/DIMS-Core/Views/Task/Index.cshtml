@@ -1,0 +1,42 @@
+﻿@model IEnumerable<VTaskViewModel>
+
+@{
+    ViewData["Title"] = "VTasks";
+}
+
+<h2 class="text-center my-4">Members</h2>
+<div class="row">
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Start date</th>
+                    <th scope="col">Deadline date</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var user in Model)
+                {
+                    <tr>
+                        <th scope="row">#</th>
+                        <td>
+                            @user.Name
+                        </td>
+                        <td>
+                            @user.Description
+                        </td>
+                        <td>
+                            @user.StartDate
+                        </td>
+                        <td>
+                            @user.DeadlineDate
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

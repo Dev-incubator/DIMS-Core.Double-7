@@ -1,0 +1,15 @@
+﻿@model TaskViewModel
+
+@{
+    ViewData["Title"] = "Task Delete";
+}
+
+<h1>Task Delete</h1>
+<div class="row">
+    <div asp-for="FullName" class="control-label"></div>
+    <div asp-for="Email" class="control-label"></div>
+    <form asp-action="delete" asp-antiforgery="true" method="post">
+        @Html.HiddenFor(user => user.TaskId)
+        <input type="submit" value="Delete" />
+    </form>
+</div>

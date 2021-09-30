@@ -1,0 +1,16 @@
+﻿@model TaskViewModel
+
+@{
+    ViewBag.Title = $"{Model.Name} details";
+}
+
+<dl>
+    <dt>@Html.DisplayFor(q => q.Name)</dt>
+    <dd>@Model.Name</dd>
+    <dt>@Html.DisplayFor(q => q.Description)</dt>
+    <dd>@Model.Description</dd>
+    <dt>@Html.DisplayFor(q => q.StartDate)</dt>
+    <dd>@Model.StartDate</dd>
+    <dt>@Html.DisplayFor(q => q.DeadlineDate)</dt>
+    <dd>@Model.DeadlineDate</dd>
+</dl>
