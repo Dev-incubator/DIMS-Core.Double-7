@@ -1,4 +1,4 @@
-﻿using System.Linq;
+using System.Linq;
 using DIMS_Core.DataAccessLayer.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -45,6 +45,15 @@ namespace DIMS_Core.Tests.Context
                                                            
                                                        },
                                                    }.AsQueryable());
+
+                modelBuilder.Entity<VUserTask>()
+                            .ToInMemoryQuery(() => new[]
+                                                   {
+                                                        new VUserTask
+                                                        {
+
+                                                        },
+                                                    }.AsQueryable());
             }
         }
     }

@@ -1,20 +1,20 @@
-using System;
-using System.Linq;
-using System.Threading.Tasks;
-using DIMS_Core.DataAccessLayer.Repositories;
 using DIMS_Core.Tests.Repositories.Fixtures;
-using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace DIMS_Core.Tests.Repositories
 {
-    public class VUserProfileRepositoryTests : IDisposable
+    public class vUserTaskRepositoryTest : IDisposable
     {
-        private readonly VUserProfileRepositoryFixture _fixture;
+        private readonly vUserTaskRepositoryFixture _fixture;
 
-        public VUserProfileRepositoryTests()
+        public vUserTaskRepositoryTest()
         {
-            _fixture = new VUserProfileRepositoryFixture();
+            _fixture = new vUserTaskRepositoryFixture();
         }
 
         [Fact]
@@ -29,7 +29,7 @@ namespace DIMS_Core.Tests.Repositories
             Assert.NotEmpty(result);
             Assert.Single(result);
         }
-        
+
         public void Dispose() => _fixture.Dispose();
     }
 }

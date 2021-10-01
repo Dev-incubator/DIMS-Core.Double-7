@@ -1,10 +1,12 @@
-﻿using AutoMapper;
+using System;
+using AutoMapper;
 using DIMS_Core.BusinessLayer.Interfaces;
 using DIMS_Core.Identity.Interfaces;
+using DIMS_Core.Identity.Services;
 
 namespace DIMS_Core.BusinessLayer.Services
 {
-    public abstract class IdentityService : IService
+    public abstract class IdentityService : IIdentityService
     {
         protected readonly IMapper Mapper;
         protected readonly IIdentityUnitOfWork UnitOfWork;
