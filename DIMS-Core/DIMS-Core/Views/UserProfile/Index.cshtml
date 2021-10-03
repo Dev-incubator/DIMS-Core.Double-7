@@ -16,15 +16,20 @@
                     <th scope="col">Education</th>
                     <th scope="col">Start date</th>
                     <th scope="col">Age</th>
+                    <th scope="col">Action</th>
                 </tr>
             </thead>
             <tbody>
+                <div class="justify-content-between">
+                    <h2>Members</h2>
+                    <a class="btn btn-primary" asp-action="Create" asp-controller="UserProfile">Create</a>
+                </div>
                 @foreach (var user in Model)
                 {
                     <tr>
                         <th scope="row">#</th>
                         <td>
-                            @user.FullName
+                            <a asp-action="Details">@user.FullName</a>
                         </td>
                         <td>
                             @user.Direction
@@ -37,6 +42,12 @@
                         </td>
                         <td>
                             @user.Age
+                        </td>
+                        <td>
+                            <a class="btn btn-primary" asp-action="Index" asp-controller="Task">Tasks</a>
+                            <a class="btn btn-primary" asp-action="Index" asp-controller="Task">Progress</a>
+                            <a class="btn btn-success" asp-action="Edit" asp-controller="UserProfile">Edit</a>
+                            <a class="btn btn-danger" asp-action="Delete" asp-controller="UserProfile">Delete</a>
                         </td>
                     </tr>
                 }

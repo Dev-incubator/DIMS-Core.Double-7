@@ -1,0 +1,34 @@
+﻿@model TaskTrackViewModel
+
+@{
+    ViewData["Title"] = "Task Edit";
+}
+
+<h1>Task Edit</h1>
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="create" asp-antiforgery="true">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @Html.HiddenFor(user => user.TaskTrackId)
+            <div class="form-group">
+                <label asp-for="UserTaskId" class="control-label">Task</label>
+                <input asp-for="UserTaskId" class="form-control" />
+                <span asp-validation-for="UserTaskId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TrackDate" class="control-label">Date</label>
+                <input asp-for="TrackDate" class="form-control" />
+                <span asp-validation-for="TrackDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TrackNote" class="control-label">Note</label>
+                <input asp-for="TrackNote" class="form-control" />
+                <span asp-validation-for="TrackNote" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Add" class="btn btn-primary" />
+                @Html.PartialAsync("_BackToList", new BackToListViewModel { Action = "Index", Controller = "Task" })
+            </div>
+        </form>
+    </div>
+</div>

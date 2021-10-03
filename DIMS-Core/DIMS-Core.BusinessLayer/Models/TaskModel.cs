@@ -17,6 +17,5 @@ namespace DIMS_Core.BusinessLayer.Models
         public DateTime DeadlineDate { get; set; }
 
         public ICollection<TaskModel> UserTasks { get; set; }
-
     }
 }

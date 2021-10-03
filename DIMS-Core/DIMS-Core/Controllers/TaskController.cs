@@ -17,7 +17,8 @@ namespace DIMS_Core.Controllers
         private readonly ITaskService _taskService;
         private readonly IVTaskService _vTaskService;
 
-        public TaskController(IMapper mapper, ILogger<TaskController> logger,
+        public TaskController(IMapper mapper,
+                              ILogger<TaskController> logger,
                               ITaskService taskService,
                               IVTaskService vTaskService) : base(mapper, logger)
         {

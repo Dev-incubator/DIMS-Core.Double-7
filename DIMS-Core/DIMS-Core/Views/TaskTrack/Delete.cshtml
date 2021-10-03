@@ -1,0 +1,16 @@
+﻿@model TaskTrackViewModel
+
+@{
+    ViewData["Title"] = "Task Delete";
+}
+
+<h1>Delete task track</h1>
+<div class="row">
+    <form asp-action="delete" asp-antiforgery="true" method="post">
+        @Html.HiddenFor(user => user.TaskTrackId)
+        <div class="form-group">
+            <input type="submit" value="Delete" class="btn btn-primary" />
+            @Html.PartialAsync("_BackToList", new BackToListViewModel { Action = "Index", Controller = "Task" })
+        </div>
+    </form>
+</div>

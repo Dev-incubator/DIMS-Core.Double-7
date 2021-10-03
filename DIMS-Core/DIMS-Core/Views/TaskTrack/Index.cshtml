@@ -1,4 +1,4 @@
-﻿@model IEnumerable<VTaskViewModel>
+﻿@model IEnumerable<TaskTrackViewModel>
 
 @{
     ViewData["Title"] = "VTasks";
@@ -14,25 +14,23 @@
                     <th scope="col">Task</th>
                     <th scope="col">Note</th>
                     <th scope="col">Date</th>
-                    <th scope="col">Action</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var task in Model)
+                @foreach (var user in Model)
                 {
                     <tr>
-                        <th scope="row">#</th>
                         <td>
-                            @task.Name
+                            @user.TaskTrackId
                         </td>
                         <td>
-                            @task.Description
+                            @user.UserTaskId
                         </td>
                         <td>
-                            @task.StartDate
+                            @user.TrackDate
                         </td>
                         <td>
-                            
+                            @user.TrackNote
                         </td>
                     </tr>
                 }
