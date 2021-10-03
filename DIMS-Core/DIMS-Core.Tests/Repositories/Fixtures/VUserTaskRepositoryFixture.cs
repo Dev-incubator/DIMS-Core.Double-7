@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DIMS_Core.Tests.Repositories.Fixtures
 {
-    public class vUserTaskRepositoryFixture : ViewRepositoryFixture<VUserTaskRepository>
+    public class VUserTaskRepositoryFixture : ViewRepositoryFixture<VUserTaskRepository>
     {
         protected override VUserTaskRepository CreateRepository() => new(Context);
     }

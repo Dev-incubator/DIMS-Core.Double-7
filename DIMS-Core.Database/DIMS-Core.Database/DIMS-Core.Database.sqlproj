@@ -60,7 +60,6 @@
     <Folder Include="Procedures" />
     <Folder Include="Properties" />
     <Folder Include="Tables" />
-    <Folder Include="Views" />
     <Folder Include="Functions" />
   </ItemGroup>
   <ItemGroup>
@@ -82,12 +81,9 @@
     <Build Include="Tables\Tasks.sql" />
     </ItemGroup>
   <ItemGroup>
-    <None Include="SeedData\TaskStatesSeedData.sql" />
-    <None Include="SeedData\UserProfilesSeedData.sql" />
-    <None Include="SeedData\DirectionsSeedData.sql" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="SeedData\TasksSeedData.sql" />
     <Content Include="SeedData\TaskTracksSeedData.sql" />
+    <Content Include="SeedData\UserTasksSeedData.sql" />
+    <Content Include="Views\vUserProgress.sql" />
   </ItemGroup>
 </Project>

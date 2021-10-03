@@ -1,6 +1,6 @@
-using DIMS_Core.Common.Enums;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using DIMS_Core.Common.Enums;
 
 #nullable disable
 

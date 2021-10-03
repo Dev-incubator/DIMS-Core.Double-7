@@ -4,9 +4,15 @@
 	[UserId] [int] NOT NULL,
 	[StateId] [int] NOT NULL,
 FOREIGN KEY([StateId])
-REFERENCES [dbo].[TaskStates] ([StateId]),
+REFERENCES [dbo].[TaskStates] ([StateId])
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
 FOREIGN KEY([TaskId])
-REFERENCES [dbo].[TaskTracks] ([TaskTrackId]),
+REFERENCES [dbo].[TaskTracks] ([TaskTrackId])
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
 FOREIGN KEY([UserId])
 REFERENCES [dbo].[UserProfiles] ([UserId])
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
 )

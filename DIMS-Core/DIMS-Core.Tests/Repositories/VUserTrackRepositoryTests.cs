@@ -1,9 +1,7 @@
-using System;
-using System.Threading.Tasks;
+﻿using System;
 using DIMS_Core.Tests.Repositories.Fixtures;
 using Xunit;
 using System.Linq;
-using DIMS_Core.DataAccessLayer.Repositories;
 
 namespace DIMS_Core.Tests.Repositories
 {
