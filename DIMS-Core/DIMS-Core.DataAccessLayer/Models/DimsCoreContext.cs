@@ -16,7 +16,6 @@ namespace DIMS_Core.DataAccessLayer.Models
             : base(options)
         {
         }
-
         public virtual DbSet<Direction> Directions { get; set; }
         public virtual DbSet<Task> Tasks { get; set; }
         public virtual DbSet<TaskState> TaskStates { get; set; }
@@ -25,22 +24,22 @@ namespace DIMS_Core.DataAccessLayer.Models
         public virtual DbSet<UserTask> UserTasks { get; set; }
         public virtual DbSet<VTask> VTasks { get; set; }
         public virtual DbSet<VUserProfile> VUserProfiles { get; set; }
+        public virtual DbSet<VUserProgress> VUserProgresses { get; set; }
         public virtual DbSet<VUserTask> VUserTasks { get; set; }
         public virtual DbSet<VUserTrack> VUserTracks { get; set; }
-
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
 
             modelBuilder.Entity<Direction>(entity =>
-            {
-                entity.Property(e => e.Description).HasMaxLength(250);
+                                           {
+                                               entity.Property(e => e.Description).HasMaxLength(250);
 
-                entity.Property(e => e.Name)
-                    .IsRequired()
-                    .HasMaxLength(50);
-            });
+                                               entity.Property(e => e.Name)
+                                                     .IsRequired()
+                                                     .HasMaxLength(50);
+                                           });
 
             modelBuilder.Entity<Task>(entity =>
             {
@@ -132,6 +131,12 @@ namespace DIMS_Core.DataAccessLayer.Models
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__UserTasks__UserI__17036CC0");
+
+                entity.HasOne(d => d.UserTaskNavigation)
+                    .WithOne(p => p.UserTask)
+                    .HasForeignKey<UserTask>(d => d.UserTaskId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__UserTasks__UserT__14270015");
             });
 
             modelBuilder.Entity<VTask>(entity =>
@@ -182,6 +187,27 @@ namespace DIMS_Core.DataAccessLayer.Models
                 entity.Property(e => e.Skype).HasMaxLength(50);
 
                 entity.Property(e => e.StartDate).HasColumnType("date");
+            });
+
+            modelBuilder.Entity<VUserProgress>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("vUserProgress");
+
+                entity.Property(e => e.TaskName)
+                    .IsRequired()
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.TrackDate).HasColumnType("datetime");
+
+                entity.Property(e => e.TrackNote)
+                    .IsRequired()
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.UserName)
+                    .IsRequired()
+                    .HasMaxLength(101);
             });
 
             modelBuilder.Entity<VUserTask>(entity =>

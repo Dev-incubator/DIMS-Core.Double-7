@@ -1,5 +1,4 @@
-using DIMS_Core.Common.Enums;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 #nullable disable
@@ -12,7 +11,7 @@ namespace DIMS_Core.DataAccessLayer.Models
         public string FullName { get; set; }
         public string Email { get; set; }
         public string Direction { get; set; }
-        public SexType Sex { get; set; }
+        public byte Sex { get; set; }
         public string Education { get; set; }
         public int? Age { get; set; }
         public double UniversityAverageScore { get; set; }
