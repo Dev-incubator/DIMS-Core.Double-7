@@ -132,12 +132,6 @@ namespace DIMS_Core.DataAccessLayer.Models
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__UserTasks__UserI__17036CC0");
-
-                entity.HasOne(d => d.UserTaskNavigation)
-                    .WithOne(p => p.UserTask)
-                    .HasForeignKey<UserTask>(d => d.UserTaskId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__UserTasks__UserT__14270015");
             });
 
             modelBuilder.Entity<VTask>(entity =>

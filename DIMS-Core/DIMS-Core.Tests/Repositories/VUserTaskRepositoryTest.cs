@@ -1,17 +1,20 @@
-﻿using System;
 using DIMS_Core.Tests.Repositories.Fixtures;
-using Xunit;
+using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Xunit;
 
 namespace DIMS_Core.Tests.Repositories
 {
-    public class VUserTrackRepositoryTests : IDisposable
+    public class VUserTaskRepositoryTest : IDisposable
     {
-        private readonly VUserTrackRepositoryFixture _fixture;
+        private readonly VUserTaskRepositoryFixture _fixture;
 
-        public VUserTrackRepositoryTests()
+        public VUserTaskRepositoryTest()
         {
-            _fixture = new VUserTrackRepositoryFixture();
+            _fixture = new VUserTaskRepositoryFixture();
         }
 
         [Fact]
@@ -26,7 +29,7 @@ namespace DIMS_Core.Tests.Repositories
             Assert.NotEmpty(result);
             Assert.Single(result);
         }
-        
+
         public void Dispose() => _fixture.Dispose();
     }
 }

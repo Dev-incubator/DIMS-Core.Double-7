@@ -3,8 +3,6 @@
 	[TaskId] [int] NOT NULL,
 	[UserId] [int] NOT NULL,
 	[StateId] [int] NOT NULL,
-	FOREIGN KEY([UserTaskId])
-REFERENCES [dbo].[Tasks] ([TaskId]),
 FOREIGN KEY([StateId])
 REFERENCES [dbo].[TaskStates] ([StateId]),
 FOREIGN KEY([TaskId])

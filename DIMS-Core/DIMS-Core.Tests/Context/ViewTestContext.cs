@@ -45,6 +45,15 @@ namespace DIMS_Core.Tests.Context
                                                            
                                                        },
                                                    }.AsQueryable());
+
+                modelBuilder.Entity<VUserTask>()
+                            .ToInMemoryQuery(() => new[]
+                                                   {
+                                                        new VUserTask
+                                                        {
+
+                                                        },
+                                                    }.AsQueryable());
             }
         }
     }

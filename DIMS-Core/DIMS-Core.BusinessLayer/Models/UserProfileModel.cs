@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using DIMS_Core.Common.Enums;
 
 namespace DIMS_Core.BusinessLayer.Models
@@ -38,5 +38,6 @@ namespace DIMS_Core.BusinessLayer.Models
 
         // TODO: Task # 15
         // You have to implement operator != by comparing First and Last names
+
     }
 }
