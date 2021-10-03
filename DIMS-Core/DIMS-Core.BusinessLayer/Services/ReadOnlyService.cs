@@ -21,7 +21,7 @@ namespace DIMS_Core.BusinessLayer.Services
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<TModel>> GetAll()
+        public async Task<List<TModel>> GetAll()
         {
             var entities = _repository.GetAll();
 

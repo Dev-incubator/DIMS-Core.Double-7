@@ -8,6 +8,6 @@ namespace DIMS_Core.BusinessLayer.Interfaces
     public interface IReadOnlyService<TModel> : IDisposable
         where TModel : class
     {
-        Task<IEnumerable<TModel>> GetAll();
+        Task<List<TModel>> GetAll();
     }
 }
