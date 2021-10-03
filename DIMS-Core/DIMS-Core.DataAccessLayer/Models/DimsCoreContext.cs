@@ -1,4 +1,4 @@
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 #nullable disable
 
@@ -14,6 +14,7 @@ namespace DIMS_Core.DataAccessLayer.Models
             : base(options)
         {
         }
+
         public virtual DbSet<Direction> Directions { get; set; }
         public virtual DbSet<Task> Tasks { get; set; }
         public virtual DbSet<TaskState> TaskStates { get; set; }
@@ -26,18 +27,19 @@ namespace DIMS_Core.DataAccessLayer.Models
         public virtual DbSet<VUserTask> VUserTasks { get; set; }
         public virtual DbSet<VUserTrack> VUserTracks { get; set; }
 
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
 
             modelBuilder.Entity<Direction>(entity =>
-                                           {
-                                               entity.Property(e => e.Description).HasMaxLength(250);
+            {
+                entity.Property(e => e.Description).HasMaxLength(250);
 
-                                               entity.Property(e => e.Name)
-                                                     .IsRequired()
-                                                     .HasMaxLength(50);
-                                           });
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(50);
+            });
 
             modelBuilder.Entity<Task>(entity =>
             {
