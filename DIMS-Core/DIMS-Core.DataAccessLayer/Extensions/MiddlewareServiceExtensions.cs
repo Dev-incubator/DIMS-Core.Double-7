@@ -23,7 +23,7 @@ namespace DIMS_Core.DataAccessLayer.Extensions
             services.AddScoped<IReadOnlyRepository<VTask>, VTaskRepository>();
             services.AddScoped<IReadOnlyRepository<VUserTask>, VUserTaskRepository>();
             services.AddScoped<IReadOnlyRepository<VUserTrack>, VUserTrackRepository>();
-            
+
             return services;
         }
 

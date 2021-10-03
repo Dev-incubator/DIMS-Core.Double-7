@@ -1,12 +1,8 @@
 using AutoMapper;
 using DIMS_Core.BusinessLayer.Interfaces;
 using DIMS_Core.DataAccessLayer.Interfaces;
-using DIMS_Core.DataAccessLayer.Repositories;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace DIMS_Core.BusinessLayer.Services
@@ -25,7 +21,7 @@ namespace DIMS_Core.BusinessLayer.Services
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<TModel>> GetAll()
+        public async Task<List<TModel>> GetAll()
         {
             var entities = _repository.GetAll();
 
