@@ -11,10 +11,10 @@
             <thead class="thead-dark">
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Task</th>
-                    <th scope="col">Note</th>
-                    <th scope="col">Date</th>
-                    <th scope="col">Action</th>
+                    <th scope="col">Task name</th>
+                    <th scope="col">Start date</th>
+                    <th scope="col">Deadline Date</th>
+                    <th scope="col">Status</th>
                 </tr>
             </thead>
             <tbody>
@@ -30,6 +30,9 @@
                         </td>
                         <td>
                             @task.StartDate
+                        </td>
+                        <td>
+                            @task.DeadlineDate
                         </td>
                         <td>
                             

@@ -20,9 +20,9 @@
                 </tr>
             </thead>
             <tbody>
-                <div class="justify-content-between">
+                <div class="d-flex justify-content-sm-between">
                     <h2>Members</h2>
-                    <a class="btn btn-primary" asp-action="Create" asp-controller="UserProfile">Create</a>
+                    <a class="btn btn-primary mb-1" asp-action="Create" asp-controller="UserProfile">Create</a>
                 </div>
                 @foreach (var user in Model)
                 {
@@ -45,7 +45,7 @@
                         </td>
                         <td>
                             <a class="btn btn-primary" asp-action="Index" asp-controller="Task">Tasks</a>
-                            <a class="btn btn-primary" asp-action="Index" asp-controller="Task">Progress</a>
+                            <a class="btn btn-primary" asp-action="UserProgress" asp-controller="UserProfile">Progress</a>
                             <a class="btn btn-success" asp-action="Edit" asp-controller="UserProfile">Edit</a>
                             <a class="btn btn-danger" asp-action="Delete" asp-controller="UserProfile">Delete</a>
                         </td>

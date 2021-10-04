@@ -5,12 +5,15 @@
 }
 
 <div class="d-flex justify-content-sm-between">
-    <h2 class="text-center my-4">@{
-                                     if (Context.User.Identity is {IsAuthenticated: true })
-                                     {
-                                         @Context.User.Identity.Name
-                                     }
-                                 } progress</h2>
+    <h2 class="text-center my-4">
+        @{
+            if (Context.User.Identity is {IsAuthenticated: true })
+            {
+                @Context.User.Identity.Name
+            }
+        }
+        progress
+    </h2>
     @Html.PartialAsync("_BackToList", new BackToListViewModel { Action = "Index", Controller = "UserProfile" })
 </div>
 <div class="row">
@@ -29,7 +32,7 @@
                 {
                     <tr>
                         <td>
-                            @userProgress.TaskId
+                            @userProgress.TaskTrackId
                         </td>
                         <td>
                             @userProgress.TaskName

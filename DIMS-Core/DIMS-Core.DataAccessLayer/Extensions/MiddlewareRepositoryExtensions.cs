@@ -8,7 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace DIMS_Core.DataAccessLayer.Extensions
 {
-    public static class MiddlewareServiceExtensions
+    public static class MiddlewareRepositoryExtensions
     {
         public static IServiceCollection AddDatabaseDependencies(this IServiceCollection services)
         {
@@ -20,6 +20,7 @@ namespace DIMS_Core.DataAccessLayer.Extensions
             services.AddScoped<IRepository<TaskTrack>, TaskTrackRepository>();
             services.AddScoped<IRepository<TaskState>, TaskStateRepository>();
             services.AddScoped<IReadOnlyRepository<VUserProfile>, VUserProfileRepository>();
+            services.AddScoped<IReadOnlyRepository<VUserProgress>, VUserProgressRepository>();
             services.AddScoped<IReadOnlyRepository<VTask>, VTaskRepository>();
             services.AddScoped<IReadOnlyRepository<VUserTask>, VUserTaskRepository>();
             services.AddScoped<IReadOnlyRepository<VUserTrack>, VUserTrackRepository>();
