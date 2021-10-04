@@ -5,11 +5,11 @@ using Xunit;
 
 namespace DIMS_Core.Tests.Repositories
 {
-    public class VUserTaskRepositoryTest : IDisposable
+    public class VUserTaskRepositoryTests : IDisposable
     {
         private readonly VUserTaskRepositoryFixture _fixture;
 
-        public VUserTaskRepositoryTest()
+        public VUserTaskRepositoryTests()
         {
             _fixture = new VUserTaskRepositoryFixture();
         }

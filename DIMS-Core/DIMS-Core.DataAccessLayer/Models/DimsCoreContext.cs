@@ -23,6 +23,7 @@ namespace DIMS_Core.DataAccessLayer.Models
         public virtual DbSet<UserTask> UserTasks { get; set; }
         public virtual DbSet<VTask> VTasks { get; set; }
         public virtual DbSet<VUserProfile> VUserProfiles { get; set; }
+        public virtual DbSet<VUserProgress> VUserProgresses { get; set; }
         public virtual DbSet<VUserTask> VUserTasks { get; set; }
         public virtual DbSet<VUserTrack> VUserTracks { get; set; }
 
@@ -181,7 +182,28 @@ namespace DIMS_Core.DataAccessLayer.Models
 
                 entity.Property(e => e.StartDate).HasColumnType("date");
             });
-
+            
+            modelBuilder.Entity<VUserProgress>(entity =>
+                        {
+                            entity.HasNoKey();
+            
+                            entity.ToView("vUserProgress");
+            
+                            entity.Property(e => e.TaskName)
+                                .IsRequired()
+                                .HasMaxLength(50);
+            
+                            entity.Property(e => e.TrackDate).HasColumnType("datetime");
+            
+                            entity.Property(e => e.TrackNote)
+                                .IsRequired()
+                                .HasMaxLength(50);
+            
+                            entity.Property(e => e.UserName)
+                                .IsRequired()
+                                .HasMaxLength(101);
+                        });
+            
             modelBuilder.Entity<VUserTask>(entity =>
             {
                 entity.HasNoKey();

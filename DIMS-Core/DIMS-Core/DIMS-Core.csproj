@@ -46,4 +46,8 @@
     <ProjectReference Include="..\DIMS-Core.BusinessLayer\DIMS-Core.BusinessLayer.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Views\UserProgress" />
+  </ItemGroup>
+
 </Project>
