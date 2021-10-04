@@ -10,7 +10,8 @@ namespace DIMS_Core.BusinessLayer.Services
 {
     internal class UserService : IdentityService, IUserService
     {
-        public UserService(IIdentityUnitOfWork identityUnitOfWork, IMapper mapper) : base(identityUnitOfWork, mapper)
+        public UserService(IIdentityUnitOfWork identityUnitOfWork, IMapper mapper) 
+            : base(identityUnitOfWork, mapper)
         {
         }
 

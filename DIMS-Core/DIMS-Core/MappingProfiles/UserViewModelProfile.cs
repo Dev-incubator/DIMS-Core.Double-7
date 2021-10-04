@@ -8,10 +8,13 @@ namespace DIMS_Core.MappingProfiles
     {
         public UserViewModelProfile()
         {
-            CreateMap<UserProfileModel, UserProfileViewModel>()
+            CreateMap<UserProfileViewModel, UserProfileModel>()
                 .ReverseMap();
-
-            CreateMap<VUserProfileModel, VUserProfileViewModel>()
+            
+            CreateMap<VUserProfileViewModel, VUserProfileModel>()
+                .ReverseMap();
+            
+            CreateMap<VUserProgressViewModel, VUserProgressModel>()
                 .ReverseMap();
         }
     }

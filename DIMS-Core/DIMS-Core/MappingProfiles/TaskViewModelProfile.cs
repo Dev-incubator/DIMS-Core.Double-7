@@ -9,9 +9,10 @@ namespace DIMS_Core.MappingProfiles
     {
         public TaskViewModelProfile()
         {
-            CreateMap<TaskViewModel, TaskModel>()
+            CreateMap<TaskModel, TaskViewModel>()
                 .ReverseMap();
-            CreateMap<VTaskViewModel, VTaskModel>()
+            
+            CreateMap<VTaskModel, VTaskViewModel>()
                 .ReverseMap();
         }
     }

@@ -9,7 +9,7 @@ namespace DIMS_Core.MappingProfiles
     {
         public TaskTrackViewModelProfile()
         {
-            CreateMap<TaskTrackViewModel, TaskTrackModel>()
+            CreateMap<TaskTrackModel, TaskTrackViewModel>()
                 .ReverseMap();
         }
     }
