@@ -10,10 +10,11 @@ using Microsoft.Extensions.Logging;
 
 namespace DIMS_Core.Controllers
 {
+    [Route("tasktracks")]
     public class TaskTrackController : BaseController
     {
         private readonly ITaskTrackService _taskTrackService;
-        public TaskTrackController(IMapper mapper, ILogger logger,
+        public TaskTrackController(IMapper mapper, ILogger<TaskTrackController> logger,
                                    ITaskTrackService taskTrackService) : base(mapper, logger)
         {
             _taskTrackService = taskTrackService;

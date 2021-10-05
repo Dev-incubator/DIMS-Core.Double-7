@@ -13,3 +13,20 @@
         <input type="submit" value="Delete" />
     </form>
 </div>
+
+
+<div class="modal-content">
+    <div class="modal-body text-center">
+        <dl class="dl-horizontal">
+            <h3 class="text-center">Delete task</h3>
+            <h4>Are you sure you want to delete the current task track?</h4>
+            <form asp-action="delete" asp-antiforgery="true" method="post">
+                @Html.HiddenFor(user => user.TaskId)
+                <div class="form-group">
+                    <input type="submit" value="Delete" class="btn btn-danger" />
+                    @await Html.PartialAsync("_BackToList", new BackToListViewModel { Action = "Index", Controller = "Task" })
+                </div>
+            </form>
+        </dl>
+    </div>
+</div>

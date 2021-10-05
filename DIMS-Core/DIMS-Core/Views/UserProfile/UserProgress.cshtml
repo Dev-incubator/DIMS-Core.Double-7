@@ -14,8 +14,11 @@
         }
         progress
     </h2>
-    @Html.PartialAsync("_BackToList", new BackToListViewModel { Action = "Index", Controller = "UserProfile" })
+    <div class="my-4">
+        @await Html.PartialAsync("_BackToList", new BackToListViewModel { Action = "Index", Controller = "UserProfile" })
+    </div>
 </div>
+
 <div class="row">
     <div class="table-responsive">
         <table class="table table-hover">

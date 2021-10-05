@@ -3,14 +3,22 @@
 @{
     ViewBag.Title = $"{Model.Name} details";
 }
-
-<dl>
-    <dt>@Html.DisplayFor(q => q.Name)</dt>
-    <dd>@Model.Name</dd>
-    <dt>@Html.DisplayFor(q => q.Description)</dt>
-    <dd>@Model.Description</dd>
-    <dt>@Html.DisplayFor(q => q.StartDate)</dt>
-    <dd>@Model.StartDate</dd>
-    <dt>@Html.DisplayFor(q => q.DeadlineDate)</dt>
-    <dd>@Model.DeadlineDate</dd>
-</dl>
+<div class="modal-content">
+    <div class="modal-header">
+        <h4>Task details</h4>
+    </div>
+    <div class="modal-body">
+        <dl class="dl-horizontal">
+            <dt>@Html.DisplayFor(q => q.Name)</dt>
+            <dd>@Model.Name</dd>
+            <dt>@Html.DisplayFor(q => q.Description)</dt>
+            <dd>@Model.Description</dd>
+            <dt>@Html.DisplayFor(q => q.StartDate)</dt>
+            <dd>@Model.StartDate</dd>
+            <dt>@Html.DisplayFor(q => q.DeadlineDate)</dt>
+            <dd>@Model.DeadlineDate</dd>
+            <dt>@Html.DisplayFor(q => q.DeadlineDate)</dt>
+            <dd>@Model.</dd>
+        </dl>
+    </div>
+</div>

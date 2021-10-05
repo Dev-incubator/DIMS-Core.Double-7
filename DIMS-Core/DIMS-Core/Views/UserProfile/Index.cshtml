@@ -29,7 +29,7 @@
                     <tr>
                         <th scope="row">#</th>
                         <td>
-                            <a asp-action="Details">@user.FullName</a>
+                            <a asp-action="Details" asp-controller="UserProfile" asp-route-id="@user.UserId">@user.FullName</a>
                         </td>
                         <td>
                             @user.Direction
@@ -44,10 +44,14 @@
                             @user.Age
                         </td>
                         <td>
-                            <a class="btn btn-primary" asp-action="Index" asp-controller="Task">Tasks</a>
-                            <a class="btn btn-primary" asp-action="UserProgress" asp-controller="UserProfile">Progress</a>
-                            <a class="btn btn-success" asp-action="Edit" asp-controller="UserProfile">Edit</a>
-                            <a class="btn btn-danger" asp-action="Delete" asp-controller="UserProfile">Delete</a>
+                            <div class="w-100 mb-1">
+                                <a class="btn btn-primary" style="width: 45%" asp-action="Index" asp-controller="Task">Tasks</a>
+                                <a class="btn btn-primary" style="width: 45%" asp-action="UserProgress" asp-controller="UserProfile">Progress</a>
+                            </div>
+                            <div class="w-100">
+                                <a class="btn btn-warning" style="width: 45%" asp-action="Edit" asp-controller="UserProfile" asp-route-id="@user.UserId">Edit</a>
+                                <a class="btn btn-danger" style="width: 45%" asp-action="Delete" asp-controller="UserProfile" asp-route-id="@user.UserId">Delete</a>
+                            </div>
                         </td>
                     </tr>
                 }
