@@ -17,7 +17,6 @@ namespace DIMS_Core.Models
 
         [Required]
         [JsonPropertyName("Your direction")]
-
         [JsonConverter(typeof(DirectionConverter))]
         public int DirectionId { get; set; }
 
@@ -59,6 +58,8 @@ namespace DIMS_Core.Models
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
+        [Required]
+        [Range(0, 2)]
         public RoleType RoleType { get; set; }
 
         [DataType(DataType.PhoneNumber)]

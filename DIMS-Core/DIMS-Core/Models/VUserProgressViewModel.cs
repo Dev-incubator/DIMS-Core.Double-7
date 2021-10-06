@@ -13,7 +13,7 @@ namespace DIMS_Core.Models
         [Required]
         public int TaskTrackId { get; set; }
         [Required]
-        [StringLength(101, MinimumLength = 5)]
+        [StringLength(50, MinimumLength = 5)]
         public string UserName { get; set; }
         [Required]
         [StringLength(50, MinimumLength = 5)]

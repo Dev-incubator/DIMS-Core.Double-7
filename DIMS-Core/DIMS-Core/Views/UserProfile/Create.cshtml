@@ -4,6 +4,12 @@
     ViewData["Title"] = "UserProfile Create";
 }
 
+
+
+
+    <div class="modal-header">
+        <h4>Create new task track</h4>
+    </div>
 <h1>Create member</h1>
 
 <form asp-action="create" asp-antiforgery="true">
@@ -63,3 +69,6 @@
         @await Html.PartialAsync("_BackToList", new BackToListViewModel { Action = "Index", Controller = "UserProfile" })
     </div>
 </form>
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScripts"); }
+}

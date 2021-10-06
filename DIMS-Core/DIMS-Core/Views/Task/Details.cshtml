@@ -3,22 +3,33 @@
 @{
     ViewBag.Title = $"{Model.Name} details";
 }
+
 <div class="modal-content">
     <div class="modal-header">
         <h4>Task details</h4>
     </div>
     <div class="modal-body">
         <dl class="dl-horizontal">
-            <dt>@Html.DisplayFor(q => q.Name)</dt>
-            <dd>@Model.Name</dd>
-            <dt>@Html.DisplayFor(q => q.Description)</dt>
-            <dd>@Model.Description</dd>
-            <dt>@Html.DisplayFor(q => q.StartDate)</dt>
-            <dd>@Model.StartDate</dd>
-            <dt>@Html.DisplayFor(q => q.DeadlineDate)</dt>
-            <dd>@Model.DeadlineDate</dd>
-            <dt>@Html.DisplayFor(q => q.DeadlineDate)</dt>
-            <dd>@Model.</dd>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" readonly/>
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" readonly/>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StartDate" class="control-label"></label>
+                <input asp-for="StartDate" class="form-control" readonly/>
+                <span asp-validation-for="StartDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DeadlineDate" class="control-label"></label>
+                <input asp-for="DeadlineDate" class="form-control" readonly/>
+                <span asp-validation-for="DeadlineDate" class="text-danger"></span>
+            </div>
         </dl>
     </div>
 </div>

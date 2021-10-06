@@ -10,7 +10,7 @@ using Microsoft.Extensions.Logging;
 
 namespace DIMS_Core.Controllers
 {
-    [Route("tasktracks")]
+    [Route("task-tracks")]
     public class TaskTrackController : BaseController
     {
         private readonly ITaskTrackService _taskTrackService;
@@ -31,7 +31,7 @@ namespace DIMS_Core.Controllers
         [HttpGet("create")]
         public IActionResult Create()
         {
-            return View();
+            return PartialView();
         }
         [HttpPost("create")]
         public IActionResult Create(TaskTrackViewModel taskTrackViewModel)
@@ -50,7 +50,7 @@ namespace DIMS_Core.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            return View(taskTrackViewModel);
+            return PartialView(taskTrackViewModel);
         }
 
         [HttpGet("edit/{id:int}")]
@@ -76,12 +76,12 @@ namespace DIMS_Core.Controllers
 
             var task = await _taskTrackService.Update(taskTrackModel);
 
-            if (task != null)
+            if (task is null)
             {
-                return RedirectToAction(nameof(Index));
+                return View(taskTrackViewModel);
             }
 
-            return View(taskTrackViewModel);
+            return RedirectToAction(nameof(Index));
         }
         
         [HttpGet("delete/{id:int}")]
