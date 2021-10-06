@@ -7,7 +7,7 @@ namespace DIMS_Core.BusinessLayer.Models
     {
         public TaskModel()
         {
-            UserTasks = new HashSet<TaskModel>();
+            UserTasks = new HashSet<UserTaskModel>();
         }
 
         public int TaskId { get; set; }
@@ -16,6 +16,6 @@ namespace DIMS_Core.BusinessLayer.Models
         public DateTime StartDate { get; set; }
         public DateTime DeadlineDate { get; set; }
 
-        public ICollection<TaskModel> UserTasks { get; set; }
+        public ICollection<UserTaskModel> UserTasks { get; set; }
     }
 }

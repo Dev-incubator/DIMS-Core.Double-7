@@ -40,12 +40,12 @@ namespace DIMS_Core.Controllers
             var model = await _taskService.GetById(id);
             var viewModel = Mapper.Map<TaskViewModel>(model);
 
-            return View(viewModel);
+            return PartialView(viewModel);
         }
         [HttpGet("create")]
         public IActionResult Create()
         {
-            return View();
+            return PartialView();
         }
         [HttpPost("create")]
         public IActionResult Create(TaskViewModel taskViewModel)
@@ -74,7 +74,7 @@ namespace DIMS_Core.Controllers
 
             var taskViewModel = Mapper.Map<TaskViewModel>(taskModel);
 
-            return View(taskViewModel);
+            return PartialView(taskViewModel);
         }
 
         [HttpPost("edit/{id:int}")]
@@ -90,18 +90,18 @@ namespace DIMS_Core.Controllers
 
             var task = await _taskService.Update(taskModel);
 
-            if (task != null)
+            if (task is null)
             {
-                return RedirectToAction(nameof(Index));
+                return View(taskViewModel);
             }
 
-            return View(taskViewModel);
+            return RedirectToAction(nameof(Index));
         }
         
         [HttpGet("delete/{id:int}")]
         public IActionResult Delete(int id)
         {
-            return View();
+            return PartialView();
         }
         
         [HttpPost("delete/{id:int}")]

@@ -1,6 +1,6 @@
-﻿using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using DIMS_Core.BusinessLayer.Models;
+using Task = DIMS_Core.DataAccessLayer.Models.Task;
 
 namespace DIMS_Core.BusinessLayer.MappingProfiles
 {

@@ -4,10 +4,14 @@
     ViewData["Title"] = "VTasks";
 }
 
+<div id="modalDialog" class="modal fade" >
+    <div id="dialogContent" class="modal-dialog"></div>
+</div>
+
 <div class="d-flex justify-content-sm-between">
     <h2 class="text-center my-4">Tasks</h2>
     <div class="my-4">
-        <a class="btn btn-primary mb-1" asp-action="Create" asp-controller="Task">Create</a>
+        <a class="btn btn-primary mb-1" asp-action="Create" asp-controller="Task" id="create">Create</a>
     </div>
 </div>
 
@@ -32,7 +36,7 @@
                             @task.TaskId
                         </td>
                         <td>
-                            <a asp-action="Details" asp-controller="Task" asp-route-id="@task.TaskId">@task.Name</a>
+                            <a asp-action="Details" asp-controller="Task" asp-route-id="@task.TaskId" id="details">@task.Name</a>
                         </td>
                         <td>
                             @task.Description
@@ -44,8 +48,8 @@
                             @task.DeadlineDate
                         </td>
                         <td>
-                            <a class="btn btn-warning" style="width: 45%" asp-action="Edit" asp-controller="Task" asp-route-id="@task.TaskId">Edit</a>
-                            <a class="btn btn-danger" style="width: 45%" asp-action="Delete" asp-controller="Task" asp-route-id="@task.TaskId">Delete</a>
+                            <a class="btn btn-warning" style="width: 45%" asp-action="Edit" asp-controller="Task" asp-route-id="@task.TaskId" id="edit">Edit</a>
+                            <a class="btn btn-danger" style="width: 45%" asp-action="Delete" asp-controller="Task" asp-route-id="@task.TaskId" id="delete">Delete</a>
                         </td>
                     </tr>
                 }
@@ -53,3 +57,8 @@
         </table>
     </div>
 </div>
+
+@section Scripts
+{
+    @{ await Html.RenderPartialAsync("_ModalScripts"); }
+}

@@ -4,14 +4,10 @@
     ViewData["Title"] = "Task Edit";
 }
 
-<h1>Task Edit</h1>
-
 <div class="modal-content">
-    <div class="modal-header">
-        <h4>Edit task track</h4>
-    </div>
     <div class="modal-body">
         <dl class="dl-horizontal">
+            <h2 class="text-center">Edit task</h2>
             <form asp-action="create" asp-antiforgery="true">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 @Html.HiddenFor(user => user.TaskId)
@@ -35,11 +31,14 @@
                     <input asp-for="DeadlineDate" class="form-control" />
                     <span asp-validation-for="DeadlineDate" class="text-danger"></span>
                 </div>
-                <div class="form-group">
-                    <input type="submit" value="Add" class="btn btn-primary" />
+                <div class="form-group text-center">
+                    <input type="submit" style="width: 18%" value="Save" class="btn btn-success mr-2" />
                     @await Html.PartialAsync("_BackToList", new BackToListViewModel { Action = "Index", Controller = "Task" })
                 </div>
             </form>
         </dl>
     </div>
 </div>
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScripts"); }
+}

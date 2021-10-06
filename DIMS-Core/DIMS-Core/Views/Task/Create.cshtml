@@ -4,39 +4,41 @@
     ViewData["Title"] = "Task Create";
 }
 
-<h1>Task Create</h1>
-
 <div class="modal-content">
-    <div class="modal-body text-center">
+    <div class="modal-body">
         <dl class="dl-horizontal">
             <form asp-action="create" asp-antiforgery="true">
+                <h2 class="text-center">Create new task</h2>
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
                     <label asp-for="Name" class="control-label"></label>
-                    <input asp-for="Name" class="form-control" />
+                    <input asp-for="Name" class="form-control"/>
                     <span asp-validation-for="Name" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="Description" class="control-label"></label>
-                    <input asp-for="Description" class="form-control" />
+                    <input asp-for="Description" class="form-control"/>
                     <span asp-validation-for="Description" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="StartDate" class="control-label"></label>
-                    <input asp-for="StartDate" class="form-control" />
+                    <label asp-for="StartDate" class="control-label">Start Date</label>
+                    <input asp-for="StartDate" class="form-control"/>
                     <span asp-validation-for="StartDate" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="DeadlineDate" class="control-label"></label>
-                    <input asp-for="DeadlineDate" class="form-control" />
+                    <label asp-for="DeadlineDate" class="control-label">Deadline Date</label>
+                    <input asp-for="DeadlineDate" class="form-control"/>
                     <span asp-validation-for="DeadlineDate" class="text-danger"></span>
                 </div>
-            
-                <div class="form-group">
-                    <input type="submit" value="Save" class="btn btn-primary" />
-                    @await Html.PartialAsync("_BackToList", new BackToListViewModel { Action = "Index", Controller = "Task" })
+                <div class="form-group d-flex justify-content-sm-center">
+                    <input type="submit" value="Save" style="width: 18%" class="btn btn-primary mr-2"/>
+                    @await Html.PartialAsync("_BackToList", new BackToListViewModel{ Action = "Index", Controller = "Task" })
                 </div>
             </form>
         </dl>
     </div>
 </div>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScripts"); }
+}

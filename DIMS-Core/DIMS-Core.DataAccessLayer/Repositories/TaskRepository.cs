@@ -16,7 +16,7 @@ namespace DIMS_Core.DataAccessLayer.Repositories
         {
             _database = GetDb();
         }
-        public Task DeleteTask(int taskId)
+        public override Task Delete(int taskId)
         {
             return _database.ExecuteSqlRawAsync("exec [dbo].[Tasks] @taskId", new SqlParameter("@taskId", taskId));
         }
