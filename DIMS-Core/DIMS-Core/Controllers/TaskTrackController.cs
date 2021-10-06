@@ -60,7 +60,7 @@ namespace DIMS_Core.Controllers
 
             var taskTrackViewModel = Mapper.Map<TaskTrackViewModel>(taskTrackModel);
 
-            return View(taskTrackViewModel);
+            return PartialView(taskTrackViewModel);
         }
 
         [HttpPost("edit/{id:int}")]
@@ -87,7 +87,7 @@ namespace DIMS_Core.Controllers
         [HttpGet("delete/{id:int}")]
         public IActionResult Delete(int id)
         {
-            return View();
+            return PartialView();
         }
         
         [HttpPost("delete/{id:int}")]

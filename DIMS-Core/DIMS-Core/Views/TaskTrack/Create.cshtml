@@ -6,34 +6,40 @@
 
 <div class="modal-content">
     <div class="modal-body">
-        <dl class="dl-horizontal">
+        <dl class="dl-horizontal m-2">
             <h2 class="text-center">Create new task track</h2>
             <form asp-action="create" asp-antiforgery="true">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <div class="form-group">
-                    <label asp-for="UserTaskId" class="control-label">Task</label>
-                    <input asp-for="UserTaskId" class="form-control w-75" />
-                    <span asp-validation-for="UserTaskId" class="text-danger"></span>
+                <div class="form-group row py-1">
+                    <label asp-for="UserTaskId" class="col-sm-4 control-label">Task</label>
+                    <div class="col-sm-8">
+                        <input asp-for="UserTaskId" class="form-control w-75" />
+                        <span asp-validation-for="UserTaskId" class="text-danger"></span>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label asp-for="TrackDate" class="control-label">Date</label>
-                    <input asp-for="TrackDate" class="form-control w-75" />
-                    <span asp-validation-for="TrackDate" class="text-danger"></span>
+                <div class="form-group row py-1">
+                    <label asp-for="TrackDate" class="col-sm-4 control-label">Date</label>
+                    <div class="col-sm-8">
+                        <input asp-for="TrackDate" class="form-control w-75" />
+                        <span asp-validation-for="TrackDate" class="text-danger"></span>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label asp-for="TrackNote" class="control-label">Note</label>
-                    <textarea asp-for="TrackNote" class="form-control w-75"></textarea>
-                    <span asp-validation-for="TrackNote" class="text-danger"></span>
+                <div class="form-group row py-1">
+                    <label asp-for="TrackNote" class="col-sm-4 control-label">Note</label>
+                    <div class="col-sm-8">
+                        <textarea asp-for="TrackNote" class="form-control w-75"></textarea>
+                        <span asp-validation-for="TrackNote" class="text-danger"></span>
+                    </div>
                 </div>
-
-                <div class="form-group justify-content-sm-center">
-                    <input type="submit" value="Save" class="btn btn-primary" />
+                <div class="form-group d-flex justify-content-sm-center">
+                    <input type="submit" value="Save" class="btn btn-primary mr-2" />
                     @await Html.PartialAsync("_BackToList", new BackToListViewModel { Action = "Index", Controller = "TaskTrack" })
                 </div>
             </form>
         </dl>
     </div>
 </div>
+
 @section Scripts {
       @{ await Html.RenderPartialAsync("_ValidationScripts"); }
   }

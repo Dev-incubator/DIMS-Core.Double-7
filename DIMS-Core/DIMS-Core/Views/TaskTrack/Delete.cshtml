@@ -5,14 +5,14 @@
 }
 
 <div class="modal-content">
-    <div class="modal-body text-center">
-        <dl class="dl-horizontal">
-        <h3 class="text-center">Delete task track</h3>
-            <h4>Are you sure you want to delete the current task track?</h4>
+    <div class="modal-body">
+        <dl class="dl-horizontal my-2 text-center">
+            <h2>Delete task track</h2>
+            <h3 style="width:68%; margin:8% auto">Are you sure you want to delete the current task track?</h3>
             <form asp-action="delete" asp-antiforgery="true" method="post">
                 @Html.HiddenFor(user => user.TaskTrackId)
                 <div class="form-group">
-                    <input type="submit" value="Delete" class="btn btn-primary" />
+                    <input type="submit" value="Delete" class="btn btn-danger mr-1" />
                     @await Html.PartialAsync("_BackToList", new BackToListViewModel { Action = "Index", Controller = "Task" })
                 </div>
             </form>
