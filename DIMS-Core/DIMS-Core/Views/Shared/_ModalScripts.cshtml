@@ -8,7 +8,6 @@
                 $('#modalDialog').modal('show');
             });
         });
-        $.ajaxSetup({ cache: false });
         $("#edit").click(function (e) {
             e.preventDefault();
             $.get(this.href, function (data) {
@@ -16,7 +15,6 @@
                $('#modalDialog').modal('show');
             });
         });
-        $.ajaxSetup({ cache: false });
         $("#delete").click(function (e) {
             e.preventDefault();
             $.get(this.href, function (data) {
@@ -24,7 +22,6 @@
                $('#modalDialog').modal('show');
             });
         });
-        $.ajaxSetup({ cache: false });
         $("#details").click(function (e) {
             e.preventDefault();
             $.get(this.href, function (data) {

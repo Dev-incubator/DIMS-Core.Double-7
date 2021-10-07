@@ -36,7 +36,8 @@
                             @task.TaskId
                         </td>
                         <td>
-                            <a asp-action="Details" asp-controller="Task" asp-route-id="@task.TaskId" id="details">@task.Name</a>
+                            @Html.ActionLink(task.Name, "Details", new { id = task.TaskId }, new { @id = "details" })
+                            @*<a asp-action="Details" asp-controller="Task" asp-route-id="@task.TaskId" id="details">@task.Name</a>*@
                         </td>
                         <td>
                             @task.Description
