@@ -114,5 +114,10 @@ namespace DIMS_Core.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+
+        public IActionResult UserProgress()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
