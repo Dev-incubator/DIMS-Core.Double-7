@@ -1,0 +1,47 @@
+﻿@model TaskTrackViewModel
+
+@{
+    ViewData["Title"] = "Task Edit";
+}
+
+<div class="modal-content">
+    <div class="modal-body">
+        <dl class="dl-horizontal">
+            <h4 class="text-center">Edit task track</h4>
+            <form asp-action="create" asp-antiforgery="true">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                @Html.HiddenFor(user => user.TaskTrackId)
+                
+                <div class="form-group row py-2">
+                    <label asp-for="UserTaskId" class="col-sm-4 control-label">Id</label>
+                    <div class="col-sm-8">
+                        <input asp-for="UserTaskId" class="form-control"/>
+                        <span asp-validation-for="UserTaskId" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row py-2">
+                    <label asp-for="TrackDate" class="col-sm-4 control-label">Track date</label>
+                    <div class="col-sm-8">
+                        <input asp-for="TrackDate" class="form-control"/>
+                        <span asp-validation-for="TrackDate" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row py-2">
+                    <label asp-for="TrackNote" class="col-sm-4 control-label">Start date</label>
+                    <div class="col-sm-8">
+                        <input asp-for="TrackNote" class="form-control"/>
+                        <span asp-validation-for="TrackNote" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group d-flex justify-content-sm-center">
+                    <input type="submit" value="Add" class="btn btn-success mr-2" />
+                    @await Html.PartialAsync("_BackToList", new BackToListViewModel { Action = "Index", Controller = "Task" })
+                </div>
+            </form>
+        </dl>
+    </div>
+</div>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScripts"); }
+}

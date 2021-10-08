@@ -3,12 +3,10 @@ using DIMS_Core.DataAccessLayer.Repositories.Base;
 
 namespace DIMS_Core.DataAccessLayer.Repositories
 {
-    public class VUserTaskRepository : ReadOnlyRepository<VUserTask>
+    public class VUserProgressRepository : ReadOnlyRepository<VUserProgress>
     {
-
-        public VUserTaskRepository(DimsCoreContext context) : base(context)
+        public VUserProgressRepository(DimsCoreContext context) : base(context)
         {
-
         }
     }
 }

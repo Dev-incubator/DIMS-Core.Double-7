@@ -59,7 +59,7 @@ namespace DIMS_Core.DataAccessLayer.Repositories.Base
             return entity;
         }
 
-        public async Task Delete(int id)
+        public virtual async Task Delete(int id)
         {
             var deletedEntity = await Set.FindAsync(id);
             

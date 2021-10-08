@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace DIMS_Core.Common.Exceptions
 {

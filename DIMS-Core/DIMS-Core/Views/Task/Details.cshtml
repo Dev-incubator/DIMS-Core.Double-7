@@ -1,0 +1,44 @@
+﻿@model TaskViewModel
+
+@{
+    ViewBag.Title = $"{Model.Name} details";
+}
+
+<div class="modal-content">
+    <div class="modal-body">
+        <dl class="dl-horizontal">
+            <h2 class="text-center mb-4">Task details</h2>
+            <div class="form-group row py-2">
+                <label asp-for="Name" class="col-sm-4 control-label"></label>
+                <div class="col-sm-8">
+                    <input asp-for="Name" class="form-control" readonly/>
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row py-2">
+                <label asp-for="Description" class="col-sm-4 control-label"></label>
+                <div class="col-sm-8">
+                    <input asp-for="Description" class="form-control" readonly/>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row py-2">
+                <label asp-for="StartDate" class="col-sm-4 control-label">Start date</label>
+                <div class="col-sm-8">
+                    <input asp-for="StartDate" class="form-control" readonly/>
+                    <span asp-validation-for="StartDate" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row py-2">
+                <label asp-for="DeadlineDate" class="col-sm-4 control-label">Deadline date</label>
+                <div class="col-sm-8">
+                    <input asp-for="DeadlineDate" class="form-control" readonly/>
+                    <span asp-validation-for="DeadlineDate" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group d-flex justify-content-sm-end mt-2">
+                @await Html.PartialAsync("_BackToList", new BackToListViewModel { Action = "Index", Controller = "Task" })
+            </div>
+        </dl>
+    </div>
+</div>

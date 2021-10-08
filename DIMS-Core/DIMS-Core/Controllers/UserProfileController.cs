@@ -14,14 +14,18 @@ namespace DIMS_Core.Controllers
     {
         private readonly IUserProfileService _userProfileService;
         private readonly IVUserProfileService _vUserProfileService;
+        private readonly IVUserProgressService _vUserProgressService;
 
         public UserProfileController(IMapper mapper,
-                                     IUserProfileService userProfileService,
+                                     ILogger<UserProfileController> logger,
+                                     IUserProfileService userProfileService,    
                                      IVUserProfileService vUserProfileService,
-                                     ILogger<UserProfileController> logger) : base(mapper, logger)
+                                     IVUserProgressService vUserProgressService
+                                     ) : base(mapper, logger)
         {
             _userProfileService = userProfileService;
             _vUserProfileService = vUserProfileService;
+            _vUserProgressService = vUserProgressService;
         }
 
         public async Task<ActionResult> Index()
@@ -114,10 +118,13 @@ namespace DIMS_Core.Controllers
 
             return RedirectToAction(nameof(Index));
         }
-
-        public IActionResult UserProgress()
+        [HttpGet("progress/")]
+        public async Task<ActionResult> UserProgress()
         {
-            throw new System.NotImplementedException();
+            var readOnlyModels = await _vUserProgressService.GetAll();
+            var viewModels = Mapper.Map<IEnumerable<VUserProgressViewModel>>(readOnlyModels);
+
+            return View(viewModels);
         }
     }
 }

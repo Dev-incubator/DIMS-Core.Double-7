@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
 #nullable disable
 
@@ -131,12 +131,6 @@ namespace DIMS_Core.DataAccessLayer.Models
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__UserTasks__UserI__17036CC0");
-
-                entity.HasOne(d => d.UserTaskNavigation)
-                    .WithOne(p => p.UserTask)
-                    .HasForeignKey<UserTask>(d => d.UserTaskId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__UserTasks__UserT__14270015");
             });
 
             modelBuilder.Entity<VTask>(entity =>
@@ -188,28 +182,28 @@ namespace DIMS_Core.DataAccessLayer.Models
 
                 entity.Property(e => e.StartDate).HasColumnType("date");
             });
-
+            
             modelBuilder.Entity<VUserProgress>(entity =>
-            {
-                entity.HasNoKey();
-
-                entity.ToView("vUserProgress");
-
-                entity.Property(e => e.TaskName)
-                    .IsRequired()
-                    .HasMaxLength(50);
-
-                entity.Property(e => e.TrackDate).HasColumnType("datetime");
-
-                entity.Property(e => e.TrackNote)
-                    .IsRequired()
-                    .HasMaxLength(50);
-
-                entity.Property(e => e.UserName)
-                    .IsRequired()
-                    .HasMaxLength(101);
-            });
-
+                        {
+                            entity.HasNoKey();
+            
+                            entity.ToView("vUserProgress");
+            
+                            entity.Property(e => e.TaskName)
+                                .IsRequired()
+                                .HasMaxLength(50);
+            
+                            entity.Property(e => e.TrackDate).HasColumnType("datetime");
+            
+                            entity.Property(e => e.TrackNote)
+                                .IsRequired()
+                                .HasMaxLength(50);
+            
+                            entity.Property(e => e.UserName)
+                                .IsRequired()
+                                .HasMaxLength(101);
+                        });
+            
             modelBuilder.Entity<VUserTask>(entity =>
             {
                 entity.HasNoKey();

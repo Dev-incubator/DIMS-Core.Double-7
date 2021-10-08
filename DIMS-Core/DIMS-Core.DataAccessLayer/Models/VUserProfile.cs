@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using DIMS_Core.Common.Enums;
 
 #nullable disable

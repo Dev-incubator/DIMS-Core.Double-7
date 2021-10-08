@@ -1,0 +1,54 @@
+﻿@model IEnumerable<VUserProgressViewModel>
+
+@{
+    ViewData["Title"] = "UserProgress";
+}
+
+<div class="d-flex justify-content-sm-between">
+    <h2 class="text-center my-4">
+        @{
+            if (Context.User.Identity is {IsAuthenticated: true })
+            {
+                @Context.User.Identity.Name
+            }
+        }
+        progress
+    </h2>
+    <div class="my-4">
+        @await Html.PartialAsync("_BackToList", new BackToListViewModel { Action = "Index", Controller = "UserProfile" })
+    </div>
+</div>
+
+<div class="row">
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Task Name</th>
+                    <th scope="col">Task Note</th>
+                    <th scope="col">Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var userProgress in Model)
+                {
+                    <tr>
+                        <td>
+                            @userProgress.TaskTrackId
+                        </td>
+                        <td>
+                            @userProgress.TaskName
+                        </td>
+                        <td>
+                            @userProgress.TrackNote
+                        </td>
+                        <td>
+                            @userProgress.TrackDate
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

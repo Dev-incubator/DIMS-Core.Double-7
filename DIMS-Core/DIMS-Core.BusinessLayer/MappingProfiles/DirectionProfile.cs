@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using DIMS_Core.BusinessLayer.Models;
-using DirectionEntity = DIMS_Core.DataAccessLayer.Models.Direction;
+using DIMS_Core.DataAccessLayer.Models;
 
 namespace DIMS_Core.BusinessLayer.MappingProfiles
 {
@@ -8,7 +8,7 @@ namespace DIMS_Core.BusinessLayer.MappingProfiles
     {
         public DirectionProfile()
         {
-            CreateMap<DirectionEntity, DirectionModel>()
+            CreateMap<Direction, DirectionModel>()
                 .ReverseMap();
         }
     }

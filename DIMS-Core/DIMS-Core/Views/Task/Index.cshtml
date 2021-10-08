@@ -1,0 +1,65 @@
+﻿@model IEnumerable<VTaskViewModel>
+
+@{
+    ViewData["Title"] = "VTasks";
+}
+
+<div id="modalDialog" class="modal fade" >
+    <div id="dialogContent" class="modal-dialog"></div>
+</div>
+
+<div class="d-flex justify-content-sm-between">
+    <h2 class="text-center my-4">Tasks</h2>
+    <div class="my-4">
+        <a class="btn btn-primary mb-1" asp-action="Create" asp-controller="Task" id="create">Create</a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="table-responsive text-center">
+        <table class="table table-bordered">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Task name</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Start date</th>
+                    <th scope="col">Deadline Date</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var task in Model)
+                {
+                    <tr>
+                        <td>
+                            @task.TaskId
+                        </td>
+                        <td>
+                            @Html.ActionLink(task.Name, "Details", new { id = task.TaskId }, new { @id = "details" })
+                            @*<a asp-action="Details" asp-controller="Task" asp-route-id="@task.TaskId" id="details">@task.Name</a>*@
+                        </td>
+                        <td>
+                            @task.Description
+                        </td>
+                        <td>
+                            @task.StartDate
+                        </td>
+                        <td>
+                            @task.DeadlineDate
+                        </td>
+                        <td>
+                            <a class="btn btn-warning" style="width: 45%" asp-action="Edit" asp-controller="Task" asp-route-id="@task.TaskId" id="edit">Edit</a>
+                            <a class="btn btn-danger" style="width: 45%" asp-action="Delete" asp-controller="Task" asp-route-id="@task.TaskId" id="delete">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts
+{
+    @{ await Html.RenderPartialAsync("_ModalScripts"); }
+}
