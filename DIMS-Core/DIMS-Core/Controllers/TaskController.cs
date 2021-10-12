@@ -48,11 +48,12 @@ namespace DIMS_Core.Controllers
             return PartialView();
         }
         [HttpPost("create")]
+        [ValidateAntiForgeryToken]
         public IActionResult Create(TaskViewModel taskViewModel)
         {
             if (!ModelState.IsValid)
             {
-                return View(taskViewModel);
+                return PartialView(taskViewModel);
             }
 
             var taskModel = Mapper.Map<TaskModel>(taskViewModel);
@@ -83,7 +84,7 @@ namespace DIMS_Core.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View(taskViewModel);
+                return PartialView(taskViewModel);
             }
 
             var taskModel = Mapper.Map<TaskModel>(taskViewModel);
@@ -92,7 +93,7 @@ namespace DIMS_Core.Controllers
 
             if (task is null)
             {
-                return View(taskViewModel);
+                return PartialView(taskViewModel);
             }
 
             return RedirectToAction(nameof(Index));

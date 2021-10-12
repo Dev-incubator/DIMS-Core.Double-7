@@ -13,6 +13,7 @@ namespace DIMS_Core.Controllers
     public class UserProfileController : BaseController
     {
         private readonly IUserProfileService _userProfileService;
+        private readonly ITaskStateService _taskStateService;
         private readonly IVUserProfileService _vUserProfileService;
         private readonly IVUserProgressService _vUserProgressService;
 
@@ -20,12 +21,13 @@ namespace DIMS_Core.Controllers
                                      ILogger<UserProfileController> logger,
                                      IUserProfileService userProfileService,    
                                      IVUserProfileService vUserProfileService,
-                                     IVUserProgressService vUserProgressService
-                                     ) : base(mapper, logger)
+                                     ITaskStateService taskStateService,
+                                     IVUserProgressService userProgressService) : base(mapper, logger)
         {
             _userProfileService = userProfileService;
             _vUserProfileService = vUserProfileService;
-            _vUserProgressService = vUserProgressService;
+            _taskStateService = taskStateService;
+            _vUserProgressService = userProgressService;
         }
 
         public async Task<ActionResult> Index()

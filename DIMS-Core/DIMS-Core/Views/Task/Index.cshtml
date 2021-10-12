@@ -11,7 +11,7 @@
 <div class="d-flex justify-content-sm-between">
     <h2 class="text-center my-4">Tasks</h2>
     <div class="my-4">
-        <a class="btn btn-primary mb-1" asp-action="Create" asp-controller="Task" id="create">Create</a>
+        <a class="btn btn-primary mb-1" asp-action="Create" asp-controller="Task" class="create">Create</a>
     </div>
 </div>
 
@@ -36,8 +36,7 @@
                             @task.TaskId
                         </td>
                         <td>
-                            @Html.ActionLink(task.Name, "Details", new { id = task.TaskId }, new { @id = "details" })
-                            @*<a asp-action="Details" asp-controller="Task" asp-route-id="@task.TaskId" id="details">@task.Name</a>*@
+                            <button asp-action="Details" asp-controller="Task" asp-route-id="@task.TaskId"  class="details">@task.Name</button>
                         </td>
                         <td>
                             @task.Description
@@ -49,8 +48,8 @@
                             @task.DeadlineDate
                         </td>
                         <td>
-                            <a class="btn btn-warning" style="width: 45%" asp-action="Edit" asp-controller="Task" asp-route-id="@task.TaskId" id="edit">Edit</a>
-                            <a class="btn btn-danger" style="width: 45%" asp-action="Delete" asp-controller="Task" asp-route-id="@task.TaskId" id="delete">Delete</a>
+                            <a class="btn btn-warning" style="width: 45%" asp-action="Edit" asp-controller="Task" asp-route-id="@task.TaskId" class="edit">Edit</a>
+                            <a class="btn btn-danger" style="width: 45%" asp-action="Delete" asp-controller="Task" asp-route-id="@task.TaskId" class="delete">Delete</a>
                         </td>
                     </tr>
                 }

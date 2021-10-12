@@ -22,7 +22,7 @@ namespace DIMS_Core.BusinessLayer.Extensions
 
             services.AddScoped<ITaskService, TaskService>();
             services.AddScoped<ITaskTrackService, TaskTrackService>();
-            services.AddScoped<IService<TaskStateModel>, TaskStateService>();
+            services.AddScoped<ITaskStateService, TaskStateService>();
             services.AddScoped<IService<UserTaskModel>, UserTaskService>();
 
             services.AddScoped<IVUserProfileService, VUserProfileService>();

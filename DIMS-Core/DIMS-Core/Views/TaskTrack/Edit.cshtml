@@ -8,7 +8,7 @@
     <div class="modal-body">
         <dl class="dl-horizontal">
             <h4 class="text-center">Edit task track</h4>
-            <form asp-action="create" asp-antiforgery="true">
+            <form asp-action="edit" asp-antiforgery="true">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 @Html.HiddenFor(user => user.TaskTrackId)
                 
