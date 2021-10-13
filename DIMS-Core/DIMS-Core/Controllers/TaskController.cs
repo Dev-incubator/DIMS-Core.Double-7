@@ -33,7 +33,14 @@ namespace DIMS_Core.Controllers
 
             return View(viewModels);
         }
+        
+        public async Task<IActionResult> GetTaskModalForm(int id)
+        {
+            var task = await _taskService.GetById(id);
 
+            return PartialView("_TaskModalForm", task);
+        }
+        
         [HttpGet("details/{id:int}")]
         public async Task<IActionResult> Details(int id)
         {
@@ -65,7 +72,7 @@ namespace DIMS_Core.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            return View(taskViewModel);
+            return PartialView(taskViewModel);
         }
         
         [HttpGet("edit/{id:int}")]

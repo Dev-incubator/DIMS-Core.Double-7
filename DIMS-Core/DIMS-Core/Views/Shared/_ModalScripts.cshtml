@@ -1,33 +1,30 @@
 ﻿<script type="text/javascript">
-    $(function () {
-        $.ajaxSetup({ cache: false });
-        $(".create").click(function (e) {
-            e.preventDefault();
-            $.get(this.href, function (data) {
-                $('#dialogContent').html(data);
-                $('#modalDialog').modal('show');
-            });
+    $(document).ready(() => {
+        $('#task-table').on('click', '.edit-btn', function () {
+            let taskId = $(this).getData('id');
+    
+            $.ajax({
+                url: '{tasks/edit}/{taskId}',
+                success: (html) => {
+                    $('#task-modal').html(html);
+                },
+                error: (msg) => {
+                    console.log(msg);
+                }
+            })
         });
-        $(".edit").click(function (e) {
-            e.preventDefault();
-            $.get(this.href, function (data) {
-               $('#dialogContent').html(data);
-               $('#modalDialog').modal('show');
-            });
+        $('#task-table').on('click', '.edit-btn', function () {
+            let taskId = $(this).getData('id');
+    
+            $.ajax({
+                url: '{tasks/edit}/{taskId}',
+                success: (html) => {
+                    $('#task-modal').html(html);
+                },
+                error: (msg) => {
+                    console.log(msg);
+                }
+            })
         });
-        $(".delete").click(function (e) {
-            e.preventDefault();
-            $.get(this.href, function (data) {
-               $('#dialogContent').html(data);
-               $('#modalDialog').modal('show');
-            });
-        });
-        $(".details").click(function (e) {
-            e.preventDefault();
-            $.get(this.href, function (data) {
-               $('#dialogContent').html(data);
-               $('#modalDialog').modal('show');
-            });
-       });
     })
 </script>
