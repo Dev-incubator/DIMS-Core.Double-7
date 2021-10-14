@@ -1,0 +1,22 @@
+﻿<script type="text/javascript">
+    $(document).ready(() => {
+        $.ajaxSetup({ cache: false });
+        
+        $('#task-table')
+            .on('click', '.btn-details', function () {
+                const taskId = $(this).data("id");
+                const hrefToController = $(this).href;
+            
+                $.ajax({
+                    url: `task-tracks/details/${taskId}`,
+                    type: "GET",
+                    success: (context) => {
+                        $('#task-edit-modal').html(context);
+                    },
+                    error: (msg) => {
+                        console.log(msg);
+                    }
+                });
+            });
+    })
+</script>

@@ -33,7 +33,7 @@ namespace DIMS_Core.Controllers
 
             return View(viewModels);
         }
-        
+        [HttpGet("modal/")]
         public async Task<IActionResult> GetTaskModalForm(int id)
         {
             var task = await _taskService.GetById(id);
