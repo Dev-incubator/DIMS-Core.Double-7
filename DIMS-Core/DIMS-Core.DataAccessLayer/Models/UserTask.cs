@@ -15,6 +15,7 @@ namespace DIMS_Core.DataAccessLayer.Models
         public virtual TaskState State { get; set; }
         public virtual TaskTrack Task { get; set; }
         public virtual UserProfile User { get; set; }
+        
         public virtual Task UserTaskNavigation { get; set; }
     }
 }

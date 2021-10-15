@@ -27,8 +27,9 @@ namespace DIMS_Core.BusinessLayer.Extensions
 
             services.AddScoped<IVUserProfileService, VUserProfileService>();
             services.AddScoped<IVTaskService, VTaskService>();
-            services.AddScoped<IReadOnlyService<VUserTaskModel>, VUserTaskService>();
+            services.AddScoped<IVUserTaskService, VUserTaskService>();
             services.AddScoped<IVUserProgressService, VUserProgressService>();
+            services.AddScoped<IVUserTrackService, VUserTrackService>();
 
             services.AddDatabaseDependencies()
                     .AddIdentityDependencies()

@@ -11,6 +11,8 @@ namespace DIMS_Core.MappingProfiles
         {
             CreateMap<TaskTrackModel, TaskTrackViewModel>()
                 .ReverseMap();
+            CreateMap<VUserTrackModel, VUserTrackViewModel>()
+                .ReverseMap();
         }
     }
 }

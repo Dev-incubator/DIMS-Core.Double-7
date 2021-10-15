@@ -1,4 +1,4 @@
-﻿@model IEnumerable<TaskTrackViewModel>
+﻿@model IEnumerable<VUserTrackViewModel>
 
 @{
     ViewData["Title"] = "VTasks";
@@ -26,24 +26,24 @@
             </tr>
             </thead>
             <tbody>
-            @foreach (var taskTrack in Model)
+            @foreach (var userTrack in Model)
             {
                 <tr>
                     <td>
-                        @taskTrack.TaskTrackId
+                        @userTrack.TaskTrackId
                     </td>
                     <td>
-                        ---
+                        @userTrack.TaskName
                     </td>
                     <td>
-                        @taskTrack.TrackNote
+                        @userTrack.TrackNote
                     </td>
                     <td>
-                        @taskTrack.TrackDate
+                        @userTrack.TrackDate
                     </td>
                     <td>
-                        <button class="btn btn-warning btn-edit" style="width: 45%" data-id="@taskTrack.TaskTrackId">Edit</button>
-                        <button class="btn btn-danger btn-delete" style="width: 45%" data-id="@taskTrack.TaskTrackId">Delete</button>
+                        <button class="btn btn-warning btn-edit" style="width: 45%" data-id="@userTrack.TaskTrackId">Edit</button>
+                        <button class="btn btn-danger btn-delete" style="width: 45%" data-id="@userTrack.TaskTrackId">Delete</button>
                     </td>
                 </tr>
             }

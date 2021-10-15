@@ -15,15 +15,20 @@ namespace DIMS_Core.Controllers
     {
         
         private readonly ITaskService _taskService;
+        private readonly IUserTaskService _userTaskService;
         private readonly IVTaskService _vTaskService;
-
+        private readonly IVUserTaskService _vUserTaskService;
         public TaskController(IMapper mapper,
                               ILogger<TaskController> logger,
                               ITaskService taskService,
-                              IVTaskService vTaskService) : base(mapper, logger)
+                              IVTaskService vTaskService,
+                              IUserTaskService userTaskService,
+                              IVUserTaskService vUserTaskService) : base(mapper, logger)
         {
             _taskService = taskService;
             _vTaskService = vTaskService;
+            _userTaskService = userTaskService;
+            _vUserTaskService = vUserTaskService;
         }
 
         public async Task<IActionResult> Index()
@@ -37,8 +42,8 @@ namespace DIMS_Core.Controllers
         [HttpGet("details/{id:int}")]
         public async Task<IActionResult> Details(int id)
         {
-            var model = await _taskService.GetById(id);
-            var viewModel = Mapper.Map<TaskViewModel>(model);
+            var model = await _userTaskService.GetById(id);
+            var viewModel = Mapper.Map<UserTaskViewModel>(model);
 
             return PartialView(viewModel);
         }
@@ -49,47 +54,48 @@ namespace DIMS_Core.Controllers
         }
         [HttpPost("create")]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(TaskViewModel taskViewModel)
+        public IActionResult Create(UserTaskViewModel userTaskViewModel)
         {
+            
             if (!ModelState.IsValid)
             {
-                return PartialView(taskViewModel);
+                return PartialView(userTaskViewModel);
             }
 
-            var taskModel = Mapper.Map<TaskModel>(taskViewModel);
+            var taskModel = Mapper.Map<UserTaskModel>(userTaskViewModel);
 
-            var task = _taskService.Create(taskModel);
+            var task = _userTaskService.Create(taskModel);
             
             if (task != null)
             {
                 return RedirectToAction(nameof(Index));
             }
 
-            return PartialView(taskViewModel);
+            return PartialView(userTaskViewModel);
         }
         
         [HttpGet("edit/{id:int}")]
         public async Task<IActionResult> Edit(int id)
         {
-            var taskModel = await _taskService.GetById(id);
+            var userTaskModel = await _userTaskService.GetById(id);
 
-            var taskViewModel = Mapper.Map<TaskViewModel>(taskModel);
+            var userTaskViewModel = Mapper.Map<UserTaskViewModel>(userTaskModel);
 
-            return PartialView(taskViewModel);
+            return PartialView(userTaskViewModel);
         }
 
         [HttpPost("edit/{id:int}")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(TaskViewModel taskViewModel)
+        public async Task<IActionResult> Edit(UserTaskViewModel taskViewModel)
         {
             if (!ModelState.IsValid)
             {
                 return PartialView(taskViewModel);
             }
 
-            var taskModel = Mapper.Map<TaskModel>(taskViewModel);
+            var taskModel = Mapper.Map<UserTaskModel>(taskViewModel);
 
-            var task = await _taskService.Update(taskModel);
+            var task = await _userTaskService.Update(taskModel);
 
             if (task is null)
             {
@@ -108,7 +114,7 @@ namespace DIMS_Core.Controllers
         [HttpPost("delete/{id:int}")]
         public async Task<IActionResult> DeleteTask(int id)
         {
-            await _taskService.Delete(id);
+            await _userTaskService.Delete(id);
 
             return RedirectToAction(nameof(Index));
         }

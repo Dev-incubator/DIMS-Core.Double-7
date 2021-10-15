@@ -6,7 +6,7 @@ using DIMS_Core.DataAccessLayer.Models;
 
 namespace DIMS_Core.BusinessLayer.Services
 {
-    public class VUserTaskService : ReadOnlyService<VUserTaskModel, VUserTask, IReadOnlyRepository<VUserTask>>
+    public class VUserTaskService : ReadOnlyService<VUserTaskModel, VUserTask, IReadOnlyRepository<VUserTask>>, IVUserTaskService
     {
         public VUserTaskService(IReadOnlyRepository<VUserTask> repository, IMapper mapper)
             : base(repository, mapper)

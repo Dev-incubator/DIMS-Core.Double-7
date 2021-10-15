@@ -14,16 +14,19 @@ namespace DIMS_Core.Controllers
     public class TaskTrackController : BaseController
     {
         private readonly ITaskTrackService _taskTrackService;
+        private readonly IVUserTrackService _vUserTrackService;
         public TaskTrackController(IMapper mapper, ILogger<TaskTrackController> logger,
-                                   ITaskTrackService taskTrackService) : base(mapper, logger)
+                                   ITaskTrackService taskTrackService,
+                                   IVUserTrackService vUserTrackService) : base(mapper, logger)
         {
             _taskTrackService = taskTrackService;
+            _vUserTrackService = vUserTrackService;
         }
         
         public async Task<IActionResult> Index()
         {
-            var models = await _taskTrackService.GetAll();
-            var viewModels = Mapper.Map<IEnumerable<TaskTrackViewModel>>(models);
+            var models = await _vUserTrackService.GetAll();
+            var viewModels = Mapper.Map<IEnumerable<VUserTrackViewModel>>(models);
 
             return View(viewModels);
         }
@@ -38,7 +41,7 @@ namespace DIMS_Core.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View(taskTrackViewModel);
+                return PartialView(taskTrackViewModel);
             }
 
             var taskTrackModel = Mapper.Map<TaskTrackModel>(taskTrackViewModel);
@@ -69,7 +72,7 @@ namespace DIMS_Core.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View(taskTrackViewModel);
+                return PartialView(taskTrackViewModel);
             }
 
             var taskTrackModel = Mapper.Map<TaskTrackModel>(taskTrackViewModel);
@@ -78,7 +81,7 @@ namespace DIMS_Core.Controllers
 
             if (task is null)
             {
-                return View(taskTrackViewModel);
+                return PartialView(taskTrackViewModel);
             }
 
             return RedirectToAction(nameof(Index));
