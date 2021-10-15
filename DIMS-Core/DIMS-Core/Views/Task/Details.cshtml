@@ -4,9 +4,9 @@
     ViewBag.Title = $"{Model.Name} details";
 }
 
-<div class="modal-content">
-    <div class="modal-body">
-        <dl class="dl-horizontal">
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-body">
             <h2 class="text-center mb-4">Task details</h2>
             <div class="form-group row py-2">
                 <label asp-for="Name" class="col-sm-4 control-label"></label>
@@ -39,6 +39,6 @@
             <div class="form-group d-flex justify-content-sm-end mt-2">
                 @await Html.PartialAsync("_BackToList", new BackToListViewModel { Action = "Index", Controller = "Task" })
             </div>
-        </dl>
+        </div>
     </div>
 </div>

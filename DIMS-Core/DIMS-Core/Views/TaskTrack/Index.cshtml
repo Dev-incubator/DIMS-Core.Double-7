@@ -4,52 +4,49 @@
     ViewData["Title"] = "VTasks";
 }
 
-<div id="modalDialog" class="modal fade" >
-    <div id="dialogContent" class="modal-dialog"></div>
+<div class="modal fade" id="task-track-modal">
 </div>
 
-<div class="d-flex justify-content-sm-between">
-    <h2 class="text-center my-4">Task tracks</h2>
-    <div class="my-4">
-        <a class="btn btn-primary mb-1" asp-action="Create" asp-controller="TaskTrack" id="create">Create</a>
-    </div>
-</div>
 <div class="row">
-    <div class="table-responsive text-center">
+    <div class="table-responsive text-center" id="task-track-table">
         <table class="table table-bordered">
+            <div class="d-flex justify-content-sm-between">
+                <h2 class="text-center my-4">Task tracks</h2>
+                <div class="my-4 mr-1">
+                    <button type="button" class="btn btn-primary btn-create">Create</button>
+                </div>
+            </div>
             <thead class="thead-dark">
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Task</th>
-                    <th scope="col">Note</th>
-                    <th scope="col">Date</th>
-                    <th scope="col">Action</th>
-                </tr>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Task</th>
+                <th scope="col">Note</th>
+                <th scope="col">Date</th>
+                <th scope="col">Action</th>
+            </tr>
             </thead>
             <tbody>
-                @foreach (var taskTrack in Model)
-                {
-                    <tr>
-                        <td>
-                            @taskTrack.TaskTrackId
-                        </td>
-                        <td>
-                            ---
-                        </td>
-                        <td>
-                            @taskTrack.TrackNote
-                        </td>
-                        <td>
-                            @taskTrack.TrackDate
-                        </td>
-                        <td>
-                            <a class="btn btn-warning" style="width: 45%" asp-action="Edit"
-                               asp-controller="TaskTrack" asp-route-id="@taskTrack.TaskTrackId" id="edit">Edit</a>
-                            <a class="btn btn-danger" style="width: 45%" asp-action="Delete"
-                               asp-controller="TaskTrack" asp-route-id="@taskTrack.TaskTrackId" id="delete">Delete</a>
-                        </td>
-                    </tr>
-                }
+            @foreach (var taskTrack in Model)
+            {
+                <tr>
+                    <td>
+                        @taskTrack.TaskTrackId
+                    </td>
+                    <td>
+                        ---
+                    </td>
+                    <td>
+                        @taskTrack.TrackNote
+                    </td>
+                    <td>
+                        @taskTrack.TrackDate
+                    </td>
+                    <td>
+                        <button class="btn btn-warning btn-edit" style="width: 45%" data-id="@taskTrack.TaskTrackId">Edit</button>
+                        <button class="btn btn-danger btn-delete" style="width: 45%" data-id="@taskTrack.TaskTrackId">Delete</button>
+                    </td>
+                </tr>
+            }
             </tbody>
         </table>
     </div>
@@ -57,5 +54,5 @@
 
 @section Scripts
 {
-    @{ await Html.RenderPartialAsync("_ModalScripts"); }
+    @{ await Html.RenderPartialAsync("ModalScripts/_TaskTrackScripts"); }
 }

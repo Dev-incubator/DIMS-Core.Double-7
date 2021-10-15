@@ -4,18 +4,20 @@
     ViewData["Title"] = "Task Delete";
 }
 
-<div class="modal-content">
-    <div class="modal-body text-center">
-        <dl class="dl-horizontal">
-            <h2 class="text-center">Delete task</h2>
-            <h3 style="width:68%; margin:8% auto">Are you sure you want to delete the current task?</h3>
-            <form asp-action="delete" asp-antiforgery="true" method="post">
-                @Html.HiddenFor(user => user.TaskId)
-                <div class="form-group">
-                    <input type="submit" value="Delete" class="btn btn-danger mr-1" />
-                    @await Html.PartialAsync("_BackToList", new BackToListViewModel { Action = "Index", Controller = "Task" })
-                </div>
-            </form>
-        </dl>
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-body text-center">
+            <dl class="dl-horizontal">
+                <h2 class="text-center">Delete task</h2>
+                <h3 style="width:68%; margin:8% auto">Are you sure you want to delete the current task?</h3>
+                <form asp-action="delete" asp-antiforgery="true" method="post">
+                    @Html.HiddenFor(user => user.TaskId)
+                    <div class="form-group">
+                        <input type="submit" value="Delete" class="btn btn-danger mr-1" />
+                        @await Html.PartialAsync("_BackToList", new BackToListViewModel { Action = "Index", Controller = "Task" })
+                    </div>
+                </form>
+            </dl>
+        </div>
     </div>
 </div>

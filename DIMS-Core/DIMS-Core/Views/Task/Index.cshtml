@@ -4,60 +4,54 @@
     ViewData["Title"] = "VTasks";
 }
 
-<div class="modal modal-dialog" id="task-edit-modal">
+<div class="modal fade" id="task-modal">
 </div>
 
-<div class="modal modal-dialog" id="task-delete-modal">
-</div>
-
-<div class="d-flex justify-content-sm-between">
-    <h2 class="text-center my-4">Tasks</h2>
-    <div class="my-4">
-        <button type="button" class="btn btn-primary mb-1" asp-action="Create" asp-controller="Task">Create</button>
+<div class="table-responsive text-center" id="task-table">
+    <div class="d-flex justify-content-sm-between">
+        <h2 class="text-center my-4">Tasks</h2>
+        <div class="my-4 mr-1">
+            <button type="button" class="btn btn-primary btn-create">Create</button>
+        </div>
     </div>
-</div>
-
-<div class="row">
-    <div class="table-responsive text-center">
-        <table class="table table-bordered" id="task-table">
-            <thead class="thead-light">
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Task name</th>
-                    <th scope="col">Description</th>
-                    <th scope="col">Start date</th>
-                    <th scope="col">Deadline Date</th>
-                    <th scope="col">Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var task in Model)
-                {
-                    <tr>
-                        <td>
-                            @task.TaskId
-                        </td>
-                        <td>
-                            <button class="a btn-details" data-id="@task.TaskId">@task.Name</button>
-                        </td>
-                        <td>
-                            @task.Description
-                        </td>
-                        <td>
-                            @task.StartDate
-                        </td>
-                        <td>
-                            @task.DeadlineDate
-                        </td>
-                        <td>
-                            <button class="btn btn-warning btn-edit" style="width: 45%" asp-action="Edit" asp-controller="Task" asp-route-id="@task.TaskId">Edit</button>
-                            <button class="btn btn-danger btn-delete" style="width: 45%" asp-action="Delete" asp-controller="Task" asp-route-id="@task.TaskId">Delete</button>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
+    <table class="table table-bordered">
+        <thead class="thead-light">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Task name</th>
+            <th scope="col">Description</th>
+            <th scope="col">Start date</th>
+            <th scope="col">Deadline Date</th>
+            <th scope="col">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var task in Model)
+        {
+            <tr>
+                <td>
+                    @task.TaskId
+                </td>
+                <td>
+                    <a class="btn-details" data-id="@task.TaskId" href="#!">@task.Name</a>
+                </td>
+                <td>
+                    @task.Description
+                </td>
+                <td>
+                    @task.StartDate
+                </td>
+                <td>
+                    @task.DeadlineDate
+                </td>
+                <td>
+                    <button class="btn btn-warning btn-edit" style="width: 45%" data-id="@task.TaskId">Edit</button>
+                    <button class="btn btn-danger btn-delete" style="width: 45%" data-id="@task.TaskId">Delete</button>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
 </div>
 
 @section Scripts

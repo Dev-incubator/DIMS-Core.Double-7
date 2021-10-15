@@ -1,22 +1,55 @@
 ﻿<script type="text/javascript">
     $(document).ready(() => {
+        const controllerName = "task-tracks";
+        
         $.ajaxSetup({ cache: false });
         
-        $('#task-table')
-            .on('click', '.btn-details', function () {
-                const taskId = $(this).data("id");
-                const hrefToController = $(this).href;
-            
+        $('#task-track-table')
+            .on('click', '.btn-create', function () {
+                const action = "create";
                 $.ajax({
-                    url: `task-tracks/details/${taskId}`,
+                    url: `${controllerName}/${action}/`,
                     type: "GET",
                     success: (context) => {
-                        $('#task-edit-modal').html(context);
+                        $('#task-track-modal').html(context)
+                            .modal('show');
                     },
                     error: (msg) => {
                         console.log(msg);
                     }
                 });
+            })
+            .on('click', '.btn-edit', function () {
+                let taskId = $(this).data('id');
+                const action = "edit";
+        
+                $.ajax({
+                    url: `${controllerName}/${action}/${taskId}`,
+                    type: "GET",
+                    success: (context) => {
+                        $('#task-track-modal').html(context)
+                            .modal('show');
+                    },
+                    error: (msg) => {
+                        console.log(msg);
+                    }
+                });
+            })
+            .on('click', '.btn-delete', function () {
+                 let taskId = $(this).data('id');
+                 const action = "delete";
+         
+                 $.ajax({
+                     url: `${controllerName}/${action}/${taskId}`,
+                     type: "GET",
+                     success: (context) => {
+                     $('#task-track-modal').html(context)
+                         .modal('show');
+                     },
+                     error: (msg) => {
+                         console.log(msg);
+                     }
+                 });
             });
     })
 </script>

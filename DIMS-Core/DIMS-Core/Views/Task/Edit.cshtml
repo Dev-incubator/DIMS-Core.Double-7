@@ -3,9 +3,9 @@
 @{
     ViewData["Title"] = "Task Edit";
 }
-<div class="modal-content">
-    <div class="modal-body">
-        <dl class="dl-horizontal">
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-body">
             <h2 class="text-center">Edit task</h2>
             <form asp-action="edit" asp-antiforgery="true">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -45,9 +45,10 @@
                     @await Html.PartialAsync("_BackToList", new BackToListViewModel { Action = "Index", Controller = "Task" })
                 </div>
             </form>
-        </dl>
-    </div>
+        </div>
+    </div>    
 </div>
+
 @section Scripts {
     @{ await Html.RenderPartialAsync("_ValidationScripts"); }
 }

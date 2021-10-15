@@ -7,12 +7,26 @@
         $('#task-table')
             .on('click', '.btn-details', function () {
                 const taskId = $(this).data("id");
-            
+                const action = "details";
                 $.ajax({
-                    url: `${controllerName}/details/${taskId}`,
+                    url: `${controllerName}/${action}/${taskId}`,
                     type: "GET",
                     success: (context) => {
-                        $('#task-edit-modal').html(context)
+                        $('#task-modal').html(context)
+                            .modal('show');
+                    },
+                    error: (msg) => {
+                        console.log(msg);
+                    }
+                });
+            })
+            .on('click', '.btn-create', function () {
+                const action = "create";
+                $.ajax({
+                    url: `${controllerName}/${action}/`,
+                    type: "GET",
+                    success: (context) => {
+                        $('#task-modal').html(context)
                             .modal('show');
                     },
                     error: (msg) => {
@@ -22,16 +36,35 @@
             })
             .on('click', '.btn-edit', function () {
                 let taskId = $(this).data('id');
+                const action = "edit";
         
                 $.ajax({
-                    url: '{tasks/edit}/{taskId}',
-                    success: (html) => {
-                        $('#task-edit-modal').html(html);
+                    url: `${controllerName}/${action}/${taskId}`,
+                    type: "GET",
+                    success: (context) => {
+                        $('#task-modal').html(context)
+                            .modal('show');
                     },
                     error: (msg) => {
                         console.log(msg);
                     }
                 });
+            })
+            .on('click', '.btn-delete', function () {
+                 let taskId = $(this).data('id');
+                 const action = "delete";
+         
+                 $.ajax({
+                     url: `${controllerName}/${action}/${taskId}`,
+                     type: "GET",
+                     success: (context) => {
+                     $('#task-modal').html(context)
+                         .modal('show');
+                     },
+                     error: (msg) => {
+                         console.log(msg);
+                     }
+                 });
             });
     })
 </script>
