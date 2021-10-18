@@ -5,11 +5,6 @@ namespace DIMS_Core.BusinessLayer.Models
 {
     public class TaskModel
     {
-        public TaskModel()
-        {
-            UserTasks = new HashSet<UserTaskModel>();
-        }
-
         public int TaskId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }

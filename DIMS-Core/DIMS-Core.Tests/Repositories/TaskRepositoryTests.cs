@@ -120,28 +120,7 @@ namespace DIMS_Core.Tests.Repositories
             // Arrange Act, Assert
             Assert.Throws<ObjectNotFoundException>(() => _fixture.Repository.Update(null));
         }
-
-        [Fact]
-        public async Task Delete_OK()
-        {
-            // Act
-            await _fixture.Repository.Delete(_fixture.TaskId);
-            await _fixture.Context.SaveChangesAsync();
-
-            // Assert
-            var deletedEntity = await _fixture.Context.Tasks.FindAsync(_fixture.TaskId);
-            Assert.Null(deletedEntity);
-        }
         
-        [Fact]
-        public async Task Delete_EmptyId_Fail()
-        {
-            // Arrange
-            const int id = 0;
-
-            // Act, Assert
-            await Assert.ThrowsAsync<ObjectNotFoundException>(() => _fixture.Repository.Delete(id));
-        }
         public void Dispose() => _fixture.Dispose();
     }
 }

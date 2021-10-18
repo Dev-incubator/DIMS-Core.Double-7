@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using DIMS_Core.Common.Enums;
 using DIMS_Core.Common.Exceptions;
 
@@ -13,7 +14,7 @@ namespace DIMS_Core.BusinessLayer.Models
         public string LastName { get; set; }
 
         public int DirectionId { get; set; }
-
+        
         public string Education { get; set; }
 
         public string Address { get; set; }
@@ -33,6 +34,10 @@ namespace DIMS_Core.BusinessLayer.Models
         public string Email { get; set; }
 
         public string MobilePhone { get; set; }
+        
+        public virtual DirectionModel Direction { get; set; }
+        
+        public virtual ICollection<UserTaskModel> UserTasks { get; set; }
 
         public static bool operator ==(UserProfileModel left, UserProfileModel right)
         {

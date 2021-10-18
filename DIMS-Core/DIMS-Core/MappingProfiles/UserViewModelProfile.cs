@@ -8,13 +8,8 @@ namespace DIMS_Core.MappingProfiles
     {
         public UserViewModelProfile()
         {
-            CreateMap<UserProfileViewModel, UserProfileModel>()
-                .ReverseMap();
-            
-            CreateMap<VUserProfileViewModel, VUserProfileModel>()
-                .ReverseMap();
-            
-            CreateMap<VUserProgressViewModel, VUserProgressModel>()
+            CreateMap<UserProfileModel, UserProfileViewModel>()
+                .ForMember(q => q.FullName, w => w.MapFrom(q => $"{q.FirstName} {q.LastName}"))
                 .ReverseMap();
         }
     }

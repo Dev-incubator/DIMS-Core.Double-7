@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using DIMS_Core.Common.Enums;
 
 #nullable disable
 
@@ -22,7 +23,7 @@ namespace DIMS_Core.DataAccessLayer.Models
         public DateTime? StartDate { get; set; }
         public double UniversityAverageScore { get; set; }
         public double MathScore { get; set; }
-        public byte Sex { get; set; }
+        public SexType Sex { get; set; }
         public string Skype { get; set; }
         public string Email { get; set; }
         public string MobilePhone { get; set; }
