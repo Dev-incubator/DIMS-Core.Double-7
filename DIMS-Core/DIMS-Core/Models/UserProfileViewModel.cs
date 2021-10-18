@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 using DIMS_Core.BusinessLayer.Converters;
+using DIMS_Core.BusinessLayer.Models;
 using DIMS_Core.Common.Enums;
+using DIMS_Core.Common.Exceptions;
 
 namespace DIMS_Core.Models
 {
@@ -66,5 +68,18 @@ namespace DIMS_Core.Models
         [DataType(DataType.PhoneNumber)]
         [JsonPropertyName("Mobile")]
         public string MobilePhone { get; set; }
+        
+        public virtual DirectionViewModel Direction { get; set; }
+        
+        public virtual ICollection<UserTaskViewModel> UserTasks { get; set; }
+        public static bool operator ==(UserProfileViewModel left, UserProfileViewModel right)
+        {
+            return left.FullName == right.FullName;
+        }
+
+        public static bool operator !=(UserProfileViewModel left, UserProfileViewModel right)
+        {
+            return left.FullName != right.FullName;
+        }
     }
 }

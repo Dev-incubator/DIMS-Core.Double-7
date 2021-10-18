@@ -15,20 +15,16 @@ namespace DIMS_Core.BusinessLayer.Models
 
         public static bool operator ==(DirectionModel firstModel, DirectionModel secondModel)
         {
-            ModelException.IsNotNull(firstModel, typeof(DirectionModel).FullName);
-            
-            ModelException.IsNotNull(secondModel, typeof(DirectionModel).FullName);
-
-            return firstModel.Name == secondModel.Name;
+            return secondModel is not null && 
+                   firstModel is not null &&
+                   firstModel.Name == secondModel.Name;
         }
         
         public static bool operator !=(DirectionModel firstModel, DirectionModel secondModel)
         {
-            ModelException.IsNotNull(firstModel, typeof(DirectionModel).FullName);
-            
-            ModelException.IsNotNull(secondModel, typeof(DirectionModel).FullName);
-
-            return firstModel.Name != secondModel.Name;
+            return secondModel is not null && 
+                   firstModel is not null &&
+                   firstModel.Name != secondModel.Name;
         }
     }
 }

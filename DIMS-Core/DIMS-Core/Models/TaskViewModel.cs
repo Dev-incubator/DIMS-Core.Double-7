@@ -1,7 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
-using DIMS_Core.DataAccessLayer.Models;
 
 namespace DIMS_Core.Models
 {
@@ -20,5 +20,8 @@ namespace DIMS_Core.Models
         [DataType(DataType.Date)]
         [JsonPropertyName("Deadline date")]
         public DateTime DeadlineDate { get; set; }
+        
+        [Required]
+        public virtual ICollection<UserTaskViewModel> UserTasks { get; set; }
     }
 }

@@ -41,20 +41,16 @@ namespace DIMS_Core.BusinessLayer.Models
 
         public static bool operator ==(UserProfileModel left, UserProfileModel right)
         {
-            ModelException.IsNotNull(left, typeof(UserProfileModel).FullName);
-            
-            ModelException.IsNotNull(right, typeof(UserProfileModel).FullName);
-            
-            return left.FirstName == right.FirstName && left.LastName == right.LastName;
+            return right is not null &&
+                   left is not null &&
+                   left.FirstName == right.FirstName && left.LastName == right.LastName;
         }
 
         public static bool operator !=(UserProfileModel left, UserProfileModel right)
         {
-            ModelException.IsNotNull(left, typeof(UserProfileModel).FullName);
-            
-            ModelException.IsNotNull(right, typeof(UserProfileModel).FullName);
-            
-            return left.FirstName != right.FirstName && left.LastName != right.LastName;
+            return right is not null &&
+                   left is not null &&
+                   left.FirstName != right.FirstName && left.LastName != right.LastName;
         }
     }
 }

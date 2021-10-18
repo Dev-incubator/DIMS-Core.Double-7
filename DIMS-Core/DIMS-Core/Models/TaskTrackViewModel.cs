@@ -8,13 +8,9 @@ namespace DIMS_Core.Models
 {
     public class TaskTrackViewModel
     {
-        public TaskTrackViewModel()
-        {
-            UserTasks = new HashSet<UserTask>();
-        }
         
         public int TaskTrackId { get; set; }
-        [Required]
+        
         public int UserTaskId { get; set; }
         
         [Required]
@@ -25,7 +21,8 @@ namespace DIMS_Core.Models
         [Required]
         [MinLength(5)]
         public string TrackNote { get; set; }
-
-        public virtual ICollection<UserTask> UserTasks { get; set; }
+        
+        [Required]
+        public virtual UserTaskViewModel UserTask { get; set; }
     }
 }
