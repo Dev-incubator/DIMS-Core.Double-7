@@ -1,4 +1,8 @@
-﻿using DIMS_Core.DataAccessLayer.Models;
+﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
+using DIMS_Core.Common.Exceptions;
+using DIMS_Core.DataAccessLayer.Models;
 using DIMS_Core.DataAccessLayer.Repositories.Base;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
@@ -16,9 +20,63 @@ namespace DIMS_Core.DataAccessLayer.Repositories
         {
             _database = GetDb();
         }
-        public override Task Delete(int taskId)
+        public override async Task<ModelTask> GetById(int id)
         {
-            return _database.ExecuteSqlRawAsync("exec [dbo].[Tasks] @taskId", new SqlParameter("@taskId", taskId));
+            RepositoryException.IsIdValid(id);
+            
+            var foundEntity = (await Set.Include(el => el.UserTasks)
+                                            .ThenInclude(ut => ut.Task)
+                                        .Include(ut => ut.UserTasks)
+                                            .ThenInclude(ut => ut.User)
+                                        .Include(ut => ut.UserTasks)
+                                            .ThenInclude(ut => ut.State)
+                                        .ToListAsync())
+                .FirstOrDefault(el => el.TaskId == id);
+
+            RepositoryException.IsEntityExists(foundEntity, typeof(ModelTask).FullName);
+
+            return foundEntity;
+        }
+        public override async Task<ModelTask> Create(ModelTask entity)
+        {
+            var createEntity = (await Set.Include(el => el.UserTasks)
+                                            .ThenInclude(ut => ut.Task)
+                                        .Include(ut => ut.UserTasks)
+                                            .ThenInclude(ut => ut.User)
+                                        .Include(ut => ut.UserTasks)
+                                            .ThenInclude(ut => ut.State)
+                                        .ToListAsync())
+                .FirstOrDefault(el => el.Equals(entity));
+            
+            var addedEntity = await Set.AddAsync(createEntity);
+            
+            return addedEntity.Entity;
+        }
+
+        public override ModelTask Update(ModelTask entity)
+        {
+            var updateEntity = Set.Include(el => el.UserTasks)
+                                    .ThenInclude(ut => ut.Task)
+                                  .Include(ut => ut.UserTasks)
+                                     .ThenInclude(ut => ut.User)
+                                  .Include(ut => ut.UserTasks)
+                                     .ThenInclude(ut => ut.State)
+                                  .FirstOrDefault(el => el.Equals(entity));
+            
+            RepositoryException.IsEntityExists(updateEntity, typeof(ModelTask).FullName);
+            
+            Set.Attach(updateEntity).State = EntityState.Modified;
+            
+            return updateEntity;
+        }
+
+        public override async Task Delete(int taskId)
+        {
+            var deletedEntity = await Set.FindAsync(taskId);
+            
+            RepositoryException.IsEntityExists(deletedEntity, typeof(ModelTask).FullName);
+            
+            await _database.ExecuteSqlRawAsync("DeleteTask @taskId", new SqlParameter("@taskId", taskId));
         }
     }
 }

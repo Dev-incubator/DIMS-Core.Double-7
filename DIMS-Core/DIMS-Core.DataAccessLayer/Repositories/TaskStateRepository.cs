@@ -9,7 +9,7 @@ namespace DIMS_Core.DataAccessLayer.Repositories
 {
     public class TaskStateRepository : Repository<TaskState>
     {
-        private DatabaseFacade _database;
+        private readonly DatabaseFacade _database;
         public TaskStateRepository(DimsCoreContext context) : base(context) 
         {
             _database = GetDb(); 

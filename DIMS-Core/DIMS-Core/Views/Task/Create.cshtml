@@ -1,4 +1,4 @@
-﻿@model UserTaskViewModel
+﻿@model TaskViewModel
 
 @{
     ViewData["Title"] = "Task Create";
@@ -8,42 +8,50 @@
 <div class="modal-dialog">
     <div class="modal-content">
         <div class="modal-body">
+            <h2 class="text-center">Create new task</h2>
             <form asp-action="create" asp-antiforgery="true">
-                <h2 class="text-center">Create new task</h2>
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group row py-2">
-                    <label asp-for="Task.Name" class="col-sm-4 control-label"></label>
+                    <label asp-for="Name" class="col-sm-4 control-label"></label>
                     <div class="col-sm-8">
-                        <input asp-for="Task.Name" class="form-control"/>
-                        <span asp-validation-for="Task.Name" class="text-danger"></span>
+                        <input asp-for="Name" class="form-control"/>
+                        <span asp-validation-for="Name" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="form-group row py-2">
-                    <label asp-for="Task.Description" class="col-sm-4 control-label"></label>
+                    <label asp-for="Description" class="col-sm-4 control-label"></label>
                     <div class="col-sm-8">
-                        <input asp-for="Task.Description" class="form-control"/>
-                        <span asp-validation-for="Task.Description" class="text-danger"></span>
+                        <input asp-for="Description" class="form-control"/>
+                        <span asp-validation-for="Description" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="form-group row py-2">
-                    <label asp-for="Task.StartDate" class="col-sm-4 control-label">Start date</label>
+                    <label asp-for="StartDate" class="col-sm-4 control-label">Start date</label>
                     <div class="col-sm-8">
-                        <input asp-for="Task.StartDate" class="form-control"/>
-                        <span asp-validation-for="Task.StartDate" class="text-danger"></span>
+                        <input asp-for="StartDate" class="form-control"/>
+                        <span asp-validation-for="StartDate" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="form-group row py-2">
-                    <label asp-for="Task.DeadlineDate" class="col-sm-4 control-label">Deadline date</label>
+                    <label asp-for="DeadlineDate" class="col-sm-4 control-label">Deadline date</label>
                     <div class="col-sm-8">
-                        <input asp-for="Task.DeadlineDate" class="form-control"/>
-                        <span asp-validation-for="Task.DeadlineDate" class="text-danger"></span>
+                        <input asp-for="DeadlineDate" class="form-control"/>
+                        <span asp-validation-for="DeadlineDate" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="form-group row py-2">
-                    <label asp-for="User.FullName" class="col-sm-4 control-label">Users</label>
+                    <label class="col-sm-4 control-label">Users</label>
                     <div class="col-sm-8">
-                        <input asp-for="Task.DeadlineDate" class="form-control"/>
-                        <span asp-validation-for="Task.DeadlineDate" class="text-danger"></span>
+                        <div style="border-radius: 5px; border: 1px solid #808080;">
+                            @foreach (var userTask in @ViewBag.UserTasks)
+                            {
+                                <div class="form-check ml-2 my-1">
+                                    <input type="checkbox" class="form-check-input"/>
+                                    <label class="form-check-label">@userTask.User.FullName</label>
+                                    <span asp-validation-for="@userTask.User.FullName" class="text-danger"></span>
+                                </div>
+                            }
+                        </div>
                     </div>
                 </div>
                 <div class="form-group d-flex justify-content-sm-center">

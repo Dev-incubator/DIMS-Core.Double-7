@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using AutoMapper;
 using DIMS_Core.BusinessLayer.Interfaces;
 using DIMS_Core.BusinessLayer.Models;
-using DIMS_Core.DataAccessLayer.Models;
 using DIMS_Core.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -15,20 +14,17 @@ namespace DIMS_Core.Controllers
     {
         
         private readonly ITaskService _taskService;
-        private readonly IUserTaskService _userTaskService;
         private readonly IVTaskService _vTaskService;
-        private readonly IVUserTaskService _vUserTaskService;
+        private readonly IUserTaskService _userTaskService;
         public TaskController(IMapper mapper,
                               ILogger<TaskController> logger,
                               ITaskService taskService,
                               IVTaskService vTaskService,
-                              IUserTaskService userTaskService,
-                              IVUserTaskService vUserTaskService) : base(mapper, logger)
+                              IUserTaskService userTaskService) : base(mapper, logger)
         {
             _taskService = taskService;
             _vTaskService = vTaskService;
             _userTaskService = userTaskService;
-            _vUserTaskService = vUserTaskService;
         }
 
         public async Task<IActionResult> Index()
@@ -42,60 +38,62 @@ namespace DIMS_Core.Controllers
         [HttpGet("details/{id:int}")]
         public async Task<IActionResult> Details(int id)
         {
-            var model = await _userTaskService.GetById(id);
-            var viewModel = Mapper.Map<UserTaskViewModel>(model);
+            var model = await _taskService.GetById(id);
+            
+            var viewModel = Mapper.Map<TaskViewModel>(model);
 
             return PartialView(viewModel);
         }
         [HttpGet("create")]
         public IActionResult Create()
         {
+            ViewBag.UserTasks = _userTaskService.GetAll();
             return PartialView();
         }
         [HttpPost("create")]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(UserTaskViewModel userTaskViewModel)
+        public IActionResult Create(TaskViewModel taskViewModel)
         {
             
             if (!ModelState.IsValid)
             {
-                return PartialView(userTaskViewModel);
+                return PartialView(taskViewModel);
             }
 
-            var taskModel = Mapper.Map<UserTaskModel>(userTaskViewModel);
+            var taskModel = Mapper.Map<TaskModel>(taskViewModel);
 
-            var task = _userTaskService.Create(taskModel);
+            var task = _taskService.Create(taskModel);
             
             if (task != null)
             {
                 return RedirectToAction(nameof(Index));
             }
 
-            return PartialView(userTaskViewModel);
+            return PartialView(taskViewModel);
         }
         
         [HttpGet("edit/{id:int}")]
         public async Task<IActionResult> Edit(int id)
         {
-            var userTaskModel = await _userTaskService.GetById(id);
+            var taskModel = await _taskService.GetById(id);
 
-            var userTaskViewModel = Mapper.Map<UserTaskViewModel>(userTaskModel);
+            var taskViewModel = Mapper.Map<TaskViewModel>(taskModel);
 
-            return PartialView(userTaskViewModel);
+            return PartialView(taskViewModel);
         }
 
         [HttpPost("edit/{id:int}")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(UserTaskViewModel taskViewModel)
+        public async Task<IActionResult> Edit(TaskViewModel taskViewModel)
         {
             if (!ModelState.IsValid)
             {
                 return PartialView(taskViewModel);
             }
 
-            var taskModel = Mapper.Map<UserTaskModel>(taskViewModel);
+            var taskModel = Mapper.Map<TaskModel>(taskViewModel);
 
-            var task = await _userTaskService.Update(taskModel);
+            var task = await _taskService.Update(taskModel);
 
             if (task is null)
             {
@@ -114,7 +112,7 @@ namespace DIMS_Core.Controllers
         [HttpPost("delete/{id:int}")]
         public async Task<IActionResult> DeleteTask(int id)
         {
-            await _userTaskService.Delete(id);
+            await _taskService.Delete(id);
 
             return RedirectToAction(nameof(Index));
         }
