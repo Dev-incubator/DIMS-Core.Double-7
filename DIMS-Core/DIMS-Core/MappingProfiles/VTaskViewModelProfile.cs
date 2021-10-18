@@ -4,11 +4,11 @@ using DIMS_Core.Models;
 
 namespace DIMS_Core.MappingProfiles
 {
-    public class TaskViewModelProfile : Profile
+    public class VTaskViewModelProfile : Profile
     {
-        public TaskViewModelProfile()
+        public VTaskViewModelProfile()
         {
-            CreateMap<TaskModel, TaskViewModel>()
+            CreateMap<VTaskModel, VTaskViewModel>()
                 .ReverseMap();
         }
     }

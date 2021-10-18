@@ -4,11 +4,11 @@ using DIMS_Core.Models;
 
 namespace DIMS_Core.MappingProfiles
 {
-    public class TaskViewModelProfile : Profile
+    public class VUserProgressProfile : Profile
     {
-        public TaskViewModelProfile()
+        public VUserProgressProfile()
         {
-            CreateMap<TaskModel, TaskViewModel>()
+            CreateMap<VUserProgressViewModel, VUserProgressModel>()
                 .ReverseMap();
         }
     }
