@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using DIMS_Core.BusinessLayer.Interfaces;
@@ -45,16 +46,16 @@ namespace DIMS_Core.Controllers
             return PartialView(viewModel);
         }
         [HttpGet("create")]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            ViewBag.UserTasks = _userTaskService.GetAll();
+            var userTasks = await _userTaskService.GetAll();
+            ViewBag.UserTasks = Mapper.Map<List<UserTaskViewModel>>(userTasks);
             return PartialView();
         }
         [HttpPost("create")]
         [ValidateAntiForgeryToken]
         public IActionResult Create(TaskViewModel taskViewModel)
         {
-            
             if (!ModelState.IsValid)
             {
                 return PartialView(taskViewModel);
@@ -75,6 +76,9 @@ namespace DIMS_Core.Controllers
         [HttpGet("edit/{id:int}")]
         public async Task<IActionResult> Edit(int id)
         {
+            var userTasks = await _userTaskService.GetAll();
+            ViewBag.UserTasks = Mapper.Map<List<UserTaskViewModel>>(userTasks);
+
             var taskModel = await _taskService.GetById(id);
 
             var taskViewModel = Mapper.Map<TaskViewModel>(taskModel);
