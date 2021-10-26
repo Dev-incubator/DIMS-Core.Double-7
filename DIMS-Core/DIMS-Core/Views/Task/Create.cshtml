@@ -4,7 +4,6 @@
     ViewData["Title"] = "Task Create";
 }
 
-
 <div class="modal-dialog">
     <div class="modal-content">
         <div class="modal-body">
@@ -41,21 +40,28 @@
                 </div>
                 <div class="form-group row py-2">
                     <label class="col-sm-4 control-label">Users</label>
-                    <div class="col-sm-8">
+                    <div class="col-sm-8 user-checkbox">
                         <div style="border-radius: 5px; border: 1px solid #808080;">
-                            @foreach (var userTask in @ViewBag.UserTasks)
+                            @*@foreach (var user in ((List<UserProfileViewModel>) @ViewBag.Users))
                             {
                                 <div class="form-check ml-2 my-1">
                                     <input type="checkbox" class="form-check-input"/>
-                                    <label class="form-check-label">@userTask.User.FullName</label>
+                                    <label class="form-check-label">@user.FullName</label>
                                 </div>
-                            }
+                            }*@
+                            
+                            @Html.DropDownListFor(m => m.UserIds,
+                                                  ViewBag.Users as SelectList,
+                                                  new { multiple = "multiple", @class = "form-control chosen-select" })
                         </div>
                     </div>
                 </div>
                 <div class="form-group d-flex justify-content-sm-center">
                     <input type="submit" value="Save" style="width: 18%" class="btn btn-primary mr-2"/>
-                    @await Html.PartialAsync("_BackToList", new BackToListViewModel{ Action = "Index", Controller = "Task" })
+                    @await Html.PartialAsync("_BackToList", new BackToListViewModel
+                                                            {
+                                                                Action = "Index", Controller = "Task"
+                                                            })
                 </div>
             </form>
         </div>

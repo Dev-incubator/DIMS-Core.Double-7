@@ -10,10 +10,10 @@ using Xunit;
 
 namespace DIMS_Core.Tests.Repositories
 {
-    public class TaskTrakRepositoryTests : IDisposable
+    public class TaskTrackRepositoryTests : IDisposable
     {
         private readonly TaskTrackRepositoryFixture _fixture;
-        public TaskTrakRepositoryTests()
+        public TaskTrackRepositoryTests()
         {
             _fixture = new TaskTrackRepositoryFixture();
         }

@@ -43,13 +43,9 @@
                         <label class="col-sm-4 control-label">Users</label>
                         <div class="col-sm-8">
                             <div style="border-radius: 5px; border: 1px solid #808080;">
-                                @foreach (var userTask in @ViewBag.UserTasks)
-                                {
-                                    <div class="form-check ml-2 my-1">
-                                        <input type="checkbox" class="form-check-input"/>
-                                        <label class="form-check-label">@userTask.User.FullName</label>
-                                    </div>
-                                }
+                                @Html.DropDownListFor(m => m.UserIds,
+                                                      ViewBag.Users as SelectList,
+                                                      new { multiple = "multiple", @class = "form-control chosen-select" })
                             </div>
                         </div>
                     </div>
@@ -63,5 +59,6 @@
 </div>
 
 @section Scripts {
+    @{ await Html.RenderPartialAsync("_ChosenSelect"); }
     @{ await Html.RenderPartialAsync("_ValidationScripts"); }
 }

@@ -9,6 +9,7 @@ namespace DIMS_Core.Models
     {
         public int TaskId { get; set; }
         [Required]
+        [StringLength(50, MinimumLength = 5)]
         public string Name { get; set; }
         [Required]
         public string Description { get; set; }
@@ -21,7 +22,7 @@ namespace DIMS_Core.Models
         [JsonPropertyName("Deadline date")]
         public DateTime DeadlineDate { get; set; }
         
-        [Required]
+        public ICollection<int> UserIds { get; set; }
         public virtual ICollection<UserTaskViewModel> UserTasks { get; set; }
     }
 }

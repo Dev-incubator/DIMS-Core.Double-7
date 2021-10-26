@@ -37,7 +37,7 @@ namespace DIMS_Core.Controllers
             return PartialView();
         }
         [HttpPost("create")]
-        public IActionResult Create(TaskTrackViewModel taskTrackViewModel)
+        public async Task<IActionResult> Create(TaskTrackViewModel taskTrackViewModel)
         {
             if (!ModelState.IsValid)
             {
@@ -46,7 +46,7 @@ namespace DIMS_Core.Controllers
 
             var taskTrackModel = Mapper.Map<TaskTrackModel>(taskTrackViewModel);
 
-            var task = _taskTrackService.Create(taskTrackModel);
+            var task = await _taskTrackService.Create(taskTrackModel);
             
             if (task != null)
             {
@@ -79,12 +79,12 @@ namespace DIMS_Core.Controllers
 
             var task = await _taskTrackService.Update(taskTrackModel);
 
-            if (task is null)
+            if (task != null)
             {
-                return PartialView(taskTrackViewModel);
+                return RedirectToAction(nameof(Index));
             }
 
-            return RedirectToAction(nameof(Index));
+            return PartialView(taskTrackViewModel);
         }
         
         [HttpGet("delete/{id:int}")]

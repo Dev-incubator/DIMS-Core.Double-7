@@ -19,10 +19,9 @@ namespace DIMS_Core.Models
         public DateTime TrackDate { get; set; }
         
         [Required]
-        [MinLength(5)]
+        [StringLength(50, MinimumLength = 5)]
         public string TrackNote { get; set; }
         
-        [Required]
         public virtual UserTaskViewModel UserTask { get; set; }
     }
 }

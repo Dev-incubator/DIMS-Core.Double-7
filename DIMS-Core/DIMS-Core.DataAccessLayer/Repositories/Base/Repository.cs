@@ -47,8 +47,9 @@ namespace DIMS_Core.DataAccessLayer.Repositories.Base
 
         public virtual async Task<TEntity> Create(TEntity entity)
         {
-            var addedEntity = await Set.AddAsync(entity);
-            return addedEntity.Entity;
+            var addedEntity = (await Set.AddAsync(entity)).Entity;
+            
+            return addedEntity;
         }
 
         public virtual TEntity Update(TEntity entity)

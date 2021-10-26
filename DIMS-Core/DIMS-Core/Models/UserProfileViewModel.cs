@@ -74,12 +74,12 @@ namespace DIMS_Core.Models
         public virtual ICollection<UserTaskViewModel> UserTasks { get; set; }
         public static bool operator ==(UserProfileViewModel left, UserProfileViewModel right)
         {
-            return left.FullName == right.FullName;
+            return right is not null && left is not null && left.FullName == right.FullName;
         }
 
         public static bool operator !=(UserProfileViewModel left, UserProfileViewModel right)
         {
-            return left.FullName != right.FullName;
+            return left is not null && right is not null && left.FullName != right.FullName;
         }
     }
 }
