@@ -36,16 +36,15 @@ namespace DIMS_Core.BusinessLayer.Services
         
         public override async Task<TaskModel> Create(TaskModel model)
         {
-            var stateIds = Enumerable.Repeat(_stateRepository
-                                             .GetAll()
-                                             .First(s => s.StateName == _stateTypeDictionary[StateType.Active])
-                                             .StateId, 
-                                             model.UserTasks.Count);
+            var stateId = _stateRepository.GetAll()
+                                          .Where(q => q.StateName == _stateTypeDictionary[StateType.Active])
+                                          .Select(q => q.StateId)
+                                          .SingleOrDefault();
             
             model.UserTasks = model.UserTasks
-                                   .Select((ut, i) => 
+                                   .Select((ut, _) => 
                                            { 
-                                               ut.StateId = stateIds.ElementAt(i); 
+                                               ut.StateId = stateId;
                                                return ut; 
                                            }).ToArray();
             
@@ -55,21 +54,35 @@ namespace DIMS_Core.BusinessLayer.Services
         }
         public override async Task<TaskModel> Update(TaskModel model)
         {
-            var stateIds = Enumerable.Repeat(_stateRepository
-                                             .GetAll()
-                                             .First(s => s.StateName == _stateTypeDictionary[StateType.Active])
-                                             .StateId, 
-                                             model.UserTasks.Count);
-            
+            var stateId = _stateRepository.GetAll()
+                                           .Where(q => q.StateName == _stateTypeDictionary[StateType.Active])
+                                           .Select(q => q.StateId)
+                                           .SingleOrDefault();
+            // TODO task part
+            // take model.UserTasks repo.getById
+            // merge my userTasks from DB with Frontend
+            // using operation Except
+            // 1. two variables 
+            // existing - first variable array userIds
+            // newUserTasks - second variable array userIds
+            // 2. created - newUserTasks.Except(existing)
+            // 3. will not updating - newUserTasks.Intersect(existing)
+            // 4. 2 foreach
+            // -created-
+            // init empty list
+            // take taskId, UserId, StateId
+            // -updating-
+            // entity.UserTasks.Where(UserId == ut.UserId).Single() Map TO UserTaskModel
+            // add to modelUserTasks
+
             model.UserTasks = model.UserTasks
-                                   .Select((ut, i) => 
+                                   .Select((ut, _) => 
                                            { 
-                                               ut.StateId = stateIds.ElementAt(i); 
+                                               ut.StateId = stateId;
                                                return ut; 
                                            }).ToArray();
             
             
-            //  model.UserTasks
             return await base.Update(model);
         }
     }

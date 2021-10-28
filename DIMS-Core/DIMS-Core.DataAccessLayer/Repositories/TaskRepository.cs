@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Linq.Dynamic.Core;
 using System.Threading.Tasks;
 using DIMS_Core.Common.Exceptions;
 using DIMS_Core.DataAccessLayer.Models;
@@ -32,19 +33,6 @@ namespace DIMS_Core.DataAccessLayer.Repositories
             RepositoryException.IsEntityExists(foundEntity, typeof(TaskEntity).FullName);
 
             return foundEntity;
-        }
-
-        public override TaskEntity Update(TaskEntity entity)
-        {
-            RepositoryException.IsEntityExists(entity, typeof(TaskEntity).FullName);
-            
-            var updateEntity = Set.Include(task => task.UserTasks)
-                                        .ThenInclude(ut => ut.User)
-                                        .Where(e => e == entity);
-            
-            Set.Attach(entity).State = EntityState.Modified;
-            
-            return entity;
         }
 
         public override async Task Delete(int taskId)

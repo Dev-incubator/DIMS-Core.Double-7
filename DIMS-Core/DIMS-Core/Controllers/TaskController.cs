@@ -73,7 +73,7 @@ namespace DIMS_Core.Controllers
             
             var task = await _taskService.Create(taskModel);
             
-            if (task is null)
+            if (task == null)
             {
                 return PartialView(taskViewModel);
             }
@@ -90,8 +90,14 @@ namespace DIMS_Core.Controllers
             {
                 var taskViewModel = Mapper.Map<TaskViewModel>(taskModel);
 
+                taskViewModel.UserIds = taskViewModel.UserTasks
+                                                     .Select(ut => ut.UserId)
+                                                     .Distinct()
+                                                     .ToArray();
+                
                 await SetUsersToViewBag(taskViewModel.UserIds);
-
+                
+                
                 return PartialView(taskViewModel);
             }
 
@@ -111,12 +117,12 @@ namespace DIMS_Core.Controllers
             
             foreach (var userId in taskViewModel.UserIds)
             {
-                taskModel.UserTasks.Add(new UserTaskModel { UserId = userId } );
+                taskModel.UserTasks.Add(new UserTaskModel { UserId = userId, TaskId = taskModel.TaskId } );
             }
             
             var task = await _taskService.Update(taskModel);
 
-            if (task is null)
+            if (task == null)
             {
                 return PartialView(taskViewModel);
             }
