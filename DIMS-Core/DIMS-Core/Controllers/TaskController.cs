@@ -19,19 +19,16 @@ namespace DIMS_Core.Controllers
         private readonly ITaskService _taskService;
         private readonly IVTaskService _vTaskService;
         private readonly IUserProfileService _userProfileService;
-        private readonly  IUserTaskService _userTaskService;
 
         public TaskController(IMapper mapper,
                               ILogger<TaskController> logger,
                               ITaskService taskService,
                               IVTaskService vTaskService,
-                              IUserProfileService userProfileService,
-                              IUserTaskService userTaskService) : base(mapper, logger)
+                              IUserProfileService userProfileService) : base(mapper, logger)
         {
             _taskService = taskService;
             _vTaskService = vTaskService;
             _userProfileService = userProfileService;
-            _userTaskService = userTaskService;
         }
 
         public async Task<IActionResult> Index()
@@ -54,7 +51,7 @@ namespace DIMS_Core.Controllers
         [HttpGet("create")]
         public async Task<IActionResult> Create()
         {
-            await SetUsersToCreate();
+            await SetUsersToViewBag();
 
             return PartialView();
         }
@@ -66,26 +63,22 @@ namespace DIMS_Core.Controllers
             {
                 return PartialView(taskViewModel);
             }
-
             
             var taskModel = Mapper.Map<TaskModel>(taskViewModel);
-            // added userTasks to taskModel
-            var userTasks = (await _userTaskService.GetAll())
-                .Where(u => taskViewModel.UserIds.Any(id => id == u.UserId));
 
-            foreach (var userTask in userTasks)
+            foreach (var userId in taskViewModel.UserIds)
             {
-                taskModel.UserTasks.Add(userTask);   
+                taskModel.UserTasks.Add(new UserTaskModel { UserId = userId } );
             }
-            // !added userTasks to taskModel
+            
             var task = await _taskService.Create(taskModel);
             
-            if (task != null)
+            if (task is null)
             {
-                return RedirectToAction(nameof(Index));
+                return PartialView(taskViewModel);
             }
 
-            return PartialView(taskViewModel);
+            return RedirectToAction(nameof(Index));
         }
         
         [HttpGet("edit/{id:int}")]
@@ -95,9 +88,9 @@ namespace DIMS_Core.Controllers
             
             if (taskModel != null)
             {
-                SetUsersToUpdate(taskModel);
-                
                 var taskViewModel = Mapper.Map<TaskViewModel>(taskModel);
+
+                await SetUsersToViewBag(taskViewModel.UserIds);
 
                 return PartialView(taskViewModel);
             }
@@ -115,14 +108,20 @@ namespace DIMS_Core.Controllers
             }
 
             var taskModel = Mapper.Map<TaskModel>(taskViewModel);
-
+            
+            foreach (var userId in taskViewModel.UserIds)
+            {
+                taskModel.UserTasks.Add(new UserTaskModel { UserId = userId } );
+            }
+            
             var task = await _taskService.Update(taskModel);
 
-            if (task != null)
+            if (task is null)
             {
-                return RedirectToAction(nameof(Index));
+                return PartialView(taskViewModel);
             }
-            return PartialView(taskViewModel);
+            
+            return RedirectToAction(nameof(Index));
         }
         
         [HttpGet("delete/{id:int}")]
@@ -138,30 +137,20 @@ namespace DIMS_Core.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+
         [NonAction]
-        private async Task SetUsersToCreate()
-        {
-            var userProfileModels = Mapper.Map<List<UserProfileViewModel>>(await _userProfileService.GetAll());
-            var users = new SelectList(userProfileModels, "UserId", "FullName");
-            ViewBag.Users = users;
-        }
+        private Task<List<UserProfileModel>> GetUsers() => _userProfileService.GetAll();
+        
         [NonAction]
-        private void SetUsersToUpdate(TaskModel taskModel)
+        private async Task SetUsersToViewBag(ICollection<int> userIds = null)
         {
-            // added userTaskIds to taskModel
-            var userTaskIds = taskModel.UserTasks
-                                       .Select(ut => ut.UserTaskId)
-                                       .ToArray();
+            var userProfiles = Mapper.Map<List<UserProfileViewModel>>( await GetUsers() );
             
-            taskModel.UserTaskIds = new List<int>();
-            foreach (var userTaskId in userTaskIds)
-            {
-                taskModel.UserTaskIds.Add(userTaskId);   
-            }
-            // !added userTaskIds to taskModel
-            var taskViewModel = Mapper.Map<TaskViewModel>(taskModel);
-            var users = new SelectList(taskModel.UserTasks, "UserId", "FullName", taskViewModel.UserIds);
-            ViewBag.Users = users;
+            var usersSelectList = userIds is null 
+                ? new SelectList(userProfiles, "UserId", "FullName")
+                : new SelectList(userProfiles, "UserId", "FullName", userIds);
+            
+            ViewBag.Users = usersSelectList;
         }
     }
 }

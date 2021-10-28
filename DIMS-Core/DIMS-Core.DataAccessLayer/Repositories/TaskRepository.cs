@@ -19,16 +19,13 @@ namespace DIMS_Core.DataAccessLayer.Repositories
         {
             _database = GetDb();
         }
+
         public override async Task<TaskEntity> GetById(int id)
         {
             RepositoryException.IsIdValid(id);
             
-            var foundEntity = (await Set.Include(el => el.UserTasks)
-                                            .ThenInclude(ut => ut.Task)
-                                        .Include(ut => ut.UserTasks)
-                                            .ThenInclude(ut => ut.User)
-                                        .Include(ut => ut.UserTasks)
-                                            .ThenInclude(ut => ut.State)
+            var foundEntity = (await Set.Include(task => task.UserTasks)
+                                        .ThenInclude(ut => ut.User)
                                         .ToListAsync())
                 .FirstOrDefault(el => el.TaskId == id);
 
@@ -41,15 +38,13 @@ namespace DIMS_Core.DataAccessLayer.Repositories
         {
             RepositoryException.IsEntityExists(entity, typeof(TaskEntity).FullName);
             
+            var updateEntity = Set.Include(task => task.UserTasks)
+                                        .ThenInclude(ut => ut.User)
+                                        .Where(e => e == entity);
+            
             Set.Attach(entity).State = EntityState.Modified;
-
-            var updateEntity = Set.Where(el => el.TaskId == entity.TaskId)
-                                        .Include(ut => ut.UserTasks)
-                                            .ThenInclude(ut => ut.User)
-                                        .Single();
             
-            
-            return updateEntity;
+            return entity;
         }
 
         public override async Task Delete(int taskId)

@@ -48,12 +48,12 @@ namespace DIMS_Core.Controllers
 
             var task = await _taskTrackService.Create(taskTrackModel);
             
-            if (task != null)
+            if (task is null)
             {
-                return RedirectToAction(nameof(Index));
+                return PartialView(taskTrackViewModel);
             }
 
-            return PartialView(taskTrackViewModel);
+            return RedirectToAction(nameof(Index));
         }
 
         [HttpGet("edit/{id:int}")]
@@ -81,10 +81,10 @@ namespace DIMS_Core.Controllers
 
             if (task != null)
             {
-                return RedirectToAction(nameof(Index));
+                return PartialView(taskTrackViewModel);
             }
 
-            return PartialView(taskTrackViewModel);
+            return RedirectToAction(nameof(Index));
         }
         
         [HttpGet("delete/{id:int}")]

@@ -9,7 +9,7 @@ namespace DIMS_Core.Models
     {
         public int TaskId { get; set; }
         [Required]
-        [StringLength(50, MinimumLength = 5)]
+        [StringLength(50, MinimumLength = 4)]
         public string Name { get; set; }
         [Required]
         public string Description { get; set; }

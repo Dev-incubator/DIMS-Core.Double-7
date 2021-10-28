@@ -42,14 +42,14 @@
                     <label class="col-sm-4 control-label">Users</label>
                     <div class="col-sm-8 user-checkbox">
                         <div style="border-radius: 5px; border: 1px solid #808080;">
-                            @*@foreach (var user in ((List<UserProfileViewModel>) @ViewBag.Users))
+                            @* Should added <input id="|choseId|"></input>
+                            @foreach (var user in ((List<UserProfileViewModel>) @ViewBag.Users))
                             {
                                 <div class="form-check ml-2 my-1">
                                     <input type="checkbox" class="form-check-input"/>
                                     <label class="form-check-label">@user.FullName</label>
                                 </div>
                             }*@
-                            
                             @Html.DropDownListFor(m => m.UserIds,
                                                   ViewBag.Users as SelectList,
                                                   new { multiple = "multiple", @class = "form-control chosen-select" })
