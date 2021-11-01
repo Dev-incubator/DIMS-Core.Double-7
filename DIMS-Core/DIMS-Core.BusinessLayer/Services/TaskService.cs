@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Threading.Tasks;
 using AutoMapper;
 using DIMS_Core.BusinessLayer.Interfaces;
@@ -15,49 +13,51 @@ namespace DIMS_Core.BusinessLayer.Services
 {
     public class TaskService : Service<TaskModel, Task, IRepository<Task>>, ITaskService
     {
+        private static readonly Dictionary<StateType, string> _stateTypeDictionary = new()
+                                                                                     {
+                                                                                         {
+                                                                                             StateType.Active, "Active"
+                                                                                         },
+                                                                                         {
+                                                                                             StateType.Success, "Success"
+                                                                                         },
+                                                                                         {
+                                                                                             StateType.Fail, "Fail"
+                                                                                         }
+                                                                                     };
+
         private readonly IRepository<TaskState> _stateRepository;
         private readonly IRepository<UserTask> _userTaskRepository;
-        private readonly Dictionary<StateType, string> _stateTypeDictionary = new () 
-                                                                              {
-                                                                                  {
-                                                                                      StateType.Active, "Active"
-                                                                                  },
-                                                                                  {
-                                                                                      StateType.Success, "Success"
-                                                                                  },
-                                                                                  {
-                                                                                      StateType.Fail, "Fail"
-                                                                                  }
-                                                                              };
-        public TaskService(IRepository<TaskState> stateRepository, 
-                           IRepository<Task> repository, 
-                           IMapper mapper,
-                           IRepository<UserTask> userTaskRepository)
+
+        public TaskService(IRepository<TaskState> stateRepository,
+                           IRepository<Task> repository,
+                           IRepository<UserTask> userTaskRepository,
+                           IMapper mapper)
             : base(repository, mapper)
         {
             _stateRepository = stateRepository;
             _userTaskRepository = userTaskRepository;
         }
-        
+
         public override async Task<TaskModel> Create(TaskModel model)
         {
-            var stateId = _stateRepository.GetAll()
+            var defaultStateId = _stateRepository.GetAll()
                                           .Where(q => q.StateName == _stateTypeDictionary[StateType.Active])
                                           .Select(q => q.StateId)
                                           .SingleOrDefault();
-            
+
             model.UserTasks = model.UserTasks
-                                   .Select((ut, _) => 
-                                           { 
-                                               ut.StateId = stateId;
-                                               return ut; 
-                                           }).ToArray();
-            
-            
-            //  model.UserTasks
+                                   .Select((ut, _) =>
+                                           {
+                                               ut.StateId = defaultStateId;
+                                               return ut;
+                                           })
+                                   .ToArray();
+
+
             return await base.Create(model);
         }
-        
+
         // Done TODO task update
         // take model.UserTasks repo.getById
         // merge my userTasks from DB with Frontend
@@ -78,10 +78,23 @@ namespace DIMS_Core.BusinessLayer.Services
         // add to modelUserTasks
         public override async Task<TaskModel> Update(TaskModel model)
         {
+
+            var defaultStateId = _stateRepository.GetAll()
+                                                 .Where(q => q.StateName == _stateTypeDictionary[StateType.Active])
+                                                 .Select(q => q.StateId)
+                                                 .SingleOrDefault();
+            
+            model.UserTasks = model.UserTasks
+                                   .Select((ut, _) =>
+                                           {
+                                               ut.StateId = defaultStateId;
+                                               return ut;
+                                           })
+                                   .ToArray();
             // frontend
             var userIdsFromFrontend = model.UserTasks
-                                     .Select(ut => ut.UserId)
-                                     .ToArray();
+                                           .Select(ut => ut.UserId)
+                                           .ToArray();
 
             // database
             var userIdsFromDb = _userTaskRepository.GetAll()
@@ -89,33 +102,29 @@ namespace DIMS_Core.BusinessLayer.Services
                                                    .Select(ut => ut.UserId)
                                                    .Distinct()
                                                    .ToArray();
-            
-            var defaultStateId = _stateRepository.GetAll()
-                                                 .Where(q => q.StateName == _stateTypeDictionary[StateType.Active])
-                                                 .Select(q => q.StateId)
-                                                 .SingleOrDefault();
-            
+
             var createdUserIds = userIdsFromFrontend.Except(userIdsFromDb);
-            
-            var userTasks = model.UserTasks.ToArray();
-            
+
+            var userTasks = model.UserTasks.ToList();
+
             model.UserTasks = new List<UserTaskModel>();
             foreach (var createdUserId in createdUserIds)
             {
                 model.UserTasks.Add(new UserTaskModel
                                     {
                                         UserId = createdUserId,
-                                        TaskId = model.TaskId
+                                        TaskId = model.TaskId,
+                                        StateId = defaultStateId
                                     });
             }
-            
+
             var notUpdatedUserIds = userIdsFromDb.Intersect(userIdsFromFrontend);
             foreach (var notUpdatedUserId in notUpdatedUserIds)
             {
                 var userTaskModelUpdated = userTasks.Single(ut => ut.UserId == notUpdatedUserId);
                 model.UserTasks.Add(userTaskModelUpdated);
             }
-            
+
             var deletedUserIds = userIdsFromDb.Except(userIdsFromFrontend);
             foreach (var deletedUserId in deletedUserIds)
             {
@@ -123,16 +132,16 @@ namespace DIMS_Core.BusinessLayer.Services
                                        .Where(ut => ut.UserId != deletedUserId)
                                        .ToArray();
             }
+            // !end of forwarding model.UserTasks
 
-            model.UserTasks = model.UserTasks
-                                   .Select((ut, _) =>
-                                           {
-                                               ut.StateId = defaultStateId; 
-                                               return ut;
-                                           })
-                                   .ToArray();
-            
-            return await base.Update(model);
+            var modelFromDb = await _repository.GetById(model.TaskId);
+
+            var mappedEntity = _mapper.Map(model, modelFromDb); // merge map
+            var updatedEntity = _repository.Update(mappedEntity);
+
+            await _repository.Save();
+
+            return _mapper.Map<TaskModel>(updatedEntity);
         }
     }
 }
