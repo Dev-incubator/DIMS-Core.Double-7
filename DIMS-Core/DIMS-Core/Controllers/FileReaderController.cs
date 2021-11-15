@@ -1,8 +1,13 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 using AutoMapper;
 using DIMS_Core.Common.Enums;
+using DIMS_Core.Identity.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -35,31 +40,45 @@ namespace DIMS_Core.Controllers
         public async Task<IActionResult> SubmitUsers()
         {
             var file = HttpContext.Request.Form.Files.FirstOrDefault();
-
-            // TODO: Task # 7
-            // You have to read data from the file as stream, so you need to deserialize it.
-            // Don't forget that this is unmanaged resources, so you have to handle it correctly.
-
-
+            
+            List<User> content = null;
             if (file != null)
             {
-                string output = null /*stream result*/;
-
                 if (file.Name.EndsWith(_extensions[FileExtensions.Json]))
                 {
-                    // TODO: Task # 8
-                    // You need to implement JSON deserialization. You can use JsonConvert for example.
+                    using (var fileStream = new FileStream(file.FileName, FileMode.OpenOrCreate))
+                    {
+                        try
+                        {
+                            content = await JsonSerializer.DeserializeAsync<List<User>>(fileStream);
+                        }
+                        catch
+                        {
+                            content = new List<User>();
+                        }
+                    }
                 }
 
                 if (file.Name.EndsWith(_extensions[FileExtensions.Xml]))
                 {
-                    // TODO: Task # 9
-                    // You need to implement XML deserialization. You can use XmlSerializer for example.
+                    var serializer = new XmlSerializer(typeof(List<User>));
+                    using (var fileStream = new FileStream(file.FileName, FileMode.OpenOrCreate))
+                    {
+                        try
+                        {
+                            content = await Task.Run(() => (List<User>)serializer.Deserialize(fileStream));
+                        }
+                        catch
+                        {
+                            content = new List<User>();
+                        }
+                    }
                 }
             }
 
             return Json(new
                         {
+                            Content = content,
                             Message = "Data was successfully deserialized and saved",
                             StatusCode = 201
                         });

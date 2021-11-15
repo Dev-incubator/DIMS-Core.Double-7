@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using DIMS_Core.Common.Enums;
+using DIMS_Core.Common.Exceptions;
 
 namespace DIMS_Core.BusinessLayer.Models
 {
@@ -12,7 +14,7 @@ namespace DIMS_Core.BusinessLayer.Models
         public string LastName { get; set; }
 
         public int DirectionId { get; set; }
-
+        
         public string Education { get; set; }
 
         public string Address { get; set; }
@@ -32,12 +34,23 @@ namespace DIMS_Core.BusinessLayer.Models
         public string Email { get; set; }
 
         public string MobilePhone { get; set; }
+        
+        public virtual DirectionModel Direction { get; set; }
+        
+        public virtual ICollection<UserTaskModel> UserTasks { get; set; }
 
-        // TODO: Task # 14
-        // You have to implement operator == by comparing First and Last names
+        public static bool operator ==(UserProfileModel left, UserProfileModel right)
+        {
+            return right is not null &&
+                   left is not null &&
+                   left.FirstName == right.FirstName && left.LastName == right.LastName;
+        }
 
-        // TODO: Task # 15
-        // You have to implement operator != by comparing First and Last names
-
+        public static bool operator !=(UserProfileModel left, UserProfileModel right)
+        {
+            return right is not null &&
+                   left is not null &&
+                   left.FirstName != right.FirstName && left.LastName != right.LastName;
+        }
     }
 }

@@ -4,6 +4,7 @@ using DIMS_Core.DataAccessLayer.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using AutoMapper.QueryableExtensions;
 
 namespace DIMS_Core.BusinessLayer.Services
 {
@@ -20,8 +21,22 @@ namespace DIMS_Core.BusinessLayer.Services
             _repository = repository;
             _mapper = mapper;
         }
+        
+        public async Task<List<TModel>> GetAll()
+        {
+            var entities = _repository.GetAll();
 
-        public async Task<TModel> Create(TModel model)
+            return await entities.ProjectTo<TModel>(_mapper.ConfigurationProvider)
+                                 .ToListAsync();
+        }
+
+        public async Task<TModel> GetById(int id)
+        {
+            var entity = await _repository.GetById(id);
+
+            return _mapper.Map<TModel>(entity);
+        }
+        public virtual async Task<TModel> Create(TModel model)
         {
             var entity = _mapper.Map<TEntity>(model);
 
@@ -31,28 +46,7 @@ namespace DIMS_Core.BusinessLayer.Services
             return _mapper.Map<TModel>(createdEntity);
         }
 
-        public async Task Delete(int id)
-        {
-            await _repository.Delete(id);
-            await _repository.Save();
-        }
-
-        public async Task<List<TModel>> GetAll()
-        {
-            var userProfiles = _repository.GetAll();
-
-            return await _mapper.ProjectTo<TModel>(userProfiles)
-                                .ToListAsync();
-        }
-
-        public async Task<TModel> GetById(int id)
-        {
-            var entity = await _repository.GetById(id);
-
-            return _mapper.Map<TModel>(entity);
-        }
-
-        public async Task<TModel> Update(TModel model)
+        public virtual async Task<TModel> Update(TModel model)
         {
             var mappedEntity = _mapper.Map<TEntity>(model);
             var updatedEntity = _repository.Update(mappedEntity);
@@ -61,7 +55,11 @@ namespace DIMS_Core.BusinessLayer.Services
 
             return _mapper.Map<TModel>(updatedEntity);
         }
-
+        public async Task Delete(int id)
+        {
+            await _repository.Delete(id);
+            await _repository.Save();
+        }
         public void Dispose()
         {
             _repository?.Dispose();

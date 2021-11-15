@@ -8,7 +8,7 @@ using Task = System.Threading.Tasks.Task;
 
 namespace DIMS_Core.BusinessLayer.Services
 {
-    public class TaskStateService : Service<TaskStateModel, TaskState, IRepository<TaskState>>
+    public class TaskStateService : Service<TaskStateModel, TaskState, IRepository<TaskState>>, ITaskStateService
     {
         public TaskStateService(TaskStateRepository repository, IMapper mapper)
             : base(repository, mapper)

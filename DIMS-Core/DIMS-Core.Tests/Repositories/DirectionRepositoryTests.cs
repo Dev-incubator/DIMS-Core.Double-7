@@ -1,8 +1,6 @@
 using System;
 using DIMS_Core.Common.Exceptions;
 using DIMS_Core.DataAccessLayer.Models;
-using DIMS_Core.DataAccessLayer.Repositories;
-using DIMS_Core.DataAccessLayer.Repositories.Base;
 using DIMS_Core.Tests.Repositories.Fixtures;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
@@ -100,11 +98,11 @@ namespace DIMS_Core.Tests.Repositories
         {
             // Arrange
             var entity = new Direction
-                         {
-                             DirectionId = _fixture.DirectionId,
-                             Name = "Name",
-                             Description = "Description"
-                         };
+            {
+                DirectionId = _fixture.DirectionId,
+                Name = "Name",
+                Description = "Description"
+            };
 
             // Act
             var result = _fixture.Repository.Update(entity);

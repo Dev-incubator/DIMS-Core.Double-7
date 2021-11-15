@@ -25,7 +25,6 @@ namespace DIMS_Core.BusinessLayer.Services
         {
             return userModel1 == userModel2;
         }
-
         /// <summary>
         ///     This method check models inequality by operator != overloading
         /// </summary>

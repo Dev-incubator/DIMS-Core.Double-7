@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using DIMS_Core.BusinessLayer.Models;
-using VUSerProfileEntity = DIMS_Core.DataAccessLayer.Models.VUserProfile;
+using VUserProfileEntity = DIMS_Core.DataAccessLayer.Models.VUserProfile;
 
 namespace DIMS_Core.BusinessLayer.MappingProfiles
 {
@@ -8,7 +8,7 @@ namespace DIMS_Core.BusinessLayer.MappingProfiles
     {
         public VUserProfile()
         {
-            CreateMap<VUSerProfileEntity, VUserProfileModel>()
+            CreateMap<VUserProfileEntity, VUserProfileModel>()
                 .ReverseMap();
         }
     }

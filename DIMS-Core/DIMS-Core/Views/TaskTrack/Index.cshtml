@@ -1,0 +1,58 @@
+﻿@model IEnumerable<VUserTrackViewModel>
+
+@{
+    ViewData["Title"] = "VTasks";
+}
+
+<div class="modal fade" id="task-track-modal">
+</div>
+
+<div class="row">
+    <div class="table-responsive text-center" id="task-track-table">
+        <table class="table table-bordered">
+            <div class="d-flex justify-content-sm-between">
+                <h2 class="text-center my-4">Task tracks</h2>
+                <div class="my-4 mr-1">
+                    <button type="button" class="btn btn-primary btn-create">Create</button>
+                </div>
+            </div>
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Task</th>
+                <th scope="col">Note</th>
+                <th scope="col">Date</th>
+                <th scope="col">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var userTrack in Model)
+            {
+                <tr>
+                    <td>
+                        @userTrack.TaskTrackId
+                    </td>
+                    <td>
+                        @userTrack.TaskName
+                    </td>
+                    <td>
+                        @userTrack.TrackNote
+                    </td>
+                    <td>
+                        @userTrack.TrackDate
+                    </td>
+                    <td>
+                        <button class="btn btn-warning btn-edit" style="width: 45%" data-id="@userTrack.TaskTrackId">Edit</button>
+                        <button class="btn btn-danger btn-delete" style="width: 45%" data-id="@userTrack.TaskTrackId">Delete</button>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts
+{
+    @{ await Html.RenderPartialAsync("ModalScripts/_TaskTrackScripts"); }
+}

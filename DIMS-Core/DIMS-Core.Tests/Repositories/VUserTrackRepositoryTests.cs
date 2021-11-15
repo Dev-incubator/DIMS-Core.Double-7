@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using DIMS_Core.Tests.Repositories.Fixtures;
 using Xunit;
 using System.Linq;

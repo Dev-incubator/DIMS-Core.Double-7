@@ -9,7 +9,8 @@ namespace DIMS_Core.BusinessLayer.MappingProfiles
     {
         public VUserTaskProfile()
         {
-            CreateMap<VUserTask, VUserTaskModel>().ReverseMap();
+            CreateMap<VUserTask, VUserTaskModel>()
+                .ReverseMap();
         }
     }
 }

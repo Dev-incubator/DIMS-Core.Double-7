@@ -1,0 +1,49 @@
+﻿@model IEnumerable<VUserTaskViewModel>
+
+@{
+    ViewData["Title"] = "UserTask";
+}
+
+<div class="d-flex justify-content-sm-between">
+    <h2 class="text-center my-4">Task tracks</h2>
+    <div class="my-4">
+        <a class="btn btn-primary mb-1" asp-action="Create" asp-controller="TaskTrack">Create</a>
+    </div>
+</div>
+<div class="row">
+    <div class="table-responsive text-center">
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Task name</th>
+                <th scope="col">Start date</th>                
+                <th scope="col">Deadline</th>
+                <th scope="col">Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var userTask in Model)
+            {
+                <tr>
+                    <td>
+                        <a asp-controller="TaskTrack" asp-action="Index">@userTask.TaskId</a>
+                    </td>
+                    <td>
+                        @userTask.TaskName
+                    </td>
+                    <td>
+                        @userTask.StartDate
+                    </td>
+                    <td>
+                        @userTask.DeadlineDate
+                    </td>
+                    <td>
+                        @userTask.StateName
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+</div>

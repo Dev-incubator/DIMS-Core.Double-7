@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 #nullable disable
 
@@ -27,19 +29,18 @@ namespace DIMS_Core.DataAccessLayer.Models
         public virtual DbSet<VUserTask> VUserTasks { get; set; }
         public virtual DbSet<VUserTrack> VUserTracks { get; set; }
 
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
 
             modelBuilder.Entity<Direction>(entity =>
-            {
-                entity.Property(e => e.Description).HasMaxLength(250);
+                                           {
+                                               entity.Property(e => e.Description).HasMaxLength(250);
 
-                entity.Property(e => e.Name)
-                    .IsRequired()
-                    .HasMaxLength(50);
-            });
+                                               entity.Property(e => e.Name)
+                                                     .IsRequired()
+                                                     .HasMaxLength(50);
+                                           });
 
             modelBuilder.Entity<Task>(entity =>
             {
@@ -71,6 +72,10 @@ namespace DIMS_Core.DataAccessLayer.Models
                 entity.Property(e => e.TrackNote)
                     .IsRequired()
                     .HasMaxLength(50);
+
+                entity.HasOne(d => d.UserTask)
+                    .WithMany(p => p.TaskTracks)
+                    .HasForeignKey(d => d.UserTaskId);
             });
 
             modelBuilder.Entity<UserProfile>(entity =>
@@ -112,31 +117,20 @@ namespace DIMS_Core.DataAccessLayer.Models
 
             modelBuilder.Entity<UserTask>(entity =>
             {
-                entity.Property(e => e.UserTaskId).ValueGeneratedOnAdd();
-
                 entity.HasOne(d => d.State)
                     .WithMany(p => p.UserTasks)
                     .HasForeignKey(d => d.StateId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__UserTasks__State__151B244E");
+                    .HasConstraintName("FK__UserTasks__State__2EA5EC27");
 
                 entity.HasOne(d => d.Task)
                     .WithMany(p => p.UserTasks)
                     .HasForeignKey(d => d.TaskId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__UserTasks__TaskI__160F4887");
+                    .HasConstraintName("FK__UserTasks__TaskI__2F9A1060");
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.UserTasks)
                     .HasForeignKey(d => d.UserId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__UserTasks__UserI__17036CC0");
-
-                entity.HasOne(d => d.UserTaskNavigation)
-                    .WithOne(p => p.UserTask)
-                    .HasForeignKey<UserTask>(d => d.UserTaskId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__UserTasks__UserT__14270015");
+                    .HasConstraintName("FK__UserTasks__UserI__308E3499");
             });
 
             modelBuilder.Entity<VTask>(entity =>

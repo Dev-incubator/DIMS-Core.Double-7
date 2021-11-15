@@ -34,7 +34,7 @@ namespace DIMS_Core.DataAccessLayer.Repositories.Base
             return Set.AsNoTracking();
         }
 
-        public async Task<TEntity> GetById(int id)
+        public virtual async Task<TEntity> GetById(int id)
         {
             RepositoryException.IsIdValid(id);
             
@@ -45,21 +45,23 @@ namespace DIMS_Core.DataAccessLayer.Repositories.Base
             return foundEntity;
         }
 
-        public async Task<TEntity> Create(TEntity entity)
+        public virtual async Task<TEntity> Create(TEntity entity)
         {
-            var addedEntity =  await Set.AddAsync(entity);
-            return addedEntity.Entity;
+            var addedEntity = (await Set.AddAsync(entity)).Entity;
+            
+            return addedEntity;
         }
 
-        public TEntity Update(TEntity entity)
+        public virtual TEntity Update(TEntity entity)
         {
             RepositoryException.IsEntityExists(entity, typeof(TEntity).FullName);
             
             _context.Entry(entity).State = EntityState.Modified;
+            
             return entity;
         }
 
-        public async Task Delete(int id)
+        public virtual async Task Delete(int id)
         {
             var deletedEntity = await Set.FindAsync(id);
             

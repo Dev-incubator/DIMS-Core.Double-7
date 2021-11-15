@@ -3,10 +3,9 @@
 @{
     ViewData["Title"] = "UserProfile Create";
 }
-
-<h1>UserProfile Create</h1>
-<div class="row">
-    <div class="col-md-4">
+<div class="modal-content">
+    <div class="modal-body">
+        <h1>Create member</h1>
         <form asp-action="create" asp-antiforgery="true">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
@@ -60,9 +59,13 @@
                 <span asp-validation-for="Skype" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Add" class="btn btn-primary" />
-                @Html.PartialAsync("_BackToList", new BackToListViewModel { Action = "Index", Controller = "UserProfile" })
+                <input type="submit" value="Create" class="btn btn-primary" />
+                @await Html.PartialAsync("_BackToList", new BackToListViewModel { Action = "Index", Controller = "UserProfile" })
             </div>
         </form>
-    </div>
+    </div>    
 </div>
+
+    @section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScripts"); }
+}

@@ -55,7 +55,6 @@
     <VisualStudioVersion Condition="'$(SSDTExists)' == ''">11.0</VisualStudioVersion>
   </PropertyGroup>
   <Import Condition="'$(SQLDBExtensionsRefPath)' != ''" Project="$(SQLDBExtensionsRefPath)\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
-  <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
   <ItemGroup>
     <Folder Include="Procedures" />
     <Folder Include="Properties" />
@@ -73,8 +72,8 @@
     <Build Include="Views\vUserTask.sql" />
     <Build Include="Procedures\SetUserTaskAsSuccess.sql" />
     <Build Include="Procedures\SetUserTaskAsFail.sql" />
-    <Build Include="Tables\UserTask.sql" />
-    <Build Include="Tables\TaskTrack.sql" />
+    <Build Include="Tables\UserTasks.sql" />
+    <Build Include="Tables\TaskTracks.sql" />
     <Build Include="Views\vUserTrack.sql" />
     <Build Include="Views\vTasks.sql" />
     <Build Include="Procedures\DeleteTask.sql" />

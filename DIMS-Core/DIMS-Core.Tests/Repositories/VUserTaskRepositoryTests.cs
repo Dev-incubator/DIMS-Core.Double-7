@@ -1,18 +1,15 @@
 using DIMS_Core.Tests.Repositories.Fixtures;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace DIMS_Core.Tests.Repositories
 {
-    public class VUserTaskRepositoryTest : IDisposable
+    public class VUserTaskRepositoryTests : IDisposable
     {
         private readonly VUserTaskRepositoryFixture _fixture;
 
-        public VUserTaskRepositoryTest()
+        public VUserTaskRepositoryTests()
         {
             _fixture = new VUserTaskRepositoryFixture();
         }

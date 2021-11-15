@@ -1,4 +1,4 @@
-﻿using System.Linq;
+using System.Linq;
 using DIMS_Core.DataAccessLayer.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -34,7 +34,7 @@ namespace DIMS_Core.Tests.Context
                                                    {
                                                        new VUserTrack
                                                        {
-                                                           
+                                                           TaskName = "Name"
                                                        },
                                                    }.AsQueryable());
                 modelBuilder.Entity<VTask>()
@@ -42,7 +42,7 @@ namespace DIMS_Core.Tests.Context
                                                    {
                                                        new VTask
                                                        {
-                                                           
+                                                           Name = "Name"
                                                        },
                                                    }.AsQueryable());
 
@@ -51,9 +51,17 @@ namespace DIMS_Core.Tests.Context
                                                    {
                                                         new VUserTask
                                                         {
-
+                                                            StateName = "Name"
                                                         },
                                                     }.AsQueryable());
+                modelBuilder.Entity<VUserProgress>()
+                            .ToInMemoryQuery(() => new[]
+                                                   {
+                                                       new VUserProgress
+                                                       {
+                                                           TaskName = "Name"
+                                                       },
+                                                   }.AsQueryable());
             }
         }
     }

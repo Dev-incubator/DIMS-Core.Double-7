@@ -7,6 +7,6 @@ namespace DIMS_Core.DataAccessLayer.Repositories
 {
     public class TaskTrackRepository : Repository<TaskTrack>
     {
-        public TaskTrackRepository(DbContext context) : base(context) { }
+        public TaskTrackRepository(DimsCoreContext context) : base(context) { }
     }
 }

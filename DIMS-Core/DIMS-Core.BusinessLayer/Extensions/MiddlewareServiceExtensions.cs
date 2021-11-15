@@ -20,12 +20,16 @@ namespace DIMS_Core.BusinessLayer.Extensions
             services.AddScoped<IUserProfileService, UserProfileService>();
             services.AddScoped<IDirectionService, DirectionService>();
 
-            services.AddScoped<IService<TaskStateModel>, TaskStateService>();
-            services.AddScoped<IService<TaskTrackModel>, TaskTrackService>();
-            services.AddScoped<IService<UserTaskModel>, UserTaskService>();
+            services.AddScoped<ITaskService, TaskService>();
+            services.AddScoped<ITaskTrackService, TaskTrackService>();
+            services.AddScoped<ITaskStateService, TaskStateService>();
+            services.AddScoped<IUserTaskService, UserTaskService>();
 
             services.AddScoped<IVUserProfileService, VUserProfileService>();
-            services.AddScoped<IReadOnlyService<VUserTaskModel>, VUserTaskService>();
+            services.AddScoped<IVTaskService, VTaskService>();
+            services.AddScoped<IVUserTaskService, VUserTaskService>();
+            services.AddScoped<IVUserProgressService, VUserProgressService>();
+            services.AddScoped<IVUserTrackService, VUserTrackService>();
 
             services.AddDatabaseDependencies()
                     .AddIdentityDependencies()

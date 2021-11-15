@@ -4,12 +4,14 @@
     ViewData["Title"] = "UserProfile Delete";
 }
 
-<h1>UserProfile Delete</h1>
-<div class="row">
-    <div asp-for="FullName" class="control-label"></div>
-    <div asp-for="Email" class="control-label"></div>
+<div class="text-center">
+    <h1>Delete member</h1>
+    <h2>Are you sure you want to delete the current memeber?</h2>
+</div>
+<div class="d-flex justify-content-sm-center">
     <form asp-action="delete" asp-antiforgery="true" method="post">
         @Html.HiddenFor(user => user.UserId)
         <input type="submit" value="Delete" />
     </form>
+    @await Html.PartialAsync("_BackToList", new BackToListViewModel { Action = "Index", Controller = "UserProfile" })
 </div>
