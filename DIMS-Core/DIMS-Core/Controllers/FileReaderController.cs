@@ -41,43 +41,39 @@ namespace DIMS_Core.Controllers
         {
             var file = HttpContext.Request.Form.Files.FirstOrDefault();
             
-            var content = string.Empty;
+            List<User> content = null;
             if (file != null)
             {
-                string output = null;
-
                 if (file.Name.EndsWith(_extensions[FileExtensions.Json]))
                 {
-                    using (var fin = new FileStream(file.FileName, FileMode.OpenOrCreate))
+                    using (var fileStream = new FileStream(file.FileName, FileMode.OpenOrCreate))
                     {
                         try
                         {
-                            output = await JsonSerializer.DeserializeAsync<string>(fin);
+                            content = await JsonSerializer.DeserializeAsync<List<User>>(fileStream);
                         }
                         catch
                         {
-                            output = string.Empty;
+                            content = new List<User>();
                         }
                     }
                 }
 
                 if (file.Name.EndsWith(_extensions[FileExtensions.Xml]))
                 {
-                    var serializer = new XmlSerializer(typeof(FileStream));
-                    using (var fin = new FileStream(file.FileName, FileMode.OpenOrCreate))
+                    var serializer = new XmlSerializer(typeof(List<User>));
+                    using (var fileStream = new FileStream(file.FileName, FileMode.OpenOrCreate))
                     {
                         try
                         {
-                            output = await Task.Run(() => serializer.Deserialize(fin)?.ToString());
+                            content = await Task.Run(() => (List<User>)serializer.Deserialize(fileStream));
                         }
                         catch
                         {
-                            output = string.Empty;
+                            content = new List<User>();
                         }
                     }
                 }
-
-                content = output;
             }
 
             return Json(new

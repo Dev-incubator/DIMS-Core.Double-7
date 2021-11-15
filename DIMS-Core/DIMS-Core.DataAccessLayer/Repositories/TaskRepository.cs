@@ -28,7 +28,7 @@ namespace DIMS_Core.DataAccessLayer.Repositories
             var foundEntity = (await Set.Include(task => task.UserTasks)
                                         .ThenInclude(ut => ut.User)
                                         .ToListAsync())
-                .FirstOrDefault(el => el.TaskId == id);
+                                .FirstOrDefault(el => el.TaskId == id);
 
             RepositoryException.IsEntityExists(foundEntity, typeof(TaskEntity).FullName);
 

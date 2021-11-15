@@ -11,13 +11,10 @@ namespace DIMS_Core.Models
         public int TaskId { get; set; }
         public int TaskTrackId { get; set; }
         
-        [JsonPropertyName("Task name")]
         public string TaskName { get; set; }
         
-        [JsonPropertyName("Track note")]
         public string TrackNote { get; set; }
         [DataType(DataType.Date)]
-        [JsonPropertyName("Track date")]
         public DateTime TrackDate { get; set; }
     }
 }

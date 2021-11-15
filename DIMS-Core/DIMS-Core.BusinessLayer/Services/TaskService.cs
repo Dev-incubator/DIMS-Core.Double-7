@@ -6,6 +6,7 @@ using DIMS_Core.BusinessLayer.Interfaces;
 using DIMS_Core.BusinessLayer.Models;
 using DIMS_Core.Common.Enums;
 using DIMS_Core.DataAccessLayer.Interfaces;
+using DIMS_Core.DataAccessLayer.Interfaces.ExternRepositories;
 using DIMS_Core.DataAccessLayer.Models;
 using Task = DIMS_Core.DataAccessLayer.Models.Task;
 
@@ -13,23 +14,10 @@ namespace DIMS_Core.BusinessLayer.Services
 {
     public class TaskService : Service<TaskModel, Task, IRepository<Task>>, ITaskService
     {
-        private static readonly Dictionary<StateType, string> _stateTypeDictionary = new()
-                                                                                     {
-                                                                                         {
-                                                                                             StateType.Active, "Active"
-                                                                                         },
-                                                                                         {
-                                                                                             StateType.Success, "Success"
-                                                                                         },
-                                                                                         {
-                                                                                             StateType.Fail, "Fail"
-                                                                                         }
-                                                                                     };
-
-        private readonly IRepository<TaskState> _stateRepository;
+        private readonly ITaskStateRepository _stateRepository;
         private readonly IRepository<UserTask> _userTaskRepository;
 
-        public TaskService(IRepository<TaskState> stateRepository,
+        public TaskService(ITaskStateRepository stateRepository,
                            IRepository<Task> repository,
                            IRepository<UserTask> userTaskRepository,
                            IMapper mapper)
@@ -41,56 +29,26 @@ namespace DIMS_Core.BusinessLayer.Services
 
         public override async Task<TaskModel> Create(TaskModel model)
         {
-            var defaultStateId = _stateRepository.GetAll()
-                                          .Where(q => q.StateName == _stateTypeDictionary[StateType.Active])
-                                          .Select(q => q.StateId)
-                                          .SingleOrDefault();
+            var defaultStateId = _stateRepository.ActiveState.StateId;
 
-            model.UserTasks = model.UserTasks
-                                   .Select((ut, _) =>
-                                           {
-                                               ut.StateId = defaultStateId;
-                                               return ut;
-                                           })
-                                   .ToArray();
+            foreach (var userTask in model.UserTasks)
+            {
+                userTask.StateId = defaultStateId;
+            }
 
 
             return await base.Create(model);
         }
 
-        // Done TODO task update
-        // take model.UserTasks repo.getById
-        // merge my userTasks from DB with Frontend
-        // 1. two variables 
-        // existing - first variable array userIds
-        // newUserTasks - second variable array userIds
-        // 2. created - newUserTasks.Except(existing)
-        // 3. will not updating - newUserTasks.Intersect(existing)
-        // 4. deleted - existing.Except(newUserTasks)
-        // 5. 3 foreach
-        // -created-
-        // init empty list
-        // take taskId, UserId, StateId
-        // -not updating-
-        // entity.UserTasks.Where(UserId == ut.UserId).Single()
-        // -deleted-
-        // remove 
-        // add to modelUserTasks
         public override async Task<TaskModel> Update(TaskModel model)
         {
-
-            var defaultStateId = _stateRepository.GetAll()
-                                                 .Where(q => q.StateName == _stateTypeDictionary[StateType.Active])
-                                                 .Select(q => q.StateId)
-                                                 .SingleOrDefault();
+            var defaultStateId = _stateRepository.ActiveState.StateId;
             
-            model.UserTasks = model.UserTasks
-                                   .Select((ut, _) =>
-                                           {
-                                               ut.StateId = defaultStateId;
-                                               return ut;
-                                           })
-                                   .ToArray();
+            foreach (var userTask in model.UserTasks)
+            {
+                userTask.StateId = defaultStateId;
+            }
+            
             // frontend
             var userIdsFromFrontend = model.UserTasks
                                            .Select(ut => ut.UserId)

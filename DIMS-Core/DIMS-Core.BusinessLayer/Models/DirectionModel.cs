@@ -13,18 +13,18 @@ namespace DIMS_Core.BusinessLayer.Models
         
         public virtual ICollection<UserProfileModel> UserProfiles { get; set; }
 
-        public static bool operator ==(DirectionModel firstModel, DirectionModel secondModel)
+        public static bool operator ==(DirectionModel left, DirectionModel right)
         {
-            return secondModel is not null && 
-                   firstModel is not null &&
-                   firstModel.Name == secondModel.Name;
+            return right is not null && 
+                   left is not null &&
+                   left.Name == right.Name;
         }
         
-        public static bool operator !=(DirectionModel firstModel, DirectionModel secondModel)
+        public static bool operator !=(DirectionModel left, DirectionModel right)
         {
-            return secondModel is not null && 
-                   firstModel is not null &&
-                   firstModel.Name != secondModel.Name;
+            return right is not null && 
+                   left is not null &&
+                   left.Name != right.Name;
         }
     }
 }
